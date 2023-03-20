@@ -21,7 +21,7 @@ public class DAO {
 	public int getId(String email) {
 		 String a = email.trim();
 		 System.out.println("a is " + a);
-		 int count = sqlSessionTemplate.selectOne("login.email");
+		 int count = sqlSessionTemplate.selectOne("login.email",a);
 		    System.out.println("count is "+count);
 		    return count > 0 ? 1 : 0;	
 //		String a = "abc@naver.com";

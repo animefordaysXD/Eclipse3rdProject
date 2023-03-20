@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" crossorigin="anonymous">
 
 
@@ -16,7 +17,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("showCity").textContent="구를 선택해주세요";
     const buttons = document.querySelectorAll(".location");
-
+	
 buttons.forEach((button) => {
   button.addEventListener("click", setLoc);
 });
@@ -32,6 +33,19 @@ function comparePassword() {
 			pwdText.textContent = "비밀번호가 맞지않습니다";		
 		}
 	}
+	
+	function ConfirmEmail(){
+		var email = document.getElementById("email").value;
+		
+		if(email.length<1||!email.includes('@')){
+			alert('제대로 된 양식을 사용해주세요');
+			document.getElementById('regCheck').disabled=true;
+		}else{
+			document.getElementById('emailForm').submit();
+			document.getElementById('regCheck').disabled=false;
+		}
+	}
+
 	
 function setVisibility() {
 	  var x = document.getElementById("divOne");
@@ -93,6 +107,48 @@ document.getElementById("showCity").textContent=city;
 document.getElementById("showCity").style.border="1px solid blue";
 
 }
+
+$('.getEmailCodeButton').click(function() {
+	console.log('hello mom');
+	alert('clicked');
+	document.getElementById('getEmailCodeButton').id='confirmCode';
+	document.getElementByid('confirmCode').innerHTML = '인증확인';
+});
+
+$('#confirmCode').click(function() {
+	const email = $('#email').val(); // 이메일 주소값 얻어오기!
+	 $("#email").attr("disabled", "disabled"); 
+	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+	const checkInput = $('.inputRegCode') // 인증번호 입력하는곳 
+	
+	$.ajax({
+		type : 'get',
+		url : '<c:url value ="mailCheck.do?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+		success : function (data) {
+			console.log("data : " +  data);
+			checkInput.attr('disabled',false);
+			code =data;
+			alert('인증번호가 전송되었습니다.')
+		}			
+	}); // end ajax
+});
+$('#getEmailCode').blur(function () { //.blur-> when focus is lost
+	const inputCode = $(this).val();
+	const $resultMsg = $('#confirmEmailPara');
+	
+	if(inputCode === code){
+		$resultMsg.html('인증번호가 일치합니다.');
+		$resultMsg.css('color','green');
+		$('#mail-Check-Btn').attr('disabled',true);
+		$('#userEamil1').attr('readonly',true);
+		$('#userEamil2').attr('readonly',true);
+		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	}else{
+		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+		$resultMsg.css('color','red');
+	}
+});
 </script>
 </head>
 <body>
@@ -100,15 +156,21 @@ document.getElementById("showCity").style.border="1px solid blue";
     <div class="box">
         <div class="signup">
             <div class="signupEmail">
-                <input type="text" class="input_field" id="email" placeholder="이메일/아이디">
-                <button class="signUpbutton">중복체크</button>
-                <div class="space"></div>
+                <form id="emailForm" action="registerOK.do" method="post">
+				<input type="text" class="input_field" id="email"
+					placeholder="이메일/아이디" name="email" value="${email }">
+				<button type="button" class="signUpbutton" id="getEmail" onclick="ConfirmEmail()">중복체크</button><p class="getId" style="color:#fff;">${emailUse}</p>
+				</form>
             </div>
             <div class="password">
-                <input type="password" class="input_field" id="password" placeholder="비밀번호">
-                <div class="space"></div>
-                <input type="password" class="input_field" id="passwordCheck" placeholder="비밀번호확인">
-                <div class="space"></div>
+               <input type="password" class="input_field" id="password"
+					placeholder="비밀번호">
+				<div class="space"></div>
+				<p id="pwdText" style="color: #fff"></p> 
+				<input
+					type="password" class="input_field" id="passwordCheck"
+					placeholder="비밀번호확인" oninput="comparePassword()">
+				<div class="space"></div>
 
             </div>
             <div class="nameGender">
@@ -122,9 +184,9 @@ document.getElementById("showCity").style.border="1px solid blue";
                 <div class="space"></div>
             </div>
             <div class="getConfirm">
-                <input type="text" class="input_field" placeholder="인증번호"><button
-                    class="signUpbutton">인증확인</button><button class="signUpbutton">재요청</button>
-
+                <input type="text" class="input_field" id="getEmailCode" placeholder="인증번호" maxlength="6"><button
+                    class="signUpbutton" id="getEmailCodeButton">인증코드 받기</button><button class="signUpbutton" id="REgetEmailCodeButton">재요청</button>
+					<span id="confirmEmailPara"></span>
                 <div class="space"></div>
 
             </div>
@@ -145,7 +207,7 @@ document.getElementById("showCity").style.border="1px solid blue";
     <div class="regButtons">
         <button class="cancelReg" onclick="#">취소하기</button>
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <button class="regCheck" onclick="setVisibility()">회원가입 완료</button>
+        <button class="regCheck" id="regCheck" onclick="setVisibility()">회원가입 완료</button>
       
     </div>
     <div class="overlay" id="divOne" style="display: none;">

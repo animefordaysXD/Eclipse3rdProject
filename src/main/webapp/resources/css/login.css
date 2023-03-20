@@ -2,7 +2,7 @@
     font-family: 'Poppins',sans-serif;
 }
 body{
-    background-image: url("basketball.jpg");
+    background-image: url("../images/basketball.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -102,7 +102,7 @@ color:#fff;
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    background-image: url("google.png");
+    background-image: url("../images/google.png");
 }
 .etcbutton2{
     width: 190px;
@@ -111,7 +111,7 @@ color:#fff;
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    background-image: url("naver.png");
+    background-image: url("../images/naver.png");
 }
 .etcbutton3{
     width: 190px;
@@ -120,7 +120,7 @@ color:#fff;
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    background-image: url("kakao.png");
+    background-image: url("../images/kakao.png");
 }
 .etcbutton4{
     width: 190px;
@@ -129,7 +129,7 @@ color:#fff;
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    background-image: url("google.png");
+    background-image: url("../images/google.png");
 }
 
 label a{

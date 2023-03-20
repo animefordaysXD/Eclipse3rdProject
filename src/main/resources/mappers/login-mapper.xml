@@ -5,8 +5,8 @@
 <mapper namespace="login">
 
 
-<select id="email" resultType="Integer">
- select count(*) from loginuser
+<select id="email" parameterType="String" resultType="Integer">
+ select count(*) from loginuser where u_email = #{a}
 </select>
 
 	
