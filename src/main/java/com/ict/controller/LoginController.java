@@ -1,20 +1,17 @@
 package com.ict.controller;
 
-import java.util.Properties;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.service.LoginService;
-import com.ict.service.MailSendService;
+import com.ict.service.VO.CategoryVO;
+import com.ict.service.VO.VO;
 
 @Controller
 public class LoginController {
@@ -24,12 +21,14 @@ public class LoginController {
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 	}
-	@Autowired
-	private MailSendService mailService;
-	
+	@RequestMapping(value="login.do")
+	public ModelAndView getLogin() {
+		return new ModelAndView("login");
+	}
+
 	@RequestMapping(value="register.do")
 	public ModelAndView getRegister() {
-		
+
 		return new ModelAndView("register");
 	}
 	@RequestMapping(value="registerOK.do",method = RequestMethod.POST)
@@ -37,7 +36,7 @@ public class LoginController {
 	public ModelAndView getRegisterOk(HttpServletRequest request) {
 		String email = request.getParameter("email");
 		int result =0;
-		if(email.length()<1) {			
+		if(email.length()<1) {
 		 result =0;
 		}else {
 		System.out.println("email is "+ email);
@@ -57,18 +56,27 @@ public class LoginController {
 			request.setAttribute("emailUse", "사용 가능합니다");
 			return mv;
 		}
-		
+
 	}
-	@GetMapping("mailCheck.do")
+
+	@RequestMapping(value="registerComplete.do",method=RequestMethod.POST) 
 	@ResponseBody
-	public String mailCheck(String email) {
-		System.out.println("이메일 인증 요청이 들어옴!");
-		System.out.println("이메일 인증 이메일 : " + email);
-		return mailService.joinEmail(email);
+	public ModelAndView RegisterComplete(HttpServletRequest request){
+		VO vo = new VO();
+		CategoryVO cvo = new CategoryVO();
+		ModelAndView mv = new ModelAndView("complete");
+		vo.setU_email(request.getParameter("email"));
+		vo.setU_pwd(request.getParameter("password"));
+		vo.setU_name(request.getParameter("name"));
+		vo.setU_gender(request.getParameter("gender"));
+		vo.setU_bday(request.getParameter("birthday"));
+		System.out.println(vo.getU_bday());
+		
+		return mv;
 	}
-	
 
-	
 
-	
+
+
+
 }

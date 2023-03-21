@@ -107,52 +107,47 @@ document.getElementById("showCity").textContent=city;
 document.getElementById("showCity").style.border="1px solid blue";
 
 }
-
-$('.getEmailCodeButton').click(function() {
-	console.log('hello mom');
-	alert('clicked');
-	document.getElementById('getEmailCodeButton').id='confirmCode';
-	document.getElementByid('confirmCode').innerHTML = '인증확인';
-});
-
-$('#confirmCode').click(function() {
-	const email = $('#email').val(); // 이메일 주소값 얻어오기!
-	 $("#email").attr("disabled", "disabled"); 
-	console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
-	const checkInput = $('.inputRegCode') // 인증번호 입력하는곳 
+function completeSignUp(){
 	
-	$.ajax({
-		type : 'get',
-		url : '<c:url value ="mailCheck.do?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-		success : function (data) {
-			console.log("data : " +  data);
-			checkInput.attr('disabled',false);
-			code =data;
-			alert('인증번호가 전송되었습니다.')
-		}			
-	}); // end ajax
-});
-$('#getEmailCode').blur(function () { //.blur-> when focus is lost
-	const inputCode = $(this).val();
-	const $resultMsg = $('#confirmEmailPara');
+	 var inputs = document.getElementsByClassName("input_field");
+	 var checkbox = document.getElementById('termCheck').checked;
+	 var check = true;
+	  for (var i = 0; i < inputs.length; i++) {
+	    if (inputs[i].value === ""||inputs[i].value==null) {
+	    	
+	      check = false; // one of the input fields is empty
+	    }
+	  }
 	
-	if(inputCode === code){
-		$resultMsg.html('인증번호가 일치합니다.');
-		$resultMsg.css('color','green');
-		$('#mail-Check-Btn').attr('disabled',true);
-		$('#userEamil1').attr('readonly',true);
-		$('#userEamil2').attr('readonly',true);
-		$('#userEmail2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-         $('#userEmail2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+	   // all input fields are not empty
+	if(check===true){
+		if(checkbox===true){
+			alert('we good');
+	document.getElementById('signUpForm').submit();			
+		}else{
+			alert('이용약관을 체크해주세요');
+		}
 	}else{
-		$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-		$resultMsg.css('color','red');
+		alert('제대로 채워주세요');
 	}
+}
+
+$(function() {
+	$("#terms").scroll(function() {
+		document.getElementById('regCheck').removeAttribute("disabled");
+	});
 });
+
+function checkNick(){
+	
+}
+
 </script>
 </head>
+
 <body>
-    
+    <div class="form">
+    <form id="signUpForm" action="registerComplete.do" method="post">
     <div class="box">
         <div class="signup">
             <div class="signupEmail">
@@ -176,38 +171,39 @@ $('#getEmailCode').blur(function () { //.blur-> when focus is lost
             <div class="nameGender">
                 <input type="text" class="input_field" id="name" placeholder="이름">
                 <div class="space"></div>
-                <select class="gender" id="gender">
+                <select class="gender" id="gender" name="gender">
                     <option value="">성별을 선택해주세요</option>
                     <option value="1">남성</option>
                     <option value="2">여성</option>
                 </select>
                 <div class="space"></div>
             </div>
-            <div class="getConfirm">
+            <!-- 이메일 인증코드 가능하면  -->
+           <!--  <div class="getConfirm">
                 <input type="text" class="input_field" id="getEmailCode" placeholder="인증번호" maxlength="6"><button
                     class="signUpbutton" id="getEmailCodeButton">인증코드 받기</button><button class="signUpbutton" id="REgetEmailCodeButton">재요청</button>
 					<span id="confirmEmailPara"></span>
                 <div class="space"></div>
 
-            </div>
+            </div> -->
             <div class="birthDay">
-                <input type="date" id="birthday" name="birthday">
+                <input type="date" id="birthday" class="input_field" name="birthday">
 
                 <label for="birthday">생일</label><br>
                 <div class="space"></div>
             </div>
             <div class="space"></div>
-            <textarea class="terms" readonly>
+            <textarea class="terms" id="terms" readonly>
  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                   </textarea>
-            <label for="termCheck">이용약관<input type="checkbox" class="termCheck"></input></label>
+            <label for="termCheck">이용약관<input type="checkbox" id="termCheck" class="termCheck" ></input></label>
 
         </div>
     </div>
     <div class="regButtons">
-        <button class="cancelReg" onclick="#">취소하기</button>
+        <button class="cancelReg" onclick="location.href = 'login.do';">취소하기</button>
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-        <button class="regCheck" id="regCheck" onclick="setVisibility()">회원가입 완료</button>
+        <button class="regCheck" id="regCheck" onclick="setVisibility()" disabled>회원가입 완료</button>
       
     </div>
     <div class="overlay" id="divOne" style="display: none;">
@@ -219,7 +215,7 @@ $('#getEmailCode').blur(function () { //.blur-> when focus is lost
                     <form>
                         <label>닉네임(별명)<input type="text" class="NickName" placeholder="사용하실 닉네임"></label>
                         <br>
-                        <button class="getNick">닉네임 중복 확인</button>
+                        <button class="getNick" onclick="checkNick()">닉네임 중복 확인</button>
                         <br>
                         <p> 자신의 지역을 알려주세요!</p>
                         <button type="button" class="seoul" onclick="showCity()">서울시<i class="fa-solid fa-city" id="seoulCity"></i></button>&emsp;&emsp;<div id="showCity" class="showCity"></div>
@@ -276,13 +272,15 @@ $('#getEmailCode').blur(function () { //.blur-> when focus is lost
                         <br>
                        
                         <div class="confirmSignUp">
-                            <button class="confirmSign" value="submit">확인 <i class="fa-solid fa-check" id="confirmRegFin"></i></button>
+                            <button type="button" class="confirmSign" onclick="completeSignUp()">확인 <i class="fa-solid fa-check" id="confirmRegFin"></i></button>
                         </div>
                         
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    </form>
     </div>
 </body>
 

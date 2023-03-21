@@ -12,7 +12,7 @@ public class DAO {
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
-	
+
 	/*
 	 * public int getId(String email) { String a = email.trim(); int count =
 	 * sqlSessionTemplate.selectOne("login.email", a);
@@ -23,14 +23,14 @@ public class DAO {
 		 System.out.println("a is " + a);
 		 int count = sqlSessionTemplate.selectOne("login.email",a);
 		    System.out.println("count is "+count);
-		    return count > 0 ? 1 : 0;	
+		    return count > 0 ? 1 : 0;
 //		String a = "abc@naver.com";
 //		int b = sqlSessionTemplate.selectOne("login.email", a);
 //		System.out.println("get Email is " + b);
 //		return 0;
 	}
 
-	
-	
+
+
 
 }

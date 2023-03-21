@@ -199,6 +199,9 @@ label {
     background-color: cadetblue;
     
 }
+#birthday{
+	width: 50% !important;
+}
 
 .NickName {
     display: flex;

@@ -29,9 +29,9 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-	<!-- JavaMail -->
 	
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+<!-- Spring mail configuration -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="smtp.gmail.com" />
       <property name="port" value="587" />
       <property name="username" value="${email.account}" />
@@ -50,6 +50,7 @@
       </property>
       
    </bean>
+	
 
 	<!-- DAO 어노테이션 -->
 	<context:annotation-config />
