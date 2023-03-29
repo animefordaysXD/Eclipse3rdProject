@@ -1,62 +1,62 @@
 package com.ict.service.VO;
 
 public class VO {
-	String u_email,u_pwd,u_name,u_gender,u_bday,u_nickname,u_region,u_ptime,
-	u_sns_type,admin_chk;
-	int u_idx;
-	public String getU_email() {
-		return u_email;
+	String email,password,name,gender,birthday,nickName,region,pTime,pTime2,
+	sns_type,admin_chk;
+	int idx;
+	public String getemail() {
+		return email;
 	}
-	public void setU_email(String u_email) {
-		this.u_email = u_email;
+	public void setemail(String email) {
+		this.email = email;
 	}
-	public String getU_pwd() {
-		return u_pwd;
+	public String getpassword() {
+		return password;
 	}
-	public void setU_pwd(String u_pwd) {
-		this.u_pwd = u_pwd;
+	public void setpassword(String password) {
+		this.password = password;
 	}
-	public String getU_name() {
-		return u_name;
+	public String getname() {
+		return name;
 	}
-	public void setU_name(String u_name) {
-		this.u_name = u_name;
+	public void setname(String name) {
+		this.name = name;
 	}
-	public String getU_gender() {
-		return u_gender;
+	public String getgender() {
+		return gender;
 	}
-	public void setU_gender(String u_gender) {
-		this.u_gender = u_gender;
+	public void setgender(String gender) {
+		this.gender = gender;
 	}
-	public String getU_bday() {
-		return u_bday;
+	public String getbirthday() {
+		return birthday;
 	}
-	public void setU_bday(String u_bday) {
-		this.u_bday = u_bday;
+	public void setbirthday(String birthday) {
+		this.birthday = birthday;
 	}
-	public String getU_nickname() {
-		return u_nickname;
+	public String getnickName() {
+		return nickName;
 	}
-	public void setU_nickname(String u_nickname) {
-		this.u_nickname = u_nickname;
+	public void setnickName(String nickName) {
+		this.nickName = nickName;
 	}
-	public String getU_region() {
-		return u_region;
+	public String getregion() {
+		return region;
 	}
-	public void setU_region(String u_region) {
-		this.u_region = u_region;
+	public void setregion(String region) {
+		this.region = region;
 	}
-	public String getU_ptime() {
-		return u_ptime;
+	public String getpTime() {
+		return pTime;
 	}
-	public void setU_ptime(String u_ptime) {
-		this.u_ptime = u_ptime;
+	public void setpTime(String pTime) {
+		this.pTime = pTime;
 	}
-	public String getU_sns_type() {
-		return u_sns_type;
+	public String getsns_type() {
+		return sns_type;
 	}
-	public void setU_sns_type(String u_sns_type) {
-		this.u_sns_type = u_sns_type;
+	public void setsns_type(String sns_type) {
+		this.sns_type = sns_type;
 	}
 	public String getAdmin_chk() {
 		return admin_chk;
@@ -64,11 +64,11 @@ public class VO {
 	public void setAdmin_chk(String admin_chk) {
 		this.admin_chk = admin_chk;
 	}
-	public int getU_idx() {
-		return u_idx;
+	public int getidx() {
+		return idx;
 	}
-	public void setU_idx(int u_idx) {
-		this.u_idx = u_idx;
+	public void setidx(int idx) {
+		this.idx = idx;
 	}
 
 

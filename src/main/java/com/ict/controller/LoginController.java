@@ -4,8 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,62 +24,89 @@ public class LoginController {
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 	}
-	@RequestMapping(value="login.do")
+
+	@RequestMapping(value = "login.do")
 	public ModelAndView getLogin() {
 		return new ModelAndView("login");
 	}
 
-	@RequestMapping(value="register.do")
+	@RequestMapping(value = "register.do")
 	public ModelAndView getRegister() {
 
 		return new ModelAndView("register");
 	}
-	@RequestMapping(value="registerOK.do",method = RequestMethod.POST)
+
+	@RequestMapping(value = "registerOK.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getRegisterOk(HttpServletRequest request) {
-		String email = request.getParameter("email");
-		int result =0;
-		if(email.length()<1) {
-		 result =0;
-		}else {
-		System.out.println("email is "+ email);
-		 result = loginService.getId(email);
-		System.out.println(result);
+	public String getRegisterOk(@RequestParam String email) {
+
+		int result = 0;
+		if (email.length() < 1) {
+			result = 0;
+		} else {
+			System.out.println("email is " + email);
+			result = loginService.getId(email);
+			System.out.println(result);
 		}
-		if(result==1) {
-			ModelAndView mv = new ModelAndView("register");
-//			mv.addObject("emailUse", "사용 불가능합니다");
-			mv.addObject("email", email);
-			request.setAttribute("emailUse", "사용 불가능합니다");
-			return mv;
-		}else {
-			ModelAndView mv = new ModelAndView("register");
-//			mv.addObject("emailUse", "사용 가능합니다");
-			mv.addObject("email", email);
-			request.setAttribute("emailUse", "사용 가능합니다");
-			return mv;
+		if (result == 1) {
+
+			return "1";
+		} else {
+
+			return "0";
 		}
 
 	}
 
-	@RequestMapping(value="registerComplete.do",method=RequestMethod.POST) 
+	@RequestMapping(value = "registerComplete.do")
 	@ResponseBody
-	public ModelAndView RegisterComplete(HttpServletRequest request){
-		VO vo = new VO();
-		CategoryVO cvo = new CategoryVO();
-		ModelAndView mv = new ModelAndView("complete");
-		vo.setU_email(request.getParameter("email"));
-		vo.setU_pwd(request.getParameter("password"));
-		vo.setU_name(request.getParameter("name"));
-		vo.setU_gender(request.getParameter("gender"));
-		vo.setU_bday(request.getParameter("birthday"));
-		System.out.println(vo.getU_bday());
+	public String RegisterComplete(@ModelAttribute VO vo,@ModelAttribute CategoryVO cvo) {
 		
-		return mv;
+		System.out.println("emailaaaa : " + vo.getemail());
+		int result = loginService.getInsert(vo);
+		if(result==1) {
+		 return "complete";
+		}else {
+			
+			return "fail";
+		}
 	}
 
+	@PostMapping(value = "getNickChk.do")
+	@ResponseBody
+	public String getNickChk(@RequestParam String nickName) {
+		int result = 0;
+		result = loginService.getNick(nickName);
 
+		if (result == 0) {
+			return "0";
+		} else {
+			return "1";
+		}
 
-
+	}
+	@RequestMapping("complete.do")
+    public ModelAndView returnComplete() {
+		return new ModelAndView("complete");
+	}
+	@RequestMapping("fail.do")
+    public ModelAndView returnfail() {
+		return new ModelAndView("fail");
+	}
+	@RequestMapping("getLogin.do")
+	@ResponseBody
+	public String returnLogin(VO vo) {
+	int result = loginService.getLogin(vo);
+	if(result>0) {
+		return "1";
+	}else {
+		return "0";
+	}
+		
+	}
+	
+		
+	
+	
 
 }

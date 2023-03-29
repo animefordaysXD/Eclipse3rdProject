@@ -4,7 +4,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-    font-family: "Times New Roman", Times, serif;
+        font-family: 'Noto Sans KR',sans-serif;
     display: block;
 }
 button:hover {
@@ -265,15 +265,14 @@ background-color: rgba(4, 219, 58, 0.2) !important;
 .seoul{
     display: inline-block;
 }
-.showCity{
-    display: inline;
-    width: 200px;
+.showCity {
+    display: flex;
+    width: 191px;
     height: 30px;
-    background-color: rgba(17, 128, 202, 0.7);
-    font-size: 30px;
+    background-color: rgba(17, 128, 202, 0.3);
+    font-size: 20px;
     color: white;
-    
-    border-radius: 25px;  
+    justify-content: center;
 }
 .categoryGet{
     display: flex;
