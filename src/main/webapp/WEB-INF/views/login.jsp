@@ -1,53 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="firebase.jsp" %>
 <!DOCTYPE html>
 <html lang="utf-8">
-
-    <head>
+   
+     <head>
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://fonts.google.com/specimen/Black+Han+Sans?subset=korean&noto.script=Kore">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
         <link href="resources/css/login.css" rel="stylesheet">
+      
         
     </head>
-    <script type="text/javascript">
-    function getLogin(){
-    	var user = document.getElementById('username').value;
-    	var password = document.getElementById('password').value;
-    	console.log("user" + user);
-    	console.log("password" + password);
-        if(user.length<1){
-        	alert('유저네임을 입력해주세요');
-        }else if(password.length<1){
-        	alert('비밀번호를 입력해주세요');
-        }else{
-        	 $.ajax({
-                 type: 'POST',
-                 url: 'getLogin.do',
-                 data: {
-                	 email: user,
-                	 password: password
-                 },
-                 dataType: 'text',
-                 success: function (response) {
-                	 if (response === "1") {
-		        	        window.location.href = "complete.do";
-		        	    } else{
-		        	        window.location.href = "fail.do";
-		        	    }
-                 },
-                 error: function (xhr, status, error) {
-                     // Handle any errors that occurred during the request
-                     console.error('Login error:', error);
-                 }
-             }); 
+
+    <script>
+      // Your web app's Firebase configuration
+     
+
+      const auth = firebase.auth();
+
+      // Email verification
+   
+
+      // Google login
+      function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        auth
+          .signInWithPopup(provider)
+          .then((result) => {
+        	  if (result.additionalUserInfo.isNewUser) {
+      	        // New user, redirect to the registration page
+      	        window.location.href = "register.do";
+      	      } else {
+      	        // Existing user, redirect to the complete page
+      	        window.location.href = "complete.do";
+      	      }
+          })
+          .catch((error) => {
+            // Handle errors
+          });
+      }
+
+      // Facebook login
+      function signInWithFacebook() {
+        const provider = new firebase.auth.FacebookAuthProvider();
+
+        auth
+          .signInWithPopup(provider)
+          .then((result) => {
+        	  if (result.additionalUserInfo.isNewUser) {
+        	        // New user, redirect to the registration page
+        	        window.location.href = "register.do";
+        	      } else {
+        	        // Existing user, redirect to the complete page
+        	        window.location.href = "complete.do";
+        	      }
+          })
+          .catch((error) => {
+            // Handle errors
+          });
+      }
+
+      // Sign out
+      function signOut() {
+        auth.signOut().then(() => {
+          // User signed out
+        });
+      }
+
+      // Listen for authentication state changes
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in
+          if (!user.emailVerified) {
+            sendVerificationEmail();
+          }
+        } else {
+          // User is signed out
         }
-    }
+      });
     </script>
-    
-    
     
     
     <body>
@@ -94,10 +129,10 @@
         </div>
 
         <div class="thirdParty">
-            <button class="etcbutton1"></button>
-            <button class="etcbutton2"></button>
-            <button class="etcbutton3"></button>
-            <button class="etcbutton4"></button>
+            <button class="google" onclick="signInWithGoogle()"></button>
+            <button class="naver"></button>
+            <button class="kakao"></button>
+            <button class="facebook" onclick="signInWithFacebook()"></button>
         </div>
 
     </div>

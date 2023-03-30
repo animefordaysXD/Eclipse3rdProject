@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="firebase.jsp" %>
 
 
 <html lang="UTF-8">
@@ -199,6 +200,18 @@ $(function() {
 	      });
 	  });
 	});
+function sendVerificationEmail() {
+    const user = auth.currentUser;
+
+    user
+      .sendEmailVerification()
+      .then(() => {
+        // Email verification sent
+      })
+      .catch((error) => {
+        // Handle errors
+      });
+  }
 	
 	$(function() {
 		$('.confirmSign').click(function(e) {
@@ -218,6 +231,7 @@ $(function() {
 		    var startTime = document.getElementById("prefTime").value;
 		    var endTime = document.getElementById("prefTime2").value;
 		    var getCat = getButtonsWithValue2True();
+		    console.log("End Time:", endTime);
 			$.ajax({
 				 type: 'POST',
 			        url: 'registerComplete.do',
@@ -237,6 +251,7 @@ $(function() {
 			        success: function(response) {	 
 			        	alert(response);
 			        	 if (response === "complete") {
+			        		 sendVerificationEmail();
 			        	        window.location.href = "complete.do";
 			        	    } else {
 			        	        window.location.href = "fail.do";
