@@ -159,6 +159,9 @@ label a{
     padding-bottom: 0px;
 
 }
+#thirdPartyButton:hover{
+	cursor: pointer;
+}
 a:link {
     color: white; /* Changes link color before being visited */
   }

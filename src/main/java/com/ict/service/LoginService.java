@@ -7,4 +7,5 @@ public interface LoginService {
 	public int getNick(String nickName);
 	public int getInsert(VO vo);
 	public int getLogin(VO vo);
+	public int getAdmin(VO vo);
 }

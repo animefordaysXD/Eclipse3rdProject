@@ -13,13 +13,15 @@
  select count(*) from loginuser where u_nickname = #{a}
 </select>
  <insert id="getReg" parameterType="vo">
-        INSERT INTO loginuser (u_idx,u_email, u_pwd, u_name, u_gender, u_bday, u_nickname, u_region, u_firstPtime, u_lastPtime, u_sns,admin_idx)
-        VALUES (login_idx.nextval,#{email}, #{password}, #{name}, #{gender}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{nickName}, #{region}, #{pTime}, #{pTime2},'이메일',0)
+INSERT INTO loginuser (u_idx,u_email, u_pwd, u_name, u_gender, u_bday, u_nickname, u_region, u_firstPtime, u_lastPtime, u_sns,admin_idx)
+VALUES (login_idx.nextval,#{email}, #{password}, #{name}, #{gender}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{nickName}, #{region}, #{pTime}, #{pTime2},#{sns_type},0)
 </insert>
 <select id="getLog" parameterType="vo" resultType="Integer">
 select count(*) from loginuser where u_email=#{email} and u_pwd = #{password}
 </select>
-	
+<select id="getAdmin" parameterType="vo" resultType="Integer">
+select count(*) from loginuser where u_email=#{email} and u_pwd = #{password} and admin_idx =1
+</select>	
 	
 </mapper>
 

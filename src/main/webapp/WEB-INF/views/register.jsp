@@ -20,6 +20,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="resources/css/register.css" rel="stylesheet">
 <script type="text/javascript">
+var sns = "${sns}";
+var emailConfirm =false;
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("showCity").textContent="구를 선택해주세요";
     const buttons = document.querySelectorAll(".location");
@@ -27,6 +29,20 @@ document.addEventListener("DOMContentLoaded", function() {
 buttons.forEach((button) => {
   button.addEventListener("click", setLoc);
 });
+
+if(sns==="google"){
+	firebase.auth().onAuthStateChanged(function (user) {
+		  if (user) {
+		    // User is signed in.
+		    var email = user.email;
+		    console.log("User email: ", email);
+		    $('#email').val(email);
+		    // Use the email value in your application.
+		  } else {
+		    // No user is signed in.
+		  }
+		});
+}
 });
 function comparePassword() {
 		var password = document.getElementById("password").value;
@@ -40,11 +56,18 @@ function comparePassword() {
 		}
 	}
 	
+function isValidEmail(email) {
+	  // Regular expression to match email format
+	  const regex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+	  return regex.test(email);
+	}
 	function ConfirmEmail(){
 		var email = document.getElementById("email").value;
 		var emailText = document.getElementById('getEmailPara');
+		var isEmailValid = isValidEmail(email);
 		
-		if(email.length<1||!email.includes('@')){
+		if(!isEmailValid){
 			alert('제대로 된 양식을 사용해주세요');
 			document.getElementById('regCheck').disabled=true;
 		}else{
@@ -57,11 +80,12 @@ function comparePassword() {
 			          
 			        },
 			        dataType: 'text',
-			        success: function(response) {	 
-			        	alert(response);
+			        success: function(response) {	
+			        	
 			        	if(response==="1"){
 			        		emailText.textContent = "사용 불가능";
 			        	}else{
+			        		emailConfirm =true;
 			        		emailText.textContent = "사용 가능";
 			        	}
 			        			
@@ -72,7 +96,7 @@ function comparePassword() {
 			      });
 			});
 			
-			document.getElementById('regCheck').disabled=false;
+			
 		}
 	}
 
@@ -168,7 +192,11 @@ function completeSignUp(){
 
 $(function() {
 	$("#terms").scroll(function() {
+		
+		var checkbox = document.getElementById('termCheck').checked;
+		if(emailConfirm===true&&checkbox===true){
 		document.getElementById('regCheck').removeAttribute("disabled");
+		}
 	});
 });
 
@@ -212,26 +240,31 @@ function sendVerificationEmail() {
         // Handle errors
       });
   }
+function getButtonsWithValue2True() {
+	  var buttons = $('button.categoryButton[data-value2="true"]');
+	  var values = [];
+
+	  buttons.each(function() {
+	    values.push($(this).data('value1') || $(this).val());
+	  });
+
+	  return values;
+	}
 	
 	$(function() {
 		$('.confirmSign').click(function(e) {
-			function getButtonsWithValue2True() {
-				  var buttons = $('button.categoryButton[data-value2="true"]');
-				  var values = [];
-
-				  buttons.each(function() {
-				    values.push($(this).data('value1') || $(this).val());
-				  });
-
-				  return values;
-				}
+			
 
 			var bDay = new Date($('#birthday').val());
 		    var birthdayFormat = bDay.getFullYear() + '/' + ('0' + (bDay.getMonth() + 1)).slice(-2) + '/' + ('0' + bDay.getDate()).slice(-2);
 		    var startTime = document.getElementById("prefTime").value;
 		    var endTime = document.getElementById("prefTime2").value;
 		    var getCat = getButtonsWithValue2True();
+		    
 		    console.log("End Time:", endTime);
+		    if (sns === "email") {
+		        signUpWithEmailPassword($('#email').val(), $('#password').val());
+		      } else {
 			$.ajax({
 				 type: 'POST',
 			        url: 'registerComplete.do',
@@ -245,13 +278,14 @@ function sendVerificationEmail() {
 			         region: document.getElementById("showCity").textContent,
 			         pTime: startTime,
 			         pTime2: endTime,
-			         Category:getCat,			          
+			         Category:getCat,
+			         sns_type: sns
 			        },
 			        dataType: 'text',
 			        success: function(response) {	 
-			        	alert(response);
+			        	
 			        	 if (response === "complete") {
-			        		 sendVerificationEmail();
+			        		 
 			        	        window.location.href = "complete.do";
 			        	    } else {
 			        	        window.location.href = "fail.do";
@@ -261,10 +295,82 @@ function sendVerificationEmail() {
 			        	alert('signUpFail');
 			        }
 			});
+		  }
 			
 		});
 		
 	});
+	function checkLength(){
+		var passwordLength = document.getElementById('password').value;
+		var passwordTextLength = document.getElementById("pwdLengthText");
+		
+		if(passwordLength.length<6){
+			passwordTextLength.textContent = "6글자 이상 사용해주세요";
+		}else{
+			passwordTextLength.textContent = "";
+		}
+	}
+	
+	
+	function signUpWithEmailPassword(email, password) {
+		  firebase
+		    .auth()
+		    .createUserWithEmailAndPassword(email, password)
+		    .then((userCredential) => {
+		      // The user is successfully registered and logged in.
+		      var user = userCredential.user;
+		      console.log("User registered:", user);
+
+		      // Perform additional processing or registration steps here.
+		      registerUserInBackend(user);
+		    })
+		    .catch((error) => {
+		      // Handle errors during registration.
+		      var errorCode = error.code;
+		      var errorMessage = error.message;
+		      console.log("Error registering user:", errorCode, errorMessage);
+		      alert('회원가입을 실패했습니다.');
+		    });
+		}
+	
+	function registerUserInBackend(user) {
+		  var bDay = new Date($('#birthday').val());
+		  var birthdayFormat = bDay.getFullYear() + '/' + ('0' + (bDay.getMonth() + 1)).slice(-2) + '/' + ('0' + bDay.getDate()).slice(-2);
+		  var startTime = document.getElementById("prefTime").value;
+		  var endTime = document.getElementById("prefTime2").value;
+		  var getCat = getButtonsWithValue2True();
+		  var sns = "${sns}";
+		  console.log("End Time:", endTime);
+
+		  $.ajax({
+		    type: 'POST',
+		    url: 'registerComplete.do',
+		    data: {
+		    	 email: $('#email').val(),
+		         password: $('#password').val(),
+		         name: $('#name').val(),
+		         gender: $('#gender').find(":selected").val(),
+		         birthday: birthdayFormat,
+		         nickName: $('#nickName').val(),
+		         region: document.getElementById("showCity").textContent,
+		         pTime: startTime,
+		         pTime2: endTime,
+		         Category:getCat,
+		         sns_type: sns
+		    },
+		    dataType: 'text',
+		    success: function(response) {
+		      if (response === "complete") {
+		        window.location.href = "complete.do";
+		      } else {
+		        window.location.href = "fail.do";
+		      }
+		    },
+		    error: function(xhr, status, error) {
+		      alert('signUpFail');
+		    }
+		  });
+		}
 
 </script>
 </head>
@@ -284,8 +390,9 @@ function sendVerificationEmail() {
 						
 					</div>
 					<div class="password">
+					<p id="pwdLengthText" style="color: #fff"></p>
 						<input type="password" class="input_field" id="password"
-							placeholder="비밀번호">
+							placeholder="비밀번호" oninput="checkLength()">
 						<div class="space"></div>
 						<p id="pwdText" style="color: #fff"></p>
 						<input type="password" class="input_field" id="passwordCheck"
@@ -326,7 +433,7 @@ function sendVerificationEmail() {
 				</div>
 			</div>
 			<div class="regButtons">
-				<button class="cancelReg" onclick="location.href = 'login.do';">취소하기</button>
+				<button type="button" class="cancelReg" onclick="location.href = 'login.do';">취소하기</button>
 				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 				<button type="button" class="regCheck" id="regCheck" onclick="setVisibility()"
 					disabled>회원가입 완료</button>

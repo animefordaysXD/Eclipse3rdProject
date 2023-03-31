@@ -31,9 +31,11 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "register.do")
-	public ModelAndView getRegister() {
-
-		return new ModelAndView("register");
+	public ModelAndView getRegister(HttpServletRequest request) {
+		String sns = request.getParameter("sns");
+		ModelAndView mv = new ModelAndView("register");
+		mv.addObject("sns", sns);
+		return mv;
 	}
 
 	@RequestMapping(value = "registerOK.do", method = RequestMethod.POST)
@@ -62,7 +64,8 @@ public class LoginController {
 	@ResponseBody
 	public String RegisterComplete(@ModelAttribute VO vo,@ModelAttribute CategoryVO cvo) {
 		
-		System.out.println("emailaaaa : " + vo.getemail());
+		System.out.println("endTime : " + vo.getpTime2());
+		System.out.println("cat ; " + cvo.getCategory());
 		int result = loginService.getInsert(vo);
 		if(result==1) {
 		 return "complete";
@@ -77,6 +80,7 @@ public class LoginController {
 	public String getNickChk(@RequestParam String nickName) {
 		int result = 0;
 		result = loginService.getNick(nickName);
+		
 
 		if (result == 0) {
 			return "0";
@@ -93,16 +97,37 @@ public class LoginController {
     public ModelAndView returnfail() {
 		return new ModelAndView("fail");
 	}
+	@RequestMapping("adminLogin.do")
+    public ModelAndView returnAdminLog() {
+		return new ModelAndView("adminLogin");
+	}
 	@RequestMapping("getLogin.do")
 	@ResponseBody
-	public String returnLogin(VO vo) {
+	public String returnLogin(@ModelAttribute VO vo) {
 	int result = loginService.getLogin(vo);
+	if(result>0) {
+		return ("1");
+	}else {
+		return ("0");
+	}
+		
+	}
+	@RequestMapping("getAdminLogin.do")
+	@ResponseBody
+	public String returnGetAdminLogin(@ModelAttribute VO vo) {
+		
+	int result = loginService.getAdmin(vo);
 	if(result>0) {
 		return "1";
 	}else {
 		return "0";
 	}
 		
+	}
+	
+	@RequestMapping("adminComplete.do")
+    public ModelAndView returnAdminComplete() {
+		return new ModelAndView("adminComplete");
 	}
 	
 		

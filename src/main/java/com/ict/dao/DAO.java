@@ -45,6 +45,9 @@ public class DAO {
 	public int getLogin(VO vo) {
 		return sqlSessionTemplate.selectOne("login.getLog", vo);
 	}
+	public int getAdmin(VO vo) {
+		return sqlSessionTemplate.selectOne("login.getAdmin",vo);
+	}
 
 
 

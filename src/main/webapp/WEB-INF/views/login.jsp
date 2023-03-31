@@ -9,10 +9,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://fonts.google.com/specimen/Black+Han+Sans?subset=korean&noto.script=Kore">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>      
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
         <link href="resources/css/login.css" rel="stylesheet">
-      
-        
     </head>
 
     <script>
@@ -27,13 +26,14 @@
       // Google login
       function signInWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
 
         auth
           .signInWithPopup(provider)
           .then((result) => {
         	  if (result.additionalUserInfo.isNewUser) {
       	        // New user, redirect to the registration page
-      	        window.location.href = "register.do";
+      	        window.location.href = "register.do?sns=google";
       	      } else {
       	        // Existing user, redirect to the complete page
       	        window.location.href = "complete.do";
@@ -52,15 +52,15 @@
           .signInWithPopup(provider)
           .then((result) => {
         	  if (result.additionalUserInfo.isNewUser) {
-        	        // New user, redirect to the registration page
-        	        window.location.href = "register.do";
+        	        
+        	        window.location.href = "register.do?sns=facebook";
         	      } else {
-        	        // Existing user, redirect to the complete page
+        	       
         	        window.location.href = "complete.do";
         	      }
           })
           .catch((error) => {
-            // Handle errors
+           console.log("error: " + error);
           });
       }
 
@@ -83,6 +83,78 @@
         }
       });
     </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    	 var loginStatus = "${loginStatus}";
+    	 if(loginStatus==="fail"){
+    		 alert('로그인 실패');
+    	 }
+    });
+   
+    
+    function getLogin(){
+    	var username = document.getElementById('username').value;
+    	var password = document.getElementById('password').value;
+    	$(function() {
+			$.ajax({
+		        type: 'POST',
+		        url: 'getLogin.do',
+		        data: {
+		          email: username,
+		          password: password
+		        },
+		        dataType: 'text',
+		        success: function(response) {	 
+		        	
+		        	if(response==="1"){
+		        		window.location.href = "complete.do";
+		        	}else{
+		        		alert('로그인 실패');
+		        	}
+		        			
+		        },
+		        error: function(xhr, status, error) {
+		        	alert('error : ' + error);
+		        }
+		      });
+		});
+    }
+    
+    </script>
+    
+    <script>
+    Kakao.init('9d66e104aa5d785eda1c654d772e0693');
+   function signInWithKakao(){
+	   Kakao.Auth.login({
+	        success: function (authObj) {
+	          console.log('Authentication successful:', authObj);
+
+	          // Get user profile data
+	          Kakao.API.request({
+	            url: '/v2/user/me',
+	            success: function (res) {
+	              console.log('User profile:', res);
+	              if (res.kakao_account.is_email_verified) {
+	                  window.location.href = "register.do?sns=Kakao";
+	                } else {
+	                  window.location.href = "complete.do";
+	                }
+	              
+	            },
+	            fail: function (error) {
+	              console.log('Failed to get user profile:', error);
+	            },
+	          });
+	        },
+	        fail: function (error) {
+	          console.log('Authentication failed:', error);
+	        },
+	      });
+    }
+   
+    
+    </script>
+    
     
     
     <body>
@@ -103,7 +175,7 @@
             </div>
             <div class="space"></div>
             <div class="input-field">
-               <button class="submit" onclick="getLogin()">로그인</button>
+               <button type="button" class="submit" onclick="getLogin()">로그인</button>
             </div>
 
             <div class="bottom">
@@ -117,7 +189,7 @@
                
             </div>
             <div class="register">
-                <p>계정이 없습니까?<a href="register.do"><u>회원가입하기</u></a></p>
+                <p>계정이 없습니까?<a href="register.do?sns=email"><u>회원가입하기</u></a></p>
             </div>
             <div style="display:flex;justify-content:space-around;">
             <a href="#">홈으로 돌아가기</a>
@@ -129,10 +201,10 @@
         </div>
 
         <div class="thirdParty">
-            <button class="google" onclick="signInWithGoogle()"></button>
-            <button class="naver"></button>
-            <button class="kakao"></button>
-            <button class="facebook" onclick="signInWithFacebook()"></button>
+            <button id="thirdPartyButton" class="google" onclick="signInWithGoogle()"></button>
+            <button id="thirdPartyButton" class="naver"></button>
+            <button id="thirdPartyButton" class="kakao" onclick="signInWithKakao()"></button>
+            <button id="thirdPartyButton" class="facebook" onclick="signInWithFacebook()"></button>
         </div>
 
     </div>

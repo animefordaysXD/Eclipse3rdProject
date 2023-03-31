@@ -10,6 +10,7 @@
 </head>
 <body>
 <script>
+const auth = firebase.auth();
 function sendVerificationEmail() {
     const user = auth.currentUser;
 
@@ -22,8 +23,14 @@ function sendVerificationEmail() {
         // Handle errors
       });
   }
+
+  
+  
+  
 </script>
 <h1>메인</h1>
+<button onclick="sendVerificationEmail()">(구글)이메일 보내기</button>
+<button onclick="sendVerificationEmail2()">일반 이메일 보내기</button>
 
 </body>
 </html>

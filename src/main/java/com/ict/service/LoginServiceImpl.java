@@ -31,6 +31,10 @@ public class LoginServiceImpl implements LoginService {
 	public int getLogin(VO vo) {
 		return dao.getLogin(vo);
 	}
+	@Override
+	public int getAdmin(VO vo) {
+		return dao.getAdmin(vo);
+	}
 
 
 }
