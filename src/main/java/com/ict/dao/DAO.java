@@ -20,10 +20,9 @@ public class DAO {
 	 * sqlSessionTemplate.selectOne("login.email", a);
 	 * System.out.println("count is "+count); return count > 0 ? 1 : 0; }
 	 */
-	public int getId(String email) {
-		 String a = email.trim();
-		 System.out.println("a is " + a);
-		 int count = sqlSessionTemplate.selectOne("login.email",a);
+	public int getId(VO vo) {
+		 
+		 int count = sqlSessionTemplate.selectOne("login.email",vo);
 		    System.out.println("count is "+count);
 		    return count > 0 ? 1 : 0;
 //		String a = "abc@naver.com";
@@ -47,6 +46,13 @@ public class DAO {
 	}
 	public int getAdmin(VO vo) {
 		return sqlSessionTemplate.selectOne("login.getAdmin",vo);
+	}
+	public int getKakao(VO vo) {
+		System.out.println("kak email " + vo.getEmail());
+		return sqlSessionTemplate.selectOne("login.getKakao",vo);
+	}
+	public int getNaver(VO vo) {
+		return sqlSessionTemplate.selectOne("login.getNaver",vo);
 	}
 
 

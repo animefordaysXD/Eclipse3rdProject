@@ -5,8 +5,8 @@
 <mapper namespace="login">
 
 
-<select id="email" parameterType="String" resultType="Integer">
- select count(*) from loginuser where u_email = #{a}
+<select id="email" parameterType="vo" resultType="Integer">
+ select count(*) from loginuser where u_email = #{email} and u_sns=#{sns_type}
 </select>
 
 <select id="nick" parameterType="String" resultType="Integer">
@@ -21,6 +21,12 @@ select count(*) from loginuser where u_email=#{email} and u_pwd = #{password}
 </select>
 <select id="getAdmin" parameterType="vo" resultType="Integer">
 select count(*) from loginuser where u_email=#{email} and u_pwd = #{password} and admin_idx =1
+</select>	
+<select id="getKakao" parameterType="vo" resultType="Integer">
+select count(*) from loginuser where u_email=#{email} and u_sns='kakao'
+</select>	
+<select id="getNaver" parameterType="vo" resultType="Integer">
+select count(*) from loginuser where u_email=#{email} and u_sns='naver'
 </select>	
 	
 </mapper>

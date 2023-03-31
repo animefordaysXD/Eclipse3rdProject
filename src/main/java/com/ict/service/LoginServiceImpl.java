@@ -15,9 +15,10 @@ public class LoginServiceImpl implements LoginService {
 	public void setDao(DAO dao) {
 		this.dao = dao;
 	}
+	
 	@Override
-	public int getId(String email) {
-		return dao.getId(email);
+	public int getId(VO vo) {
+		return dao.getId(vo);
 	}
 	@Override
 	public int getNick(String nickName) {
@@ -34,6 +35,14 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public int getAdmin(VO vo) {
 		return dao.getAdmin(vo);
+	}
+	@Override
+	public int getKakao(VO vo) {
+		return dao.getKakao(vo);
+	}
+	@Override
+	public int getNaver(VO vo) {
+		return dao.getNaver(vo);
 	}
 
 

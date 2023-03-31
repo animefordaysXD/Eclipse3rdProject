@@ -24,6 +24,8 @@ public class LoginController {
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 	}
+	
+	
 
 	@RequestMapping(value = "login.do")
 	public ModelAndView getLogin() {
@@ -40,14 +42,14 @@ public class LoginController {
 
 	@RequestMapping(value = "registerOK.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String getRegisterOk(@RequestParam String email) {
+	public String getRegisterOk(@ModelAttribute VO vo) {
 
 		int result = 0;
-		if (email.length() < 1) {
+		if (vo.getEmail().length() < 1) {
 			result = 0;
 		} else {
-			System.out.println("email is " + email);
-			result = loginService.getId(email);
+			
+			result = loginService.getId(vo);
 			System.out.println(result);
 		}
 		if (result == 1) {
@@ -128,6 +130,36 @@ public class LoginController {
 	@RequestMapping("adminComplete.do")
     public ModelAndView returnAdminComplete() {
 		return new ModelAndView("adminComplete");
+	}
+	
+	@RequestMapping("findPassword.do")
+	public ModelAndView findPassword() {
+		return new ModelAndView("passwordFind");
+	}
+	
+	@RequestMapping("kakaoLogin.do")
+	@ResponseBody
+	public String getKakao(@ModelAttribute VO vo) {
+		System.out.println("vo email " + vo.getEmail());
+		int result = loginService.getKakao(vo);
+		System.out.println("kakao result " + result);
+		if(result>0) {
+			return "complete.do";
+		}else {
+			return "register.do?sns=kakao";
+		}
+	}
+	
+	@RequestMapping("getNaver.do")
+	@ResponseBody
+	public String getNaver(@ModelAttribute VO vo) {
+		int result = loginService.getNaver(vo);
+		System.out.println("result is " + result);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 	
 		

@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://fonts.google.com/specimen/Black+Han+Sans?subset=korean&noto.script=Kore">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>      
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
+        <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
         <link href="resources/css/login.css" rel="stylesheet">
     </head>
 
@@ -120,39 +121,106 @@
 		});
     }
     
+    
+    
     </script>
     
     <script>
     Kakao.init('9d66e104aa5d785eda1c654d772e0693');
-   function signInWithKakao(){
-	   Kakao.Auth.login({
-	        success: function (authObj) {
-	          console.log('Authentication successful:', authObj);
+    function signInWithKakao() {
+    	  Kakao.Auth.login({
+    		  scope: 'account_email',
+    	    success: function (authObj) {
+    	      console.log('Authentication successful:', authObj);
 
-	          // Get user profile data
-	          Kakao.API.request({
-	            url: '/v2/user/me',
-	            success: function (res) {
-	              console.log('User profile:', res);
-	              if (res.kakao_account.is_email_verified) {
-	                  window.location.href = "register.do?sns=Kakao";
-	                } else {
-	                  window.location.href = "complete.do";
-	                }
-	              
-	            },
-	            fail: function (error) {
-	              console.log('Failed to get user profile:', error);
-	            },
-	          });
-	        },
-	        fail: function (error) {
-	          console.log('Authentication failed:', error);
-	        },
-	      });
-    }
+    	      Kakao.API.request({
+    	        url: '/v2/user/me',
+    	        success: function (res) {
+    	          console.log('User profile:', res);
+    	      const userEmail = res.kakao_account.email;
+					
+    	          // Send the Kakao user ID to your server
+    	          $.ajax({
+    	            type: 'POST',
+    	            url: 'kakaoLogin.do', // Replace with your server URL
+    	            data: {
+    	            	email: userEmail,
+    	            	
+    	            },
+    	            dataType: 'text',
+    	            success: function (response) {
+    	            	console.log("repsonse: " + response);
+    	              if (response === "register.do?sns=kakao") {
+    	                window.location.href = "register.do?sns=kakao";
+    	              } else {
+    	                window.location.href = "complete.do";
+    	              }
+    	            },
+    	            error: function (xhr, status, error) {
+    	              console.log('Error:', error);
+    	            }
+    	          });
+    	        },
+    	        fail: function (error) {
+    	          console.log('Failed to get user profile:', error);
+    	        },
+    	      });
+    	    },
+    	    fail: function (error) {
+    	      console.log('Authentication failed:', error);
+    	    },
+    	  });
+    	}
    
     
+    </script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    	  var naverLogin = new naver.LoginWithNaverId({
+    	    clientId: "BqvY6jqAibll3bzxdKln",
+    	    callbackUrl: "http://localhost:8090/login.do",
+    	    isPopup: false,
+    	  });
+
+    	  naverLogin.init();
+
+    	  var customNaverLoginBtn = document.getElementById("naver");
+    	  customNaverLoginBtn.addEventListener("click", function () {
+    	    naverLogin.getLoginStatus(function (status) {
+    	      if (status) {
+    	        // Get the user's Naver ID or email
+    	         var userEmail = naverLogin.user.getEmail(); // or naverLogin.user.getEmail();
+				console.log('userEmail ' + userEmail);
+    	        // Send an AJAX request to your server to check if the user exists
+    	        $.ajax({
+    	          type: 'POST',
+    	          url: 'getNaver.do',
+    	          data: {
+    	            email: userEmail,
+    	           
+    	          },
+    	          dataType: 'text',
+    	          success: function (response) {
+    	            if (response === "1") {
+    	              // If the user exists in your database, log them in
+    	              window.location.href = "complete.do";
+    	            } else {
+    	              // If the user does not exist, redirect them to the registration page
+    	              window.location.href = "register.do?sns=naver";
+    	            }
+    	          },
+    	          error: function (xhr, status, error) {
+    	            alert('Error: ' + error);
+    	          }
+    	        });
+    	      } else {
+    	        // If the user is not logged in, show the Naver Login popup
+    	        naverLogin.authorize();
+    	      }
+    	    });
+    	  });
+    	});
     </script>
     
     
@@ -184,7 +252,7 @@
                     <label for="check">로그인 유지하기</label>
                 </div>
                 <div class="right">
-                    <label class=""><a href="#"><u>비밀번호를 잃었습니다</u></a></label>
+                    <label class=""><a href="findPassword.do"><u>비밀번호를 잃었습니다</u></a></label>
                 </div>
                
             </div>
@@ -201,10 +269,10 @@
         </div>
 
         <div class="thirdParty">
-            <button id="thirdPartyButton" class="google" onclick="signInWithGoogle()"></button>
-            <button id="thirdPartyButton" class="naver"></button>
-            <button id="thirdPartyButton" class="kakao" onclick="signInWithKakao()"></button>
-            <button id="thirdPartyButton" class="facebook" onclick="signInWithFacebook()"></button>
+            <button class="thirdPartyButton" id="google" onclick="signInWithGoogle()"></button>
+            <button class="thirdPartyButton" id="naver"></button>
+            <button class="thirdPartyButton" id="kakao" onclick="signInWithKakao()"></button>
+            <button class="thirdPartyButton" id="facebook" onclick="signInWithFacebook()"></button>
         </div>
 
     </div>

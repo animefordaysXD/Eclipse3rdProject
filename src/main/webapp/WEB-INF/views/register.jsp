@@ -77,7 +77,7 @@ function isValidEmail(email) {
 			        url: 'registerOK.do',
 			        data: {
 			          email: $('#email').val(),
-			          
+			          sns_type: '${sns}',
 			        },
 			        dataType: 'text',
 			        success: function(response) {	
