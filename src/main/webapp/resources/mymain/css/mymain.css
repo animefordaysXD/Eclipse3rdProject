@@ -1,0 +1,696 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	height:100%;
+	margin:0;
+	background-color: black;
+	font-size: 1.5em;
+	z-index:0
+}
+
+nav {
+    width: 100vw;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #363636;
+}
+
+header {
+	width: 100vw;
+	height: 100px;
+	color: white;
+	background-color: #363636;
+	position: fixed;
+	margin: 0 auto;	
+	z-index:1;
+	font-family: 'Noto Sans KR', sans-serif;
+	
+}
+#sidebarMenu {
+    height: 62%;
+    position: fixed;
+    left: 0;
+    width: 180px;
+    margin-top: 146px;
+    transform: translateX(-250px);
+    transition: transform 250ms ease-in-out;
+    background: black;
+   
+}
+.sidebarMenuInner li:hover{
+background: skyblue;
+}
+.sidebarMenuInner{
+    margin:0;
+    padding:0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.sidebarMenuInner li{
+    list-style: none;
+    padding: 22px;
+}
+.sidebarMenuInner li span{
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.50);
+}
+.sidebarMenuInner li a{
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+input[type="checkbox"]:checked ~ #sidebarMenu {
+    transform: translateX(0);
+}
+
+input[type=checkbox] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+.sidebarIconToggle {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    top: 120px;
+    left: 15px;
+    height: 22px;
+    width: 22px;
+}
+.spinner {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+}
+.horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: right;
+    margin-top: 3px;
+}
+.diagonal.part-1 {
+    position: relative;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    float: right;
+}
+.diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: right;
+    margin-top: 3px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    opacity: 0;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(-135deg);
+    margin-top: -9px;
+}
+
+
+
+section {
+	display: flex;
+	align-items: center;
+	height: 100vh;
+    width:fit-content;
+	background-color: while;
+	color: black;
+	margin: 0 auto;	
+	
+}
+.two{
+	width: 1300px;
+	margin: 30px;
+	
+}
+
+.footer {
+	background-color: #363636;
+   	width: 100vw;
+    height: 212px;
+    margin: 0 auto;
+    
+}
+
+.row {
+	display: flex;
+	text-align: center;
+}
+
+.footer-col {
+	width: 50%;
+	color: white;
+	background-color: #363636;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: left;
+	min-width: 1000px;
+	min-height: -300px;
+	
+}
+
+.footer-col1 {
+	width: 50%;
+	color: white;
+	background-color: #363636;
+	font-family: 'Noto Sans KR', sans-serif;
+	text-align: center;
+	min-width: 1000px;
+	min-height: -300px;
+	
+}
+
+
+
+
+
+.footer-col ul li a {
+	font-size: 20px;
+	text-transform: capitalize;
+	color: red;
+	text-decoration: none;
+	font-weight: 500px;
+	color: gray;
+	display: block;
+	transition: all 0.3s ease;
+	
+	
+}
+
+.footer-col  .social-links a {
+	display: inline-block;
+	background-color: rgba(255, 255, 255, 0.2);
+	height:50px;
+	width: 40px;
+	margin-right: 0 10px 10px 0;
+	text-align: center;
+	line-height: 30px;
+	width:50px;
+	color: #ffffff;
+	transition: all 0.3s ease;
+
+	
+}
+
+.footer-col  .social-links a:hover {
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+
+ul li {
+	list-style: none;
+}
+
+.option{
+text-align: right;
+margin: 20px;
+padding: 10px;
+
+
+}
+
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-top: -59px;
+    font-size: 0.8em;
+    font-family: 'Noto Sans KR', sans-serif;
+   
+}
+.br +.br::before{
+	content: ">";
+}
+
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
+figure.snip1425 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  width: 100%;
+  color: #000000;
+  text-align: center;
+  -webkit-perspective: 50em;
+  perspective: 50em;
+}
+figure.snip1425 * {
+  -webkit-box-sizing: padding-box;
+  box-sizing: padding-box;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  
+}
+figure.snip1425 img {
+  max-width: 100%;
+  vertical-align: top;
+
+}
+figure.snip1425 figcaption {
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+  -webkit-transform: translate(-10%, -70%);
+  transform: translate(-10%, -70%);
+}
+figure.snip1425 h2,
+figure.snip1425 h4 {
+  margin: 0;
+}
+figure.snip1425 h2 {
+  font-weight: 600;
+}
+figure.snip1425 h4 {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+figure.snip1425 i {
+  font-size: 32px;
+}
+figure.snip1425:after {
+  background-color: #ffffff;
+  position: absolute;
+  content: "";
+  display: block;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  -webkit-transform: rotate3d(1, -1, 0, 100deg);
+  transform: rotate3d(1, -1, 0, 100deg);
+  opacity: 0;
+ 
+}
+figure.snip1425 a {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+ 
+}
+figure.snip1425:hover figcaption,
+figure.snip1425.hover figcaption {
+  -webkit-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
+  opacity: 1;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+figure.snip1425:hover:after,
+figure.snip1425.hover:after {
+  -webkit-transform: rotate3d(0, 0, 0, 0deg);
+  transform: rotate3d(0, 0, 0, 0deg);
+  opacity: 0.9;
+}
+.social-container {
+  width: 400px;
+  margin: 40vh auto;
+  text-align: center;
+}
+
+.social-icons {
+  list-style: none;
+  margin: 1em;
+}
+.social-icons li {
+  display: inline-block;
+  margin: 0.15em;
+  position: relative;
+  font-size: 1.2em;
+}
+.social-icons i {
+  color: #fff;
+  position: absolute;
+  top: 21px;
+  left: 21px;
+  transition: all 265ms ease-out;
+}
+.social-icons a {
+  display: inline-block;
+}
+.social-icons a:before {
+  transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  content: " ";
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  display: block;
+ 
+}
+.social-icons a:hover:before {
+  transform: scale(0);
+  transition: all 265ms ease-in;
+}
+.social-icons a:hover i {
+  transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -webkit-transform: scale(2.2);
+  color: #ff003c;
+  -webkit-text-fill-color: transparent;
+  transition: all 265ms ease-in;
+}
+
+.social-icons a.social-square:hover:before {
+  transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -webkit-transform: scale(-180deg);
+  border-radius: 100%;
+}
+.social-icons a.social-square:hover i {
+  transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  -webkit-transform: scale(1.6);
+  color: #fff;
+  transform: scale(1.6);
+  -webkit-text-fill-color: #fff;
+}
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+#drop-content{
+    position: fixed;
+    z-index: 1;
+}
+
+
+.dropdown1{
+    position: relative;
+    display: inline-block;
+}
+
+#drop-content1{
+    position: fixed;
+    z-index: 1;
+}
+
+.button1:hover{
+	background: gold;
+	color: black;
+	
+}
+#drop-content1 a:hover{
+background:pink;	
+	
+}
+.button:hover{
+	background: gold;
+	color: black;
+	
+}
+#drop-content a:hover{
+background:pink;	
+	
+}
+@import 'https://fonts.googleapis.com/css?family=Material+Icons';
+a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.profile1 {
+  position: relative;
+  display: flex;
+  align-items: center;
+ 
+}
+
+.notification-container {
+  cursor: default;
+  position: absolute;
+  z-index: 999;
+  top: 7px;
+  right: -3rem;
+  width: 150px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+}
+.notification-container1 {
+  cursor: default;
+  position: absolute;
+  z-index: 999;
+  top: 7px;
+  right: 0rem;
+  width: 400px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+}
+
+
+.notification-container h3 {
+  text-transform: uppercase;
+  font-size: 75%;
+  font-weight: 700;
+  color: #84929f;
+  padding: 1.5rem 2rem;
+}
+
+.notification-container i {
+  color: #b5c4d2;
+  font-size: 140%;
+  position: absolute;
+}
+
+.notification-container i.right {
+  right: 2rem;
+}
+
+.notification-container i.right:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.notification-container1 i.right:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.notification-container em {
+  margin-right: 0.75rem;
+  font-weight: 700;
+  font-size: 115%;
+  color: #b5c4d2;
+  vertical-align: bottom;
+  display: inline-block;
+}
+
+
+.notification {
+  box-sizing: border-box;
+}
+.notification.new {
+  background: #f3f9fd;
+}
+.notification.new1 {
+  background: #f3f9fd;
+}
+
+input.checkbox[type=checkbox] {
+  display: none;
+}
+input.checkbox1[type=checkbox] {
+  display: none;
+}
+
+input.checkbox[type=checkbox] + label {
+  display: block;
+}
+input.checkbox1[type=checkbox] + label {
+  display: block;
+}
+
+input.checkbox[type=checkbox]:not(:checked) + label {
+  transition: height 0.25s;
+  height: 0;
+  padding: 0;
+  font-size: 0;
+  border: none;
+}
+input.checkbox1[type=checkbox]:not(:checked) + label {
+  transition: height 0.25s;
+  height: 0;
+  padding: 0;
+  font-size: 0;
+  border: none;
+}
+input.checkbox[type=checkbox]:not(:checked) + label * {
+  display: none;
+}
+input.checkbox1[type=checkbox]:not(:checked) + label * {
+  display: none;
+}
+input.checkbox[type=checkbox]:checked + label {
+  padding: 1.125rem 4rem 0.75rem 2rem;
+  font-size: 75%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: black;
+  color: white;
+  margin-top: -2px;
+  text-align: left;
+ 
+  
+  
+}
+input.checkbox1[type=checkbox]:checked + label {
+  padding: 1.125rem 2rem 1.75rem 1rem;
+  font-size: 75%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: black;
+  color: antiquewhite;
+  margin-top: -2px;
+  text-align: center;
+  
+}
+
+
+
+.secondary-button {
+  border: 2px solid #B2B9C5;
+  background: none;
+  color: #B2B9C5;
+}
+
+.left {
+  margin-right: 0.75rem;
+  float: left;
+}
+
+.right {
+  margin-left: 0.75rem;
+  float: right;
+}
+
+spacer {
+  width: 100%;
+}
+
+.button1 {
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: normal;
+  border: 0;
+  font-size: 13px;
+  line-height: 13px;
+  color: white;
+  background: #363636;
+   padding: 1px 5px;
+    color: wheat;
+}
+button1:hover {
+  opacity: 0.9;
+}
+.button {
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: normal;
+  border: 0;
+  font-size: 43px;
+  line-height: 13px;
+  color: white;
+  background: #363636;
+   padding: 4px 6px;
+    color: wheat;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+.notification-icon {
+  position: relative;
+  margin-right: 1em;
+  border-radius: 5px;
+  background: #ecf0f1;
+}
+.notification-icon i {
+  margin: 0.5rem;
+}
+
+.num-count {
+  position: absolute;
+  user-select: none;
+  cursor: default;
+  font-size: 0.6rem;
+  background: #e74c3c;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #ecf0f1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  top: -0.33rem;
+  right: -0.34rem;
+  box-sizing: border-box;
+}
+

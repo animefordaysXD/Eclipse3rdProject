@@ -1,0 +1,848 @@
+@charset "UTF-8";
+@import
+	url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap')
+	;
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+body {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    background-color: #F8F8F8;
+    font-size: 1.5em;
+    z-index: 0;
+ 
+}
+section {
+	display: flex;
+    width: 1920px;
+    height : 780px;
+    background-color: white;
+    margin: 0 auto;
+}
+
+
+
+#wrap {
+    width: 100vw;
+    margin: 0 auto;
+    background-color: #F8F8F8;
+}
+/*헤더 부분 css  */
+header {
+   width: 100%;
+    height: 100px;
+    color: white;
+    background-color: #363636;
+    margin: 0 auto;
+    z-index: 1;
+    font-family: 'Noto Sans KR', sans-serif;
+	
+}
+
+.option{
+text-align: right;
+padding: 4px;
+}
+
+.notification {
+  box-sizing: border-box;
+}
+.notification.new {
+  background: #f3f9fd;
+}
+.notification.new1 {
+  background: #f3f9fd;
+}
+
+input.checkbox[type=checkbox] {
+  display: none;
+}
+input.checkbox1[type=checkbox] {
+  display: none;
+}
+
+input.checkbox[type=checkbox] + label {
+  display: block;
+}
+input.checkbox1[type=checkbox] + label {
+  display: block;
+}
+
+input.checkbox[type=checkbox]:not(:checked) + label {
+  transition: height 0.25s;
+  height: 0;
+  padding: 0;
+  font-size: 0;
+  border: none;
+}
+input.checkbox1[type=checkbox]:not(:checked) + label {
+  transition: height 0.25s;
+  height: 0;
+  padding: 0;
+  font-size: 0;
+  border: none;
+}
+
+input.checkbox[type=checkbox]:not(:checked) + label * {
+  display: none;
+  
+}
+input.checkbox1[type=checkbox]:not(:checked) + label * {
+  display: none;
+}
+input.checkbox[type=checkbox]:checked + label {
+  padding: 1.125rem 5rem 0.75rem 2rem;
+  font-size: 75%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: black;
+  color: white;
+  margin-top:-9px;
+  text-align: left;
+  
+}
+input.checkbox1[type=checkbox]:checked + label {
+  padding: 1.125rem 2rem 1.75rem 1rem;
+  font-size: 75%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: black;
+  color: antiquewhite;
+  margin-top:-10px;
+  text-align: center;
+  
+}
+nav {
+    width: 100vw;
+    height: 60px;
+    margin: 0 auto;
+    background-color: #363636;
+
+}
+.sidebarIconToggle {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    top: 135px;
+    left: 8px;
+    height: 22px;
+    width: 22px;
+}
+
+
+
+#sidebarMenu {
+    height: 81%;
+    position: absolute;
+    left: 0;
+    width: 180px;
+    margin-top: 60px;
+    transform: translateX(-250px);
+    transition: transform 250ms ease-in-out;
+    background: black;
+}
+
+.sidebarMenuInner li:hover{
+background: skyblue;
+}
+.sidebarMenuInner{
+    margin:0;
+    padding:0;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.sidebarMenuInner li{
+    list-style: none;
+    padding: 13px;
+}
+.sidebarMenuInner li span{
+    display: block;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.50);
+}
+.sidebarMenuInner li a{
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+input[type="checkbox"]:checked ~ #sidebarMenu {
+    transform: translateX(0);
+}
+
+input[type=checkbox] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+
+.spinner {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+}
+.horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: right;
+    margin-top: 3px;
+}
+.diagonal.part-1 {
+    position: relative;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    float: right;
+}
+.diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: right;
+    margin-top: 3px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    opacity: 0;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(-135deg);
+    margin-top: -9px;
+}
+.profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.notification-container {
+  cursor: default;
+  position: absolute;
+  z-index: 999;
+  top: 7px;
+  right: -3rem;
+  width: 150px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+}
+.notification-container1 {
+ cursor: default;
+  position: absolute;
+  z-index: 999;
+  top: 7px;
+  right: 0rem;
+  width: 400px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+   	margin-top: -37px;
+    font-size: 0.8em;
+   font-family: 'Noto Sans KR', sans-serif;
+}
+.br +.br::before{
+	content: ">";
+}
+
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+#drop-content{
+    position: absolute;
+    z-index: 1;
+    top: 58px;
+}
+
+.dropdown1{
+    position: relative;
+    display: inline-block;
+}
+
+#drop-content1{
+    position: absolute;
+    z-index: 1;
+    top: 58px;
+}
+
+.button1:hover{
+	background: gold;
+	color: black;
+	
+}
+#drop-content1 a:hover{
+background:pink;	
+	
+}
+.button:hover{
+	background: gold;
+	color: black;
+	
+}
+#drop-content a:hover{
+background:pink;	
+	
+}
+.button1 {
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: normal;
+  border: 0;
+  font-size: 13px;
+  line-height: 13px;
+  color: white;
+  background: #363636;
+  padding: 1px 5px;
+  color: wheat;
+  margin-top: 25px;
+}
+button1:hover {
+  opacity: 0.9;
+}
+.button {
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: normal;
+  border: 0;
+  font-size: 43px;
+  line-height: 13px;
+  color: white;
+  background: #363636;
+  padding: 4px 13px;
+  color: wheat;
+  margin-top: 24px;
+}
+button:hover {
+  opacity: 0.9;
+}
+.notification-icon {
+  position: relative;
+  margin-right: 1em;
+  border-radius: 5px;
+  background: #ecf0f1;
+}
+.notification-icon i {
+  margin: 0.5rem;
+}
+
+.num-count {
+  position: absolute;
+  user-select: none;
+  cursor: default;
+  font-size: 0.6rem;
+  background: #e74c3c;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #ecf0f1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  top: 0.67rem;
+  right: -0.34rem;
+  box-sizing: border-box;
+}
+/* 헤더끝 */
+
+.row {
+	display: flex;
+	text-align: center;
+}
+
+/* 풋터 부분  */
+.footer{
+ width: 100vw;
+ height: 150px;
+ background-color: #363636;
+ margin: 0 auto;
+font-family: 'Noto Sans KR', sans-serif;
+}
+
+.footer-col {
+	width: 50%;
+	background-color: #363636;
+	color: white;
+	text-align: left;
+	font-family: 'Noto Sans KR', sans-serif;
+	min-width: 1000px;
+	min-height: -300px;
+	margin-top: 32px;
+}
+.footer-col1 {
+	width: 50%;
+	background-color: #363636;
+	color: white;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+	min-width: 1000px;
+	min-height: -300px;
+}
+.footer-col  .social-links a {
+	display: inline-block;
+	background-color: rgba(255, 255, 255, 0.2);
+	height:50px;
+	width: 40px;
+	margin-right: 0 10px 10px 0;
+	text-align:center;
+	line-height: 30px;
+	width:50px;
+	color: #ffffff;
+	transition: all 0.3s ease;
+	
+}
+
+.footer-col  .social-links a:hover {
+	color: #24262b;
+	background-color: #ffffff;
+}
+.social-icons {
+  list-style: none;
+  margin: 1em;
+}
+.social-icons li {
+  display: inline-block;
+  position: relative;
+  font-size: 1.2em;
+}
+.social-icons i {
+  color: #fff;
+  position: absolute;
+  top: 21px;
+  left: 21px;
+  transition: all 265ms ease-out;
+}
+.social-icons a {
+  display: inline-block;
+}
+.social-icons a:before {
+  transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  content: " ";
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  display: block;
+  transition: all 265ms ease-out;
+}
+.social-icons a:hover:before {
+  transform: scale(0);
+  transition: all 265ms ease-in;
+}
+.social-icons a:hover i {
+  transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -webkit-transform: scale(2.2);
+  color: #ff003c;
+  -webkit-text-fill-color: transparent;
+  transition: all 265ms ease-in;
+}
+
+.social-icons a.social-square:hover:before {
+  transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -webkit-transform: scale(-180deg);
+  border-radius: 100%;
+}
+.social-icons a.social-square:hover i {
+  transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  -webkit-transform: scale(1.6);
+  color: #fff;
+  transform: scale(1.6);
+  -webkit-text-fill-color: #fff;
+}
+
+button:hover {
+	    background-color: darkorange;
+	}
+button:disabled{
+	background-color: rgba(255,255,255,0.1) !important;
+	cursor: not-allowed;
+	
+}
+
+/* 풋터 끝  */
+#room {
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  margin: 20px 0px;border: 1px solid black;
+  width: 100%;
+  height: 465px;
+  margin-top: 64px;
+ font-family: 'Noto Sans KR', sans-serif;
+}
+#room th {
+  width: 155px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  color: #fff;
+  background: #ce4869 ;
+  	font-family: 'Noto Sans KR', sans-serif;
+  	border: 1px solid #444444
+}
+ #room1 td {
+  width: 90px;
+  padding: 4px;
+  border-bottom: 1px solid #ccc;
+  background: #ccc;
+  	font-family: 'Noto Sans KR', sans-serif;
+  	border: 1px solid #444444
+  
+}
+ #room td {
+  width: 155px;
+  padding: 4px;
+  	font-family: 'Noto Sans KR', sans-serif;
+  	border: 1px solid #444444
+  
+}
+#room1{
+text-align: left;
+margin-top: -22px;
+margin: -3px;
+}
+td.room_name{
+  color: black;
+  text-align: center;
+  background-color: #ccc;
+  text-decoration: orange wavy underline;
+  
+  
+}
+/* 등록 츼소 버튼 */
+.window{
+text-align: right;
+}
+
+
+@import 'https://fonts.googleapis.com/css?family=Material+Icons';
+a {
+  color: cornflowerblue;
+  text-decoration: none;
+}
+a:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#locations{
+    display: none;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+  
+}
+.location{
+    height: 23px !important;
+    width: 81px !important;
+    background-color: #ccc;
+    font-size: 10px !important;
+   
+}
+.location button :hover{
+background-color: rgba(4, 219, 58, 0.2) !important;
+}
+.seoul{
+    display: inline-block;
+}
+.showCity{
+    display: contents;
+    width: 96px;
+    height: 34px;
+    background-color:#ccc;
+    color: black;
+     
+}
+
+ .styled-table {
+    margin: 300x 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: black;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table th,
+.styled-table td {
+    padding: 12px 95px;
+font-family: 'Noto Sans KR', sans-serif;
+}
+.styled-table tbody tr {
+    border-bottom: 3px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+/* 모집 중 */
+.seoul{
+    display: inline-block;
+    background: yellow;
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 50px;
+    width: 100px;
+}
+
+/* 활동종료 */
+.seoul1{
+	 display: inline-block;
+	background: gray;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius: 50px;
+    width: 100px;
+
+}
+
+/* 모집종료 */
+
+.seoul2{
+	 display: inline-block;
+	background: red;
+	font-family: 'Noto Sans KR', sans-serif;
+	border-radius: 50px;
+    width: 100px; 
+}
+/* */
+#container_list {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+}
+#wrapper_list {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	display: flex;
+	position: relative;
+	align-items: center;
+	position: relative;
+	display: flex;
+}
+
+#wrapper_list_inner {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	overflow-y: scroll;
+	margin: 0px;
+}
+
+/* 리스트 제목  */
+#headline {
+	font-size: 30px;
+	color: black;
+	text-align: center;
+	user-select: none;
+	margin-top: 30px;
+}
+
+/* 전체적인 표의 속성  */
+/* 글자크기로 표 크기 결정 */
+.list_table {
+	width: 95%;
+	margin: auto;
+	border-collapse: collapse;
+	color: #333;
+	border-radius: .4em;
+	overflow: hidden;
+	table-layout: fixed;
+	font-size: 13px;
+	user-select: none;
+}
+
+/* 표 헤더 속성  */
+.list_table tr:first-child {
+	background-color: black;
+	color: #F8F8F8;
+	text-align: center;
+}
+
+/* 표 헤더 제외 표 속성 */
+.list_table tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background-color: #F8F8F8;
+	border-color: rgb(36, 61, 91);
+}
+
+/* 표에서 글자수 많으면 ... 효과  */
+.list_table td {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.list_table td:first-child {
+	margin-top: .5em;
+}
+
+.list_table td:last-child {
+	margin-bottom: .5em;
+}
+
+.list_table th, .list_table td {
+	text-align: center;
+}
+
+@media screen and (max-width: 601px) {
+	.list_table tr:nth-child(2) {
+		border-top: none;
+	}
+	.list_table th:first-child, .list_table td:first-child {
+		font-weight: bold;
+		color: black;
+	}
+	.list_table td a {
+		text-decoration: none;
+		color: black;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.list_table tr:hover:not(:first-child) {
+		background-color: rgba(131, 244, 180, 0.3);
+	}
+	.list_table td:before {
+		display: none;
+	}
+	.list_table td a {
+		text-decoration: none;
+		color: black;
+	}
+	.list_table th, .list_table td {
+		display: table-cell;
+	}
+	.list_table th:first-child, .list_table td:first-child {
+		font-weight: bold;
+		padding-left: 0;
+	}
+	.list_table th:last-child, .list_table td:last-child {
+		padding-right: 0;
+	}
+	.list_table th, .list_table td {
+		padding: 1em !important;
+	}
+}
+
+/* 신고내용 */
+
+/* 프레임 8px여백 없애기 위함  */
+body {
+	margin: 0;
+}
+/* 테이블내 버튼  */
+.gradient-btn {
+	display: inline-block;
+	padding: 0.25em 0.7em;
+	border-radius: 0;
+	color: #5B86EF;
+	font-weight: bold;
+	font-size: 0.7rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: linear-gradient(to right, rgba(178, 135, 111, 0) 25%,
+		#332E33 75%);
+	background-position: 1% 50%;
+	background-size: 400% 300%;
+	border: 1px solid #332E33;
+	transition: 700ms cubic-bezier(0.165, 0.84, 0.44, 1);
+	cursor: pointer;
+}
+
+.gradient-btn:hover {
+	transition: 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gradient-btn:hover {
+	color: white;
+	color: #fff;
+	background-position: 99% 50%;
+}
+
+/* 표 아래 버튼  */
+.btn {
+	display: block;
+	width: 100px;
+	height: 40px;
+	font-weight: bold;
+	border: 3px black solid;;
+	margin: 15px auto;
+	background-color: black;
+	text-align: center;
+	cursor: pointer;
+	color: white;
+	transition: all 0.9s, color 0.3;
+	margin-right: -12px;
+	margin-top: 1px;
+	float: right;
+}
+
+.hover1:hover {
+	box-shadow: 200px 0 0 0 white inset;
+	font-weight: bold;
+	color: black;
+}
+

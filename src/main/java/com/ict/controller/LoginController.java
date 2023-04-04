@@ -1,5 +1,7 @@
 package com.ict.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,10 @@ public class LoginController {
 
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
-	}
+		}
+	
+	
+	
 	
 	
 
@@ -64,10 +69,17 @@ public class LoginController {
 
 	@RequestMapping(value = "registerComplete.do")
 	@ResponseBody
-	public String RegisterComplete(@ModelAttribute VO vo,@ModelAttribute CategoryVO cvo) {
+	public String RegisterComplete(@ModelAttribute VO vo, @ModelAttribute CategoryVO cvo) {
 		
 		System.out.println("endTime : " + vo.getpTime2());
-		System.out.println("cat ; " + cvo.getCategory());
+		//System.out.println("cat ; " + vo.getGetCat());
+		StringBuilder sb = new StringBuilder();
+		List<String> catList = cvo.getCategory();
+		for (String k : catList) {
+			sb.append(k+",");
+		}
+		System.out.println(sb.toString());
+		vo.setGetCat(sb.toString());
 		int result = loginService.getInsert(vo);
 		if(result==1) {
 		 return "complete";
@@ -93,7 +105,7 @@ public class LoginController {
 	}
 	@RequestMapping("complete.do")
     public ModelAndView returnComplete() {
-		return new ModelAndView("complete");
+		return new ModelAndView("mymain");
 	}
 	@RequestMapping("fail.do")
     public ModelAndView returnfail() {
@@ -161,6 +173,13 @@ public class LoginController {
 			return "0";
 		}
 	}
+	
+	@RequestMapping("login.mymain.do")
+	public ModelAndView MyMain3() {
+		ModelAndView mv = new ModelAndView("login.mymain");
+		return mv;
+	}
+	
 	
 		
 	

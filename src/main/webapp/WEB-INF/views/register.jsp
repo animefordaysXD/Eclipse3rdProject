@@ -18,7 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="resources/css/register.css" rel="stylesheet">
+<link href="resources/LoginRegisterCss/register.css" rel="stylesheet">
 <script type="text/javascript">
 var sns = "${sns}";
 var emailConfirm =false;
@@ -279,7 +279,9 @@ function getButtonsWithValue2True() {
 			         pTime: startTime,
 			         pTime2: endTime,
 			         Category:getCat,
-			         sns_type: sns
+			         sns_type: sns,
+			         emailConf:1,
+			         
 			        },
 			        dataType: 'text',
 			        success: function(response) {	 
@@ -356,7 +358,8 @@ function getButtonsWithValue2True() {
 		         pTime: startTime,
 		         pTime2: endTime,
 		         Category:getCat,
-		         sns_type: sns
+		         sns_type: sns,
+		         emailConf:0
 		    },
 		    dataType: 'text',
 		    success: function(response) {

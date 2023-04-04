@@ -12,7 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>      
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>  
         <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-        <link href="resources/css/login.css" rel="stylesheet">
+        <link href="resources/LoginRegisterCss/login.css" rel="stylesheet">
     </head>
 
     <script>
@@ -46,43 +46,32 @@
       }
 
       // Facebook login
-      function signInWithFacebook() {
-        const provider = new firebase.auth.FacebookAuthProvider();
+      
+    	  function signInWithFacebook() {
+    		  // Initialize the Facebook provider
+    		  const provider = new firebase.auth.FacebookAuthProvider();
 
-        auth
-          .signInWithPopup(provider)
-          .then((result) => {
-        	  if (result.additionalUserInfo.isNewUser) {
-        	        
-        	        window.location.href = "register.do?sns=facebook";
-        	      } else {
-        	       
-        	        window.location.href = "complete.do";
-        	      }
-          })
-          .catch((error) => {
-           console.log("error: " + error);
-          });
-      }
-
-      // Sign out
-      function signOut() {
-        auth.signOut().then(() => {
-          // User signed out
-        });
-      }
-
-      // Listen for authentication state changes
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          // User is signed in
-          if (!user.emailVerified) {
-            sendVerificationEmail();
-          }
-        } else {
-          // User is signed out
-        }
-      });
+    		  // Sign in to Firebase using the Facebook provider
+    		 
+    		  auth.signInWithPopup(provider)
+    		    .then((result) => {
+    		      // Redirect the user to the appropriate page based on their authentication status
+    		      if (result.additionalUserInfo.isNewUser) {
+    		    	  console.log("new");
+    		        window.location.href = "register.do?sns=facebook";
+    		      } else {
+    		    	  console.log("old");
+    		        window.location.href = "complete.do";
+    		      }
+    		    })
+    		    .catch((error) => {
+    		      console.log(error);
+    		    });
+    		  
+    		  alert("hi mum");
+    		}
+       
+     
     </script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -260,7 +249,7 @@
                 <p>계정이 없습니까?<a href="register.do?sns=email"><u>회원가입하기</u></a></p>
             </div>
             <div style="display:flex;justify-content:space-around;">
-            <a href="#">홈으로 돌아가기</a>
+            <a href="login.mymain.do">홈으로 돌아가기</a>
         </div>
             
            

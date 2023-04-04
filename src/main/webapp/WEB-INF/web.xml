@@ -51,6 +51,6 @@
 	
    <!-- 첫페이지 지정 -->
     <welcome-file-list>
-   		<welcome-file>/WEB-INF/views/login.jsp</welcome-file>
+   		<welcome-file>/WEB-INF/views/login.mymain.jsp</welcome-file>
    </welcome-file-list>
 </web-app>
