@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homepage">
+
+<insert id="insert" parameterType="hvo">
+insert into room(room_idx,room_title,category_type,room_region
+	,room_datergion,start_datetime, end_datetime, flnal_datetime, room_gender, room_content,write_datetime)
+	values(room_seq.nextval, #{room_title}, #{category_type}, #{room_region}, 
+	#{room_datergion} , #{start_datetime} #{end_datetime}, #{flnal_datetime}, #{room_gender}, #{room_content}, to_char(sysdate,'YYYY/MM/DD'))
+</insert>
+	<select id="getList" resultType="hvo">
+	select * from room order by room_idx
+	</select>
+	
+</mapper>
+
+
+
+
+

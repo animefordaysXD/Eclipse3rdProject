@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ict.homepage.model.service.homepage_Service;
+import com.ict.homepage.model.vo.homepage_VO;
 import com.ict.service.LoginService;
 import com.ict.service.VO.CategoryVO;
 import com.ict.service.VO.VO;
@@ -34,6 +36,55 @@ public class LoginController {
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 		}
+	@Autowired
+	private homepage_Service homepage_Service;
+	
+	public void setHomepage_Service(homepage_Service homepage_Service) {
+		this.homepage_Service = homepage_Service;
+	}
+
+	
+	
+	@RequestMapping("manager.mymain.do")
+	public ModelAndView MyMain1() {
+		ModelAndView mv = new ModelAndView("homepage-views/manager.mymain");
+		return mv;
+	}
+	@RequestMapping("supermanager.mymain.do")
+	public ModelAndView MyMain2() {
+		ModelAndView mv = new ModelAndView("homepage-views/supermanager.mymain");
+		return mv;
+	}
+	@RequestMapping("login.mymain.do")
+	public ModelAndView MyMain3() {
+		ModelAndView mv = new ModelAndView("login-views/login.mymain");
+		return mv;
+	}
+	
+	
+	@RequestMapping("homepage.do")
+	public ModelAndView HomePage() {
+	    ModelAndView mv = new ModelAndView("homepage-views/homepage");
+		return mv;
+		
+	}
+	/*
+	 * @RequestMapping("homepage_ok.do") public ModelAndView HomePageok(homepage_VO
+	 * hvo, HttpSession session) { ModelAndView mv = new
+	 * ModelAndView("redirect:roomlist.do"); //리스트 로 가야함 return mv;
+	 * 
+	 * }
+	 */
+
+	@RequestMapping("roomList.do")
+	public ModelAndView romm() {
+		ModelAndView mv = new ModelAndView("homepage-views/roomList");
+		List<homepage_VO> list = homepage_Service.homepageList();
+		mv.addObject("list", list);
+		
+		return mv;
+
+	}
 	
 	
 	
@@ -42,13 +93,13 @@ public class LoginController {
 
 	@RequestMapping(value = "login.do")
 	public ModelAndView getLogin() {
-		return new ModelAndView("login");
+		return new ModelAndView("login-views/login");
 	}
 
 	@RequestMapping(value = "register.do")
 	public ModelAndView getRegister(HttpServletRequest request) {
 		String sns = request.getParameter("sns");
-		ModelAndView mv = new ModelAndView("register");
+		ModelAndView mv = new ModelAndView("login-views/register");
 		mv.addObject("sns", sns);
 		return mv;
 	}
@@ -93,10 +144,10 @@ public class LoginController {
 		vo.setGetCat(sb.toString());
 		int result = loginService.getInsert(vo);
 		if(result==1) {
-		 return "complete";
+		 return "login-views/complete";
 		}else {
 			
-			return "fail";
+			return "login-views/fail";
 		}
 	}
 
@@ -137,32 +188,43 @@ public class LoginController {
 	}
 	@RequestMapping("complete.do")
     public ModelAndView returnComplete(@RequestParam(required = false) String email,HttpSession session) {
-		byte[] decodedBytes = Base64.getDecoder().decode(email);
-		String decodedEmail = new String(decodedBytes);
-		System.out.println("email is: " + email);
-		System.out.println("decodedEmail is: " + decodedEmail);
-		
-		String hash = loginService.getHash(decodedEmail);
-		if(email==null||hash==null) {
-			System.out.println(hash);
-		return new ModelAndView("redirect:login.do");
-		}else {
-			ModelAndView mv = new ModelAndView("mymain");
-			System.out.println("worked ");
-			mv.addObject("hash",hash);
-			return mv;
+		if(email!=null) {
+			byte[] decodedBytes = Base64.getDecoder().decode(email);
+			String decodedEmail = new String(decodedBytes);
+			System.out.println("email is: " + email);
+			System.out.println("decodedEmail is: " + decodedEmail);
+			
+			String hash = loginService.getHash(decodedEmail);
+			if(email==null||hash==null||decodedBytes==null) {
+				System.out.println(hash);
+			return new ModelAndView("redirect:login.do");
+			}else {
+				ModelAndView mv = new ModelAndView("login-views/mymain");
+				System.out.println("worked ");
+				mv.addObject("hash",hash);
+				return mv;
+			}
 		}
+		else {
+			return new ModelAndView("redirect:login.do");
+		}
+		
+		
 	}
 
 		
 	
 	@RequestMapping("fail.do")
     public ModelAndView returnfail() {
-		return new ModelAndView("fail");
+		return new ModelAndView("login-views/fail");
+	}
+	@RequestMapping("index.do")
+    public ModelAndView returnIndex() {
+		return new ModelAndView("homepage-views/index");
 	}
 	@RequestMapping("adminLogin.do")
     public ModelAndView returnAdminLog() {
-		return new ModelAndView("adminLogin");
+		return new ModelAndView("login-views/adminLogin");
 	}
 	@RequestMapping("getLogin.do")
 	@ResponseBody
@@ -190,12 +252,12 @@ public class LoginController {
 	
 	@RequestMapping("adminComplete.do")
     public ModelAndView returnAdminComplete() {
-		return new ModelAndView("adminComplete");
+		return new ModelAndView("login-views/adminComplete");
 	}
 	
 	@RequestMapping("findPassword.do")
 	public ModelAndView findPassword() {
-		return new ModelAndView("passwordFind");
+		return new ModelAndView("login-views/passwordFind");
 	}
 	
 	@RequestMapping("kakaoLogin.do")
@@ -240,11 +302,7 @@ public class LoginController {
 			}
 	}
 	
-	@RequestMapping("login.mymain.do")
-	public ModelAndView MyMain3() {
-		ModelAndView mv = new ModelAndView("login.mymain");
-		return mv;
-	}
+	
 	
 	
 		

@@ -9,11 +9,12 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.ict.service.VO.VO" alias="vo"/>
-		<typeAlias type="com.ict.service.VO.CategoryVO" alias="cvo"/>
-		
+		<typeAlias type="com.ict.service.VO.CategoryVO" alias="cvo"/>		
+		<typeAlias type="com.ict.homepage.model.vo.homepage_VO" alias="hvo"/>		
 	</typeAliases>
 	<mappers>
 		
 		<mapper resource="mappers/login-mapper.xml" />
+		<mapper resource="mappers/homepage-mapper.xml" />
 	</mappers>
 </configuration>
