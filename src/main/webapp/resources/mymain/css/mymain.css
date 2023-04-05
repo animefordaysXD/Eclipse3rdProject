@@ -23,7 +23,7 @@ header {
 	background-color: #363636;
 	position: fixed;
 	margin: 0 auto;	
-	z-index:1;
+	z-index:999;
 	font-family: 'Noto Sans KR', sans-serif;
 	
 }

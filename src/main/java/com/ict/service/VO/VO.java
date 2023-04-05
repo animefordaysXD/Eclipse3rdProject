@@ -4,7 +4,7 @@ package com.ict.service.VO;
 
 public class VO {
 	String email,password,name,gender,birthday,nickName,region,pTime,pTime2,
-	sns_type,admin_chk,getCat;	
+	sns_type,admin_chk,getCat,hash;	
 	int idx,emailConf;
 	
 	public String getEmail() {
@@ -90,6 +90,12 @@ public class VO {
 	}
 	public void setGetCat(String getCat) {
 		this.getCat = getCat;
+	}
+	public String getHash() {
+		return hash;
+	}
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 	
 	

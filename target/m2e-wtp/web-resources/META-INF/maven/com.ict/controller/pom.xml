@@ -179,6 +179,12 @@
     <artifactId>spring-context-support</artifactId>
     <version>5.3.18</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+	<dependency>
+    <groupId>com.ibm.icu</groupId>
+    <artifactId>icu4j</artifactId>
+    <version>70.1</version>
+	</dependency>
 	
 
 		

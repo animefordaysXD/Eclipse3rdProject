@@ -22,6 +22,7 @@
 <script type="text/javascript">
 var sns = "${sns}";
 var emailConfirm =false;
+
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("showCity").textContent="구를 선택해주세요";
     const buttons = document.querySelectorAll(".location");
@@ -85,7 +86,7 @@ function isValidEmail(email) {
 			        	if(response==="1"){
 			        		emailText.textContent = "사용 불가능";
 			        	}else{
-			        		emailConfirm =true;
+ 			        		emailConfirm =true;
 			        		emailText.textContent = "사용 가능";
 			        	}
 			        			
@@ -228,18 +229,7 @@ $(function() {
 	      });
 	  });
 	});
-function sendVerificationEmail() {
-    const user = auth.currentUser;
 
-    user
-      .sendEmailVerification()
-      .then(() => {
-        // Email verification sent
-      })
-      .catch((error) => {
-        // Handle errors
-      });
-  }
 function getButtonsWithValue2True() {
 	  var buttons = $('button.categoryButton[data-value2="true"]');
 	  var values = [];
@@ -262,8 +252,9 @@ function getButtonsWithValue2True() {
 		    var getCat = getButtonsWithValue2True();
 		    
 		    console.log("End Time:", endTime);
-		    if (sns === "email") {
-		        signUpWithEmailPassword($('#email').val(), $('#password').val());
+		    signUpWithEmailPassword($('#email').val(), $('#password').val());
+		    /* if (sns === "email") {
+		        
 		      } else {
 			$.ajax({
 				 type: 'POST',
@@ -288,7 +279,7 @@ function getButtonsWithValue2True() {
 			        	
 			        	 if (response === "complete") {
 			        		 
-			        	        window.location.href = "complete.do";
+			        	        window.location.href = "login.do?regCom=true";
 			        	    } else {
 			        	        window.location.href = "fail.do";
 			        	    }
@@ -297,7 +288,7 @@ function getButtonsWithValue2True() {
 			        	alert('signUpFail');
 			        }
 			});
-		  }
+		  } */
 			
 		});
 		
@@ -364,7 +355,8 @@ function getButtonsWithValue2True() {
 		    dataType: 'text',
 		    success: function(response) {
 		      if (response === "complete") {
-		        window.location.href = "complete.do";
+		    	  var codedEmail = btoa($('#email').val());
+		        window.location.href = "complete.do?email="+codedEmail;
 		      } else {
 		        window.location.href = "fail.do";
 		      }
@@ -386,7 +378,7 @@ function getButtonsWithValue2True() {
 					<div class="signupEmail">
 						
 							<input type="text" class="input_field" id="email"
-								placeholder="이메일/아이디" name="email">
+								placeholder="이메일/아이디" name="email" value="${email}">
 							<button type="button" class="signUpbutton" id="getEmail"
 								onclick="ConfirmEmail()">중복체크</button>
 							<p class="getEmailPara" id="getEmailPara" style="color: #fff;"></p>

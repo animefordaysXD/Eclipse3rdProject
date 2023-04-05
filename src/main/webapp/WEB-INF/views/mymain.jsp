@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="firebase.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,175 @@ $(".hover").mouseleave(
   }
 );
 
+
+
+
 </script>
+<script type="text/javascript">
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      console.log("User signed in:", user);
+
+      if (user.emailVerified) {
+    	  console.log("이메일 인증 돼 있음");
+      } else {
+        console.log("이메일 인증 안돼있음");
+        document.getElementById("emailNotVerti").style.display = "flex";
+      }
+    } else {
+      console.log("No user is currently signed in.");
+    }
+  });
+  
+  
+  
+  function sendEmail(){
+	  const user = firebase.auth().currentUser;
+	  const divElement = document.getElementById("emailPara");
+	  const buttonElement = document.getElementById("getEmailButton");
+	  if (user) {
+		    user.sendEmailVerification()
+		      .then(() => {
+		    	  alert("이메일이 전송 됐습니다. 이메일 확인 하시고 다시 로그인해주세요.");
+		        console.log("Verification email sent.");
+		        divElement.innerText = "이메일을 못찾으시겠으면  스팸 폴더도 확인해주세요.";
+		        buttonElement.innerText = "재전송";
+		        
+		      })
+		      .catch((error) => {
+		        console.error("Error sending verification email: ", error);
+		      });
+		  } else {
+		    console.log("No user is currently signed in.");
+		  }
+  }
+  var slideIndex = 1;
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    x[slideIndex-1].style.display = "block";  
+  }
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    const element = document.getElementById("imageSlider");
+    const height= window.innerHeight + "px";
+   
+    showDivs(slideIndex);
+    element.style.height = height;
+
+    // set interval for automatic slide change
+    setInterval(function() {
+      plusDivs(1);
+    }, 5000);
+
+  });
+  
+  function showChat() {
+	  const messageArea = document.getElementById("messageArea");
+	  var chatBot = document.getElementById("chatBot");
+	  messageArea.classList.toggle("show");
+	  if(chatBot.style.display==="none"){
+		  chatBot.style.display = "flex";
+	  }else{
+		  chatBot.style.display = "none";
+	  }
+	}
+
+</script>
+
+
+
+
+
+<style>
+.getEmailButton{
+    background-color: gray;
+    border-color: aliceblue;
+    border-radius: 15px;
+    color: yellow;
+    font-size: 15px;
+}
+.getEmailButton:hover{
+cursor: pointer;
+background-color: darkgray;
+}
+.emailNotVerti{
+display: none;
+    width: auto;
+    height: 50pxpx;
+    background-color: rgb(19 22 1);
+    color: revert;
+    
+}
+.imageSlider{
+width:auto;
+background-color: blue;
+padding-top: 135px;
+}
+.mySlides {
+display:none;
+}
+.messageArea {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.messageArea.show {
+  opacity: 1;
+  transform: translateY(0);
+  height: 500px;
+  
+}
+.chatBot {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  background-color:rgba(36, 105, 236, 0.5);
+  width: 100px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.chatBot:hover{
+background-color: rgba(36, 105, 236, 0.2);
+}
+.chatBot:hover #chatBotIcon{
+ animation: hopAndColor 1s forwards;
+}
+@keyframes hopAndColor {
+       0%   { transform: scale(1,1)    translateY(0); }
+        10%  { transform: scale(1.1,.9) translateY(0); }
+        30%  { transform: scale(.9,1.1) translateY(-10px); }
+        50%  { transform: scale(1,1)    translateY(0); }
+        100% { transform: scale(1,1)    translateY(0); color:gray;}
+        }
+.messageButtons{
+background-color: blue;
+color: white;
+height:20px;
+width:50px;
+}
+
+</style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -61,7 +230,7 @@ $(".hover").mouseleave(
 		<div class="option">
 		<div class="dropdown1">
         <button onclick="dp_menu1()" class="button1"> <i class="material-icons dp48">notifications</i></button>
-      
+      	
     <spacer></spacer>
       <span class="num-count">2</span>
         <div style="display: none;" id="drop-content1" >
@@ -116,11 +285,21 @@ $(".hover").mouseleave(
 				<li class="br"><a href="#">홈</a></li>
 				<li class="br"><a href="login.mymain.do">로그아웃</a></li>
 				<li class="br"><a href="#">메뉴</a></li>
-				<li class="br active">현재페이지</li>
+				<li class="br active" aria-current="page">현재페이지</li>
 			</ul>
 		</div>
    
    </nav>
+   
+   <div class="emailNotVerti" id="emailNotVerti" >
+   <p id="emailPara" style="margin: 0;">이메일 인증이 안돼있습니다. 인증하기를 눌러서 인증을 진행해주세요.</p>
+   <button type="button" id="getEmailButton" class="getEmailButton" onclick="sendEmail()" 
+   style="
+    margin-left: 44px;
+    margin-top: 0px;
+    height:33px;
+  ">인증하기</button>
+   </div>
 
     <script>
         function dp_menu(){
@@ -147,8 +326,15 @@ $(".hover").mouseleave(
 		
 		
 	</header>
+	
+<div class="imageSlider" id="imageSlider">
+ <img class="mySlides" src="resources/images/이미지배너 광고1.png" style="width:100%;height:100%;">
+  <img class="mySlides" src="resources/images/이미지배너 농구.png" style="width:100%;height:100%;">
+  <img class="mySlides" src="resources/images/이미지배너 광고2.png" style="width:100%;height:100%;">
+  <img class="mySlides" src="resources/images/이미지배너 볼링.png" style="width:100%;height:100%;"> 
+</div>
 		
-
+		
 	
 <section>
 <figure class="snip1425">
@@ -190,6 +376,21 @@ $(".hover").mouseleave(
 
 
 	</section>
+	<div id="messageArea" class="messageArea" >
+	<button class="messageButtons" type="button">카카오톡</button>
+	<button class="messageButtons" type="button">asd</button>
+	<button class="messageButtons" type="button">asd</button>
+	<button class="messageButtons" type="button">asd</button>
+	<button class="messageButtons" type="button">asd</button>
+	<button onclick="showChat()">닫기</button>
+	<div id="chatMessage" class="chatMessage">안녕하세요!</div>
+	</div>
+	<div class="chatBot" id="chatBot" onclick="showChat()">
+	
+	 
+	<p><i id="chatBotIcon" class="fa-solid fa-comment"></i></p>
+	
+	</div>
 	
 		<footer class="footer">
 		<div class="container">

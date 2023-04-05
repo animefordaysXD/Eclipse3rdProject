@@ -16,10 +16,14 @@
     </head>
 
     <script>
+    var regCom='${regCom}';
+    if(regCom===true){
+    	alert('회원가입 성공');
+    }
       // Your web app's Firebase configuration
      
 
-      const auth = firebase.auth();
+      
 
       // Email verification
    
@@ -32,12 +36,15 @@
         auth
           .signInWithPopup(provider)
           .then((result) => {
+        	  const email = result.user.email;
         	  if (result.additionalUserInfo.isNewUser) {
       	        // New user, redirect to the registration page
-      	        window.location.href = "register.do?sns=google";
+      	        window.location.href = "register.do?sns=google&email="+email;
       	      } else {
       	        // Existing user, redirect to the complete page
-      	        window.location.href = "complete.do";
+      	    	  const encodedEmail = btoa(email);
+  	            
+ 	            	window.location.href = "complete.do?email=" + encodedEmail;
       	      }
           })
           .catch((error) => {
@@ -55,13 +62,15 @@
     		 
     		  auth.signInWithPopup(provider)
     		    .then((result) => {
+    		    	 const email = result.user.email;
     		      // Redirect the user to the appropriate page based on their authentication status
     		      if (result.additionalUserInfo.isNewUser) {
     		    	  console.log("new");
-    		        window.location.href = "register.do?sns=facebook";
+    		        window.location.href = "register.do?sns=facebook&email="+email;
     		      } else {
-    		    	  console.log("old");
-    		        window.location.href = "complete.do";
+    		    	  const encodedEmail = btoa(email);
+	    	            
+   	            	window.location.href = "complete.do?email=" + encodedEmail;
     		      }
     		    })
     		    .catch((error) => {
@@ -82,32 +91,54 @@
     });
    
     
-    function getLogin(){
+  function getLogin(){
     	var username = document.getElementById('username').value;
     	var password = document.getElementById('password').value;
-    	$(function() {
-			$.ajax({
-		        type: 'POST',
-		        url: 'getLogin.do',
-		        data: {
-		          email: username,
-		          password: password
-		        },
-		        dataType: 'text',
-		        success: function(response) {	 
-		        	
-		        	if(response==="1"){
-		        		window.location.href = "complete.do";
-		        	}else{
-		        		alert('로그인 실패');
-		        	}
-		        			
-		        },
-		        error: function(xhr, status, error) {
-		        	alert('error : ' + error);
-		        }
-		      });
-		});
+    	if(username.length<1){
+    		alert('유저네임을 입력해주세요');
+    	}else if(password.length<1){
+    		alert('비밀번호를 입력해주세요');
+    	}else{
+    	firebase.auth().signInWithEmailAndPassword(username, password)
+        .then((userCredential) => {
+          // Signed in successfully
+          const user = userCredential.user;
+          
+         
+          $(function() {
+  			$.ajax({
+  		        type: 'POST',
+  		        url: 'getLogin.do',
+  		        data: {
+  		          email: username,
+  		          password: password
+  		        },
+  		        dataType: 'text',
+  		        success: function(response) {	 
+  		        	
+  		        	if(response==="1"){
+  		        		 const encodedEmail = btoa(username);
+  	    	            
+     	            	window.location.href = "complete.do?email=" + encodedEmail;
+  		        	}else{
+  		        		alert('로그인 실패');
+  		        	}
+  		        			
+  		        },
+  		        error: function(xhr, status, error) {
+  		        	alert('error : ' + error);
+  		        }
+  		      });
+  		});
+        })
+        .catch((error) => {
+          // Error occurred during sign-in
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error signing in:", errorCode, errorMessage);
+        });
+    	
+    }
     }
     
     
@@ -142,7 +173,9 @@
     	              if (response === "register.do?sns=kakao") {
     	                window.location.href = "register.do?sns=kakao";
     	              } else {
-    	                window.location.href = "complete.do";
+    	            	  const encodedEmail = btoa(userEmail);
+    	    	            
+      	            	window.location.href = "complete.do?email=" + encodedEmail;
     	              }
     	            },
     	            error: function (xhr, status, error) {
@@ -180,7 +213,7 @@
     	      if (status) {
     	        // Get the user's Naver ID or email
     	         var userEmail = naverLogin.user.getEmail(); // or naverLogin.user.getEmail();
-				console.log('userEmail ' + userEmail);
+				console.log('userEmail' + userEmail);
     	        // Send an AJAX request to your server to check if the user exists
     	        $.ajax({
     	          type: 'POST',
@@ -191,10 +224,15 @@
     	          },
     	          dataType: 'text',
     	          success: function (response) {
+    	            	
     	            if (response === "1") {
+    	            	
     	              // If the user exists in your database, log them in
-    	              window.location.href = "complete.do";
+    	              const encodedEmail = btoa(userEmail);
+    	            
+    	            	window.location.href = "complete.do?email=" + encodedEmail;
     	            } else {
+    	            	
     	              // If the user does not exist, redirect them to the registration page
     	              window.location.href = "register.do?sns=naver";
     	            }
@@ -224,7 +262,7 @@
             </div>
            
             <div class="input-field" id="id">
-                <input type="text" class="input" id="username" placeholder="유저네임" required>
+                <input type="text" class="input" id="username" placeholder="이메일" required>
             </div>
             <div class="space"></div>
             <div class="input-field" id="pwd">

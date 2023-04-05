@@ -8,13 +8,16 @@
 <select id="email" parameterType="vo" resultType="Integer">
  select count(*) from users where u_email = #{email} and u_sns_type=#{sns_type}
 </select>
+<select id="hash" parameterType="String" resultType="Integer">
+ select count(*) from users where u_hash = #{hash}
+</select>
 
 <select id="nick" parameterType="String" resultType="Integer">
  select count(*) from users where u_nickname = #{a}
 </select>
  <insert id="getReg" parameterType="vo">
-INSERT INTO users (u_idx,u_email, u_pwd,u_salt, u_name, u_gender, u_bday, u_nickname, u_region, u_ptime, u_ptime2, u_sns_type,admin_idx,u_like_category,u_cert)
-VALUES (users_seq.nextval,#{email}, #{password},'abcabc', #{name}, #{gender}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{nickName}, #{region}, #{pTime}, #{pTime2},#{sns_type},0,#{getCat},#{emailConf})
+INSERT INTO users (u_idx,u_email, u_pwd,u_salt, u_name, u_gender, u_bday, u_nickname, u_region, u_ptime, u_ptime2, u_sns_type,admin_idx,u_like_category,u_cert,u_hash)
+VALUES (users_seq.nextval,#{email}, #{password},'abcabc', #{name}, #{gender}, TO_DATE(#{birthday}, 'YYYY-MM-DD'), #{nickName}, #{region}, #{pTime}, #{pTime2},#{sns_type},0,#{getCat},#{emailConf},#{hash})
 </insert>
 <select id="getLog" parameterType="vo" resultType="Integer">
 select count(*) from users where u_email=#{email} and u_pwd = #{password}
@@ -28,6 +31,12 @@ select count(*) from users where u_email=#{email} and u_sns_type='kakao'
 <select id="getNaver" parameterType="vo" resultType="Integer">
 select count(*) from users where u_email=#{email} and u_sns_type='naver'
 </select>	
+<select id="checkHash" parameterType="String" resultType="Integer">
+select count(*) from users where u_hash= #{hash}
+</select>
+<select id="getHash" parameterType="String" resultType="String">
+select u_hash from users where u_email = #{email}
+</select>
 	
 </mapper>
 
