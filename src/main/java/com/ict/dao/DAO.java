@@ -54,6 +54,12 @@ public class DAO {
 	public int getNaver(VO vo) {
 		return sqlSessionTemplate.selectOne("login.getNaver",vo);
 	}
+	public int checkHash(String hash) {
+		return sqlSessionTemplate.selectOne("login.checkHash",hash);
+	}
+	public String getHash(String email) {
+		return sqlSessionTemplate.selectOne("login.getHash",email);
+	}
 
 
 

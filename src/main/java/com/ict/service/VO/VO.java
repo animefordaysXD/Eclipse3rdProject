@@ -1,9 +1,12 @@
 package com.ict.service.VO;
 
+
+
 public class VO {
 	String email,password,name,gender,birthday,nickName,region,pTime,pTime2,
-	sns_type,admin_chk;
-	int idx;
+	sns_type,admin_chk,getCat,hash;	
+	int idx,emailConf;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -76,6 +79,25 @@ public class VO {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
+	public int getEmailConf() {
+		return emailConf;
+	}
+	public void setEmailConf(int emailConf) {
+		this.emailConf = emailConf;
+	}
+	public String getGetCat() {
+		return getCat;
+	}
+	public void setGetCat(String getCat) {
+		this.getCat = getCat;
+	}
+	public String getHash() {
+		return hash;
+	}
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+	
 	
 
 

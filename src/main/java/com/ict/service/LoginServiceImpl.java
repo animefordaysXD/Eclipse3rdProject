@@ -44,6 +44,14 @@ public class LoginServiceImpl implements LoginService {
 	public int getNaver(VO vo) {
 		return dao.getNaver(vo);
 	}
+	@Override
+	public int checkHash(String hash) {
+		return dao.checkHash(hash);
+	}
+	@Override
+	public String getHash(String email) {
+		return dao.getHash(email);
+	}
 
 
 }

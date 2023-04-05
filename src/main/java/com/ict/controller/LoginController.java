@@ -1,6 +1,16 @@
 package com.ict.controller;
 
+import java.util.Base64;
+import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import java.security.SecureRandom;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +33,10 @@ public class LoginController {
 
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
-	}
+		}
+	
+	
+	
 	
 	
 
@@ -52,7 +65,7 @@ public class LoginController {
 			result = loginService.getId(vo);
 			System.out.println(result);
 		}
-		if (result == 1) {
+		if (result >= 1) {
 
 			return "1";
 		} else {
@@ -64,10 +77,20 @@ public class LoginController {
 
 	@RequestMapping(value = "registerComplete.do")
 	@ResponseBody
-	public String RegisterComplete(@ModelAttribute VO vo,@ModelAttribute CategoryVO cvo) {
-		
+	public String RegisterComplete(@ModelAttribute VO vo, @ModelAttribute CategoryVO cvo) {
 		System.out.println("endTime : " + vo.getpTime2());
-		System.out.println("cat ; " + cvo.getCategory());
+		//System.out.println("cat ; " + vo.getGetCat());
+		StringBuilder sb = new StringBuilder();
+		List<String> catList = cvo.getCategory();
+		for (String k : catList) {
+			sb.append(k+",");
+		}
+		String hash = Hash(8);
+			
+		
+		vo.setHash(hash);
+		System.out.println(sb.toString());
+		vo.setGetCat(sb.toString());
 		int result = loginService.getInsert(vo);
 		if(result==1) {
 		 return "complete";
@@ -76,6 +99,27 @@ public class LoginController {
 			return "fail";
 		}
 	}
+
+	public String Hash(int length) {
+		StringBuilder hash;
+		 while(true) {
+		String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		  SecureRandom random = new SecureRandom();
+		   hash = new StringBuilder(length);
+		  for (int i = 0; i < length; i++) {
+	          int randomIndex = random.nextInt(CHARACTERS.length());
+	          char randomChar = CHARACTERS.charAt(randomIndex);
+	          hash.append(randomChar);
+		  }
+		  int result = loginService.checkHash(hash.toString());
+		  if(result==0) {
+			  break;
+		  }
+		 }
+			  		 
+		  return hash.toString();       
+	}
+	
 
 	@PostMapping(value = "getNickChk.do")
 	@ResponseBody
@@ -92,9 +136,26 @@ public class LoginController {
 
 	}
 	@RequestMapping("complete.do")
-    public ModelAndView returnComplete() {
-		return new ModelAndView("complete");
+    public ModelAndView returnComplete(@RequestParam(required = false) String email,HttpSession session) {
+		byte[] decodedBytes = Base64.getDecoder().decode(email);
+		String decodedEmail = new String(decodedBytes);
+		System.out.println("email is: " + email);
+		System.out.println("decodedEmail is: " + decodedEmail);
+		
+		String hash = loginService.getHash(decodedEmail);
+		if(email==null||hash==null) {
+			System.out.println(hash);
+		return new ModelAndView("redirect:login.do");
+		}else {
+			ModelAndView mv = new ModelAndView("mymain");
+			System.out.println("worked ");
+			mv.addObject("hash",hash);
+			return mv;
+		}
 	}
+
+		
+	
 	@RequestMapping("fail.do")
     public ModelAndView returnfail() {
 		return new ModelAndView("fail");
@@ -152,15 +213,39 @@ public class LoginController {
 	
 	@RequestMapping("getNaver.do")
 	@ResponseBody
-	public String getNaver(@ModelAttribute VO vo) {
+	public String getNaver(@ModelAttribute VO vo,HttpSession session,HttpServletResponse response) {
 		int result = loginService.getNaver(vo);
+		
 		System.out.println("result is " + result);
-		if(result>0) {
-			return "1";
-		}else {
-			return "0";
-		}
+		if(result > 0) {	
+			
+			/*
+			 * String characters =
+			 * "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; int length
+			 * = 16; Random random = new Random(); StringBuilder sb = new
+			 * StringBuilder(length); for (int i = 0; i < length; i++) { int index =
+			 * random.nextInt(characters.length()); sb.append(characters.charAt(index)); }
+			 * Cookie authCookie = new Cookie("authToken", sb.toString());
+			 * authCookie.setMaxAge(60 * 60 * 24); // Set the cookie to expire in 24 hours
+			 * 
+			 * // Set the HttpOnly flag response.setHeader("Set-Cookie",
+			 * String.format("%s=%s; Max-Age=%d; HttpOnly", authCookie.getName(),
+			 * authCookie.getValue(), authCookie.getMaxAge()));
+			 */
+			 
+			  return "1";
+			} else {
+			 
+			  return "0";
+			}
 	}
+	
+	@RequestMapping("login.mymain.do")
+	public ModelAndView MyMain3() {
+		ModelAndView mv = new ModelAndView("login.mymain");
+		return mv;
+	}
+	
 	
 		
 	

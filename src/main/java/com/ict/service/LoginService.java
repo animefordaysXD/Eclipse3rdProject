@@ -10,4 +10,6 @@ public interface LoginService {
 	public int getAdmin(VO vo);
 	public int getKakao(VO vo);
 	public int getNaver(VO vo);
+	public int checkHash(String hash);
+	public String getHash(String email);
 }
