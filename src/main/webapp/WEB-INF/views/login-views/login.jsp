@@ -257,7 +257,7 @@
         <div class="login-box">
         <div class="container">
             <div class="top=header">
-                <span>계정이 있습니까?</span>
+                <span>계정이 있습니까?1234</span>
                 <header>로그인</header>
             </div>
            
