@@ -11,4 +11,6 @@ public interface Userlist_Super_Service {
 	public List<Userlist_Super_VO> getList(int begin, int end);
 
 	public int getUserCreate(Userlist_Super_VO userlist_Super_VO);
+
+	public int getUserDelete(String u_idx);
 }

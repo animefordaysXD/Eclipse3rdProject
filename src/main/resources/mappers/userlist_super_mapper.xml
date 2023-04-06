@@ -3,13 +3,13 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userlist_super">
-	<!-- 게시물 갯수 세기 -->
+	<!-- 사용자 수 세기 -->
 	<select id="count" resultType="int">
 		select count(*) from users
 	</select>
 
 
-	<!-- Paging 기법을 이용한 게시물 출력 -->
+	<!-- Paging 기법을 이용한 사용자 출력 -->
 	<select id="list" parameterType="Map"
 		resultType="userlist_super_vo">
 		select * from ( select rownum r_num, a.* from(select * from
@@ -17,10 +17,19 @@
 		u_idx desc) a ) where r_num between #{begin} and #{end}
 	</select>
 
-	<!-- 사용자 생성  -->
+	<!-- 사용자 생성 -->
 	<insert id="usercreate" parameterType="userlist_super_vo">
-		insert into users(u_idx, u_email, u_pwd, u_salt, u_name, u_gender, u_bday, u_nickname, admin_idx)
-		values(users_seq.nextval, #{u_email}, '9999', 'salt1', #{u_name}, #{u_gender}, #{u_bday}, #{u_nickname}, 1)
+		insert into users(u_idx,
+		u_email, u_pwd, u_salt, u_name, u_gender, u_bday, u_nickname,
+		admin_idx)
+		values(users_seq.nextval, #{u_email}, '9999', 'salt1',
+		#{u_name}, #{u_gender}, #{u_bday}, #{u_nickname}, 1)
 	</insert>
+
+	<!-- 사용자 삭제 -->
+	<delete id="userdelete" parameterType="String">
+		delete from users where
+		u_idx = #{u_idx}
+	</delete>
 
 </mapper>

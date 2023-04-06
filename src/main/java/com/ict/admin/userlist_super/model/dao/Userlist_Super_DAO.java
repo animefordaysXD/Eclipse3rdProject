@@ -33,7 +33,10 @@ public class Userlist_Super_DAO {
 
 	public int getUserCreate(Userlist_Super_VO userlist_Super_VO) {
 		return sqlSessionTemplate.insert("userlist_super.usercreate", userlist_Super_VO);
+	}
 
+	public int getUserDelete(String u_idx) {
+		return sqlSessionTemplate.delete("userlist_super.userdelete", u_idx);
 	}
 
 }

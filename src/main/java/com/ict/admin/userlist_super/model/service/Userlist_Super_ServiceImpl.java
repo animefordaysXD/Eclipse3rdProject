@@ -33,4 +33,9 @@ public class Userlist_Super_ServiceImpl implements Userlist_Super_Service {
 		return userlist_Super_DAO.getUserCreate(userlist_Super_VO);
 	}
 
+	@Override
+	public int getUserDelete(String u_idx) {
+		return userlist_Super_DAO.getUserDelete(u_idx);
+	}
+
 }

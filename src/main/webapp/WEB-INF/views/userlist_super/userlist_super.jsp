@@ -54,6 +54,41 @@
 <title>사용자 관리 리스트</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<script type="text/javascript">
+	function userlist_super_delete(u_idx) {
+		if (confirm("해당 사용자 정보를 정말 삭제하시겠습니까?")) {
+			location.href = "userlist_super_delete.do?u_idx="+u_idx;
+			alert("사용자가 삭제되었습니다.");
+		} else {
+			return;
+		}
+	}
+	
+	var popup = document.getElementById('pop');
+	    function showHide(){
+	        if(pop.style.display==="none"){
+	            pop.style.display = "flex";
+	        }
+	        else if(pop.style.display==="flex"){
+	            pop.style.display = "none";
+	        }
+	    }
+	    
+		function picture_close() {
+			pop.style.display = "none";
+		}
+		
+		function enterKey(e){
+			if(e.keyCode == 13){
+		    	alert("엔터키를 눌렀네요??");
+		    	const search = document.getElementById('search').value;
+		    	alert(search);
+		    	location.href = "userlist_super_search.do?search="+search;
+		    	
+			}
+		}
+		
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -70,46 +105,16 @@
 			</label>
 			<div id="sidebarMenu">
 				<ul class="sidebarMenuInner">
-					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트</i></a></li>
+					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트
+						</i></a></li>
 					<li style="font-size: 15px;"><a href="usercreate_super.do"><i>&emsp;사용자생성</i></a></li>
-					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트</i></a></li>
+					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트
+						</i></a></li>
 					<li style="font-size: 15px;"><a href="admincreate_super.do"><i>&emsp;관리자생성</i></a></li>
 					<li style="font-size: 15px;"><a href="admin_login.do"><i>&emsp;로그아웃</i></a></li>
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -120,16 +125,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
-								style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -161,8 +157,22 @@
 					click.style.display = "none";
 				}
 			}
+			
 		</script>
 		<section>
+			<div id="pop"
+				style="float: left; background-color: rgba(96, 151, 246, 0.58); height: 500px; width: 380px; display: none; position: fixed; top: 25%; left: 43%; z-index: 999;">
+				<div
+					style="align-items: center; flex-direction: column; display: flex; justify-content: center; margin: 0 auto; margin-top: 20px; height: 450px; width: 350px;">
+					<div
+						style="background-color: yellow; width: 300px; height: 350px; margin-bottom: 10px;">사진</div>
+					<div
+						style="display: flex; justify-content: center; width: 180px; height: 50px;">
+						<input type="button" style="width: 50px; height: 30px;" value="닫기"
+							onclick="picture_close()">
+					</div>
+				</div>
+			</div>
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
@@ -184,8 +194,10 @@
 						</div>
 						<div id="container_searchbox">
 							<div class="searchbox">
-								<input type="text" class="searchtxt" placeholder="search">
-								<a class="searchbtn" href="#"> <i class="fas fa-search"></i>
+								<input type="text" class="searchtxt" id="search"
+									placeholder="검색시 엔터키를 눌러주세요" style="font-size: 12px;"
+									onkeypress="return enterKey(event);"> <a
+									class="searchbtn" href="#"> <i class="fas fa-search"></i>
 								</a>
 							</div>
 						</div>
@@ -220,8 +232,9 @@
 												<td>${k.u_email}</td>
 												<td>${k.u_nickname}</td>
 												<td>${k.u_bday}</td>
-												<td><a class="gradient-btn">사진보기</a></td>
-												<td><a class="gradient-btn">탈퇴&정보삭제</a></td>
+												<td><a class="gradient-btn" onclick="showHide()">사진보기</a></td>
+												<td><a class="gradient-btn"
+													onclick="userlist_super_delete(${k.u_idx})">탈퇴&정보삭제</a></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
