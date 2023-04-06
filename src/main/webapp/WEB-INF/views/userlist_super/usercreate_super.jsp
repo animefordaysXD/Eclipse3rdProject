@@ -55,6 +55,36 @@
 	}
 
 	function usercreate_super_ok(f) {
+		if (f.user_id.value.trim().length <= 0) {
+			alert("사용자 아이디를 입력하세요.");
+			f.user_id.focus();
+			return;
+		}
+
+		if (f.user_name.value.trim().length <= 0) {
+			alert("사용자 이름을 입력하세요.")
+			f.user_name.focus();
+			return;
+		}
+
+		if (f.user_nickname.value.trim().length <= 0) {
+			alert("사용자 닉네임을 입력하세요.")
+			f.user_nickname.focus();
+			return;
+		}
+
+		if (f.user_birthday.value.trim().length <= 0) {
+			alert("사용자 생년월일을 입력하세요.")
+			f.user_birthday.focus();
+			return;
+		}
+
+		if (f.gender_select.value == "") {
+			alert("사용자 성별을 선택해주세요.")
+			f.gender_select.focus();
+			return;
+		}
+
 		if (confirm("사용자를 생성하시겠습니까?")) {
 			f.action = "usercreate_super_ok.do"
 			alert("사용자가 생성되었습니다.");
@@ -89,38 +119,6 @@
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -131,16 +129,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
-								style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -200,7 +189,7 @@
 
 									<tr class="KOTRA-fontsize-80">
 										<td>자동부여</td>
-										<td><input type="text" style="height: 20px" id="user_id"
+										<td><input type="text" style="height: 20px"
 											name="user_id"></td>
 										<td><input type="text" style="height: 20px"
 											name="user_name"></td>

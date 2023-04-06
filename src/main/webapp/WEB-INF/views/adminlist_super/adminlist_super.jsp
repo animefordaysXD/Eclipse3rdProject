@@ -54,6 +54,16 @@
 <title>관리자 관리 리스트</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<script type="text/javascript">
+	function adminlist_super_delete(admin_idx) {
+		if (confirm("해당 관리자 정보를 정말 삭제하시겠습니까?")) {
+			location.href = "adminlist_super_delete.do?admin_idx="+admin_idx;
+			alert("관리자가 삭제되었습니다.");
+		} else {
+			return;
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -70,46 +80,16 @@
 			</label>
 			<div id="sidebarMenu">
 				<ul class="sidebarMenuInner">
-					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트</i></a></li>
+					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트
+						</i></a></li>
 					<li style="font-size: 15px;"><a href="#"><i>&emsp;사용자생성</i></a></li>
-					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트</i></a></li>
+					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트
+						</i></a></li>
 					<li style="font-size: 15px;"><a href="admincreate_super.do"><i>&emsp;관리자생성</i></a></li>
 					<li style="font-size: 15px;"><a href="admin_login.do"><i>&emsp;로그아웃</i></a></li>
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -163,12 +143,14 @@
 			}
 		</script>
 		<section>
+			<!-- <form method="post" style="margin: 0 auto;"> -->
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
 						<h2 id="headline">관리자 관리 리스트</h2>
 						<div id="container_radio">
 							<form id="container_radio_form">
+								<!-- <div id="container_radio_form"> -->
 								<label class="radio_label"> <input type="radio"
 									name="radio" checked /> <span>전체보기</span>
 								</label><label class="radio_label"> <input type="radio"
@@ -194,6 +176,7 @@
 								<col width="346px" />
 								<col width="348px" />
 							</colgroup>
+
 							<tbody>
 								<tr>
 									<th>관리자번호</th>
@@ -213,12 +196,14 @@
 												<td>${k.admin_idx}</td>
 												<td>${k.admin_id}</td>
 												<td>${k.admin_nickname}</td>
-												<td><a class="gradient-btn">탈퇴&정보삭제</a></td>
+												<td><a class="gradient-btn"
+													onclick="adminlist_super_delete(${k.admin_idx})">탈퇴&정보삭제</a></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
 							</tbody>
+
 							<!-- 페이징기법 -->
 							<tfoot>
 								<tr>
@@ -267,6 +252,7 @@
 					</div>
 				</div>
 			</div>
+			<!-- </form> -->
 		</section>
 		<!-- footer 추가  -->
 		<footer class="footer">

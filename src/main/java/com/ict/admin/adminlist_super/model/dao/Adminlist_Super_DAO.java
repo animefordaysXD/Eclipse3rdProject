@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ict.admin.adminlist_super.model.vo.Adminlist_Super_VO;
 
-
 @Repository
 public class Adminlist_Super_DAO {
 
@@ -30,6 +29,14 @@ public class Adminlist_Super_DAO {
 		map.put("begin", begin);
 		map.put("end", end);
 		return sqlSessionTemplate.selectList("adminlist_super.list", map);
+	}
+
+	public int getAdminCreate(Adminlist_Super_VO adminlist_Super_VO) {
+		return sqlSessionTemplate.insert("adminlist_super.admincreate", adminlist_Super_VO);
+	}
+
+	public int getAdminDelete(String admin_idx) {
+		return sqlSessionTemplate.delete("adminlist_super.admindelete", admin_idx);
 	}
 
 }

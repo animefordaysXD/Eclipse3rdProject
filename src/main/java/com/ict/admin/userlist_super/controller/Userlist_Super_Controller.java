@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -87,22 +88,6 @@ public class Userlist_Super_Controller {
 	}
 
 	// 사용자 생성 하기
-//	@RequestMapping("usercreate_super_ok.do")
-//	public ModelAndView usercreate_Super_OK(Userlist_Super_VO userlist_Super_VO,
-//			@RequestParam("user_id") String user_id, @RequestParam("user_name") String user_name,
-//			@RequestParam("user_nickname") String user_nickname, @RequestParam("user_birthday") String user_birthday,
-//			@RequestParam("gender_select") String user_gender) {
-//		ModelAndView mv = new ModelAndView("redirect:userlist_super.do");
-//		logger.info(user_id);
-//		logger.info(user_name);
-//		logger.info(user_nickname);
-//		logger.info(user_birthday);
-//		logger.info(user_gender);
-//
-//		int result = userlist_Super_Service.getUserCreate();
-//		return mv;
-//	}
-
 	@RequestMapping("usercreate_super_ok.do")
 	public ModelAndView usercreate_Super_OK(Userlist_Super_VO userlist_Super_VO,
 			@RequestParam("user_id") String u_email, @RequestParam("user_name") String u_name,
@@ -116,9 +101,25 @@ public class Userlist_Super_Controller {
 		userlist_Super_VO.setU_bday(u_bday);
 		userlist_Super_VO.setU_gender(u_gender);
 
-		System.out.println(userlist_Super_VO.getU_email() + "자잔");
-
 		int result = userlist_Super_Service.getUserCreate(userlist_Super_VO);
+
+		return mv;
+	}
+
+	// 사용자 삭제 하기
+	@RequestMapping("userlist_super_delete.do")
+	public ModelAndView userlist_Super_Delete(@ModelAttribute("u_idx") String u_idx) {
+
+		int result = userlist_Super_Service.getUserDelete(u_idx);
+		return new ModelAndView("redirect:userlist_super.do");
+	}
+
+	// 검색 하기
+	@RequestMapping("userlist_super_search.do")
+	public ModelAndView userlist_Super_Search(@ModelAttribute("search") String search) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(search + "허허");
+
 		return mv;
 	}
 
