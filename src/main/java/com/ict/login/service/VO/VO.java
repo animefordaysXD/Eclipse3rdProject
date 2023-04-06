@@ -1,4 +1,4 @@
-package com.ict.service.VO;
+package com.ict.login.service.VO;
 
 
 

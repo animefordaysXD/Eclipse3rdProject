@@ -1,4 +1,4 @@
-package com.ict.controller;
+package com.ict.login.controller;
 
 import java.util.Base64;
 import java.util.List;
@@ -24,9 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.homepage.model.service.homepage_Service;
 import com.ict.homepage.model.vo.homepage_VO;
-import com.ict.service.LoginService;
-import com.ict.service.VO.CategoryVO;
-import com.ict.service.VO.VO;
+import com.ict.login.service.LoginService;
+import com.ict.login.service.VO.CategoryVO;
+import com.ict.login.service.VO.VO;
 
 @Controller
 public class LoginController {
@@ -36,55 +36,10 @@ public class LoginController {
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
 		}
-	@Autowired
-	private homepage_Service homepage_Service;
 	
-	public void setHomepage_Service(homepage_Service homepage_Service) {
-		this.homepage_Service = homepage_Service;
-	}
 
 	
 	
-	@RequestMapping("manager.mymain.do")
-	public ModelAndView MyMain1() {
-		ModelAndView mv = new ModelAndView("homepage-views/manager.mymain");
-		return mv;
-	}
-	@RequestMapping("supermanager.mymain.do")
-	public ModelAndView MyMain2() {
-		ModelAndView mv = new ModelAndView("homepage-views/supermanager.mymain");
-		return mv;
-	}
-	@RequestMapping("login.mymain.do")
-	public ModelAndView MyMain3() {
-		ModelAndView mv = new ModelAndView("login-views/login.mymain");
-		return mv;
-	}
-	
-	
-	@RequestMapping("homepage.do")
-	public ModelAndView HomePage() {
-	    ModelAndView mv = new ModelAndView("homepage-views/homepage");
-		return mv;
-		
-	}
-	/*
-	 * @RequestMapping("homepage_ok.do") public ModelAndView HomePageok(homepage_VO
-	 * hvo, HttpSession session) { ModelAndView mv = new
-	 * ModelAndView("redirect:roomlist.do"); //리스트 로 가야함 return mv;
-	 * 
-	 * }
-	 */
-
-	@RequestMapping("roomList.do")
-	public ModelAndView romm() {
-		ModelAndView mv = new ModelAndView("homepage-views/roomList");
-		List<homepage_VO> list = homepage_Service.homepageList();
-		mv.addObject("list", list);
-		
-		return mv;
-
-	}
 	
 	
 	

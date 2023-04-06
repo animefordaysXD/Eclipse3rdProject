@@ -1,10 +1,10 @@
-package com.ict.service;
+package com.ict.login.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ict.dao.DAO;
-import com.ict.service.VO.VO;
+import com.ict.login.dao.DAO;
+import com.ict.login.service.VO.VO;
 
 @Service
 public class LoginServiceImpl implements LoginService {

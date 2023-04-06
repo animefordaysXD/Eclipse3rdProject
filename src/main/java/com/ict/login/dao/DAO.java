@@ -1,10 +1,10 @@
-package com.ict.dao;
+package com.ict.login.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ict.service.VO.VO;
+import com.ict.login.service.VO.VO;
 
 @Repository
 public class DAO {

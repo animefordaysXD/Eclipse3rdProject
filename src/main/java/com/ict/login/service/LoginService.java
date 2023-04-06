@@ -1,6 +1,6 @@
-package com.ict.service;
+package com.ict.login.service;
 
-import com.ict.service.VO.VO;
+import com.ict.login.service.VO.VO;
 
 public interface LoginService {
 	public int getId(VO vo);
