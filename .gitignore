@@ -5,3 +5,5 @@ target/
 .classpath
 .project
 .factorypath
+pom.properties
+MANIFEST.MF
