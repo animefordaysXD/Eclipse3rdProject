@@ -12,10 +12,6 @@
 		<typeAlias type="com.ict.login.service.VO.VO" alias="vo"/>
 		<typeAlias type="com.ict.login.service.VO.CategoryVO" alias="cvo"/>		
 		<typeAlias type="com.ict.homepage.model.vo.homepage_VO" alias="hvo"/>		
-
-		<typeAlias type="com.ict.service.VO.VO" alias="vo"/>
-		<typeAlias type="com.ict.service.VO.CategoryVO" alias="cvo"/>		
-		<typeAlias type="com.ict.homepage.model.vo.homepage_VO" alias="hvo"/>	
 		<typeAlias type="com.ict.admin.boardlist_report.model.vo.Boardlist_Report_VO" alias="board_report_vo" />
 		<typeAlias type="com.ict.admin.boardlist_member.model.vo.Boardlist_Member_VO" alias="board_member_vo" />
 		<typeAlias type="com.ict.admin.boardlist.model.vo.Boardlist_VO" alias="board_vo" />
