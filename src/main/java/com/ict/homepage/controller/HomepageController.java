@@ -2,15 +2,18 @@ package com.ict.homepage.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.homepage.model.service.homepage_Service;
 import com.ict.homepage.model.vo.homepage_VO;
+
 
 @Controller
 public class HomepageController {
@@ -47,6 +50,39 @@ public class HomepageController {
 	}
 
 	@RequestMapping("homepage_ok.do")
+	public ModelAndView HomePageok(homepage_VO hvo, HttpServletRequest request) {
+		//인설트 값 vo 쓰려면 넣어줘어야한다 
+	 hvo.setRoom_title((String)request.getParameter("title"));
+	 hvo.setCategory_type((String)request.getParameter("category_type"));
+	 hvo.setRoom_count(Integer.parseInt(request.getParameter("name1")));
+	 hvo.setRoom_region((String)request.getParameter("room_region"));
+	 hvo.setRoom_dateregion((String)request.getParameter("dateregion"));
+	 hvo.setStart_datetime((String)request.getParameter("start_datetime"));
+	 hvo.setEnd_datetime((String)request.getParameter("end_datetime"));
+	 hvo.setFinal_datetime((String)request.getParameter("final_datetime"));
+	 hvo.setRoom_gender(Integer.parseInt(request.getParameter("gender")));
+		System.out.println("title is " + hvo.getRoom_title());
+		System.out.println("category_type is " + hvo.getCategory_type());
+		System.out.println("name1 is " + hvo.getRoom_count());
+		System.out.println("room_region is " + hvo.getRoom_region());
+		System.out.println("dateregion is " + hvo.getRoom_dateregion());
+		System.out.println("start_datetime is " + hvo.getStart_datetime());
+		System.out.println("end_datetime is " + hvo.getEnd_datetime());
+		System.out.println("final_datetime is " + hvo.getFinal_datetime());
+		System.out.println("gender is " + hvo.getRoom_gender());
+		int result = homepage_Service.homepageInsert(hvo);
+		return new ModelAndView("redirect:roomlist.do");
+
+	}
+
+	@RequestMapping("roomlist.do")
+	public ModelAndView roomlist() {
+		ModelAndView mv = new ModelAndView("homepage-views/roomList");
+		List<homepage_VO> list = homepage_Service.homepageList();
+		mv.addObject("list", list);
+
+		return mv;
+}
 	public ModelAndView HomePageok(homepage_VO hvo, HttpSession session) {
 		ModelAndView mv = new ModelAndView("redirect:roomlist.do");
 		return mv;
@@ -58,6 +94,7 @@ public class HomepageController {
 		ModelAndView mv = new ModelAndView("homepage-views/roomList");
 		List<homepage_VO> list = homepage_Service.homepageList();
 		mv.addObject("list", list);
+
 
 		return mv;
 	}
