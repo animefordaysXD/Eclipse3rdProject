@@ -216,7 +216,7 @@ width:50px;
         <li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
         <li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
         <li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
-        <li><a href="#"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
+        <li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
         <li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
         <li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
     </ul>
@@ -271,7 +271,7 @@ width:50px;
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href="" style="color: white;">신청내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
-      <label class="notification new1" for="size_1"><a href=""style="color: white;">개설방내역</a></label>
+      <label class="notification new1" for="size_1"><a href="roomList.do"style="color: white;">개설방내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href="login.mymain.do"style="color: white;">로그아웃</a></label>
   
