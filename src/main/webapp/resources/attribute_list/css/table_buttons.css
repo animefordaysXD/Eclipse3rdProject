@@ -1,0 +1,57 @@
+/* 테이블내 버튼  */
+.gradient-btn {
+	display: inline-block;
+	padding: 0.25em 0.7em;
+	border-radius: 0;
+	color: #5B86EF;
+	font-weight: bold;
+	font-size: 0.7rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: linear-gradient(to right, rgba(178, 135, 111, 0) 25%,
+		#332E33 75%);
+	background-position: 1% 50%;
+	background-size: 400% 300%;
+	border: 1px solid #332E33;
+	transition: 700ms cubic-bezier(0.165, 0.84, 0.44, 1);
+	cursor: pointer;
+}
+
+.gradient-btn:hover {
+	transition: 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gradient-btn:hover {
+	color: white;
+	color: #fff;
+	background-position: 99% 50%;
+}
+
+/* 표 아래 버튼  */
+.btn {
+	display: block;
+	width: 100px;
+	height: 40px;
+	font-weight: bold;
+	border: 3px black solid;;
+	margin: 15px auto;
+	background-color: black;
+	text-align: center;
+	cursor: pointer;
+	color: white;
+	transition: all 0.9s, color 0.3;
+	margin-right: -12px;
+	margin-top: 1px;
+	float: right;
+	font-size: 12px;
+	padding: 0;
+}
+
+.hover1:hover {
+	box-shadow: 200px 0 0 0 white inset;
+	font-weight: bold;
+	color: black;
+	font-size: 12px;
+	padding: 0;
+}

@@ -177,10 +177,10 @@ public class LoginController {
     public ModelAndView returnIndex() {
 		return new ModelAndView("homepage-views/index");
 	}
-	@RequestMapping("adminLogin.do")
-    public ModelAndView returnAdminLog() {
-		return new ModelAndView("login-views/adminLogin");
-	}
+//	@RequestMapping("adminLogin.do")
+//    public ModelAndView returnAdminLog() {
+//		return new ModelAndView("login-views/adminLogin");
+//	}
 	@RequestMapping("getLogin.do")
 	@ResponseBody
 	public String returnLogin(@ModelAttribute VO vo) {
@@ -192,18 +192,18 @@ public class LoginController {
 	}
 		
 	}
-	@RequestMapping("getAdminLogin.do")
-	@ResponseBody
-	public String returnGetAdminLogin(@ModelAttribute VO vo) {
-		
-	int result = loginService.getAdmin(vo);
-	if(result>0) {
-		return "1";
-	}else {
-		return "0";
-	}
-		
-	}
+//	@RequestMapping("getAdminLogin.do")
+//	@ResponseBody
+//	public String returnGetAdminLogin(@ModelAttribute VO vo) {
+//		
+//	int result = loginService.getAdmin(vo);
+//	if(result>0) {
+//		return "1";
+//	}else {
+//		return "0";
+//	}
+//		
+//	}
 	
 	@RequestMapping("adminComplete.do")
     public ModelAndView returnAdminComplete() {
