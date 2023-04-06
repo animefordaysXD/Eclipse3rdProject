@@ -1,0 +1,204 @@
+#container_list {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+}
+
+#wrapper_list {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	display: flex;
+	position: relative;
+	align-items: center;
+}
+
+#wrapper_list_inner {
+	width: 1200px;
+	height: 780px;
+	background-color: #F8F8F8;
+	position: absolute;
+}
+
+/* 리스트 제목  */
+#headline {
+	font-size: 30px;
+	color: black;
+	text-align: center;
+	user-select: none;
+	margin-top: 30px;
+}
+
+/* 전체적인 표의 속성  */
+/* 글자크기로 표 크기 결정 */
+.list_table {
+	width: 95%;
+	margin: auto;
+	border-collapse: collapse;
+	color: #333;
+	border-radius: .4em;
+	overflow: hidden;
+	table-layout: fixed;
+	font-size: 13px;
+	user-select: none;
+}
+
+/* 표 헤더 속성  */
+.list_table tr:first-child {
+	background-color: rgb(36, 61, 91);
+	color: #F8F8F8;
+	text-align: center;
+}
+
+/* 표 헤더 제외 표 속성 */
+.list_table tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background-color: #F8F8F8;
+	border-color: rgb(36, 61, 91);
+}
+
+/* 표에서 글자수 많으면 ... 효과  */
+.list_table td {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.list_table td:first-child {
+	margin-top: .5em;
+}
+
+.list_table td:last-child {
+	margin-bottom: .5em;
+}
+
+.list_table th, .list_table td {
+	text-align: center;
+}
+
+@media screen and (max-width: 601px) {
+	.list_table tr:nth-child(2) {
+		border-top: none;
+	}
+	.list_table th:first-child, .list_table td:first-child {
+		font-weight: bold;
+		color: black;
+	}
+	.list_table td a {
+		text-decoration: none;
+		color: black;
+	}
+}
+
+@media screen and (min-width: 600px) {
+	.list_table tr:hover:not(:first-child) {
+		background-color: rgba(131, 244, 180, 0.3);
+	}
+	.list_table td:before {
+		display: none;
+	}
+	.list_table td a {
+		text-decoration: none;
+		color: black;
+	}
+	.list_table th, .list_table td {
+		display: table-cell;
+	}
+	.list_table th:first-child, .list_table td:first-child {
+		font-weight: bold;
+		padding-left: 0;
+	}
+	.list_table th:last-child, .list_table td:last-child {
+		padding-right: 0;
+	}
+	.list_table th, .list_table td {
+		padding: 1em !important;
+	}
+}
+
+/* 게시글보기용 css 댓글 추가시 창이 길어지기 위함*/
+#section_view_boardlist {
+	width: 100vw;
+	min-height: 780px;
+	height: 100vh;
+	/*height: 780px; */
+	background-color: #F8F8F8;
+	margin: 0 auto;
+}
+
+#container_list_view_boardlist {
+	width: 100vw;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+}
+
+#wrapper_list_view_boardlist {
+	width: 100vw;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+	display: flex;
+	position: relative;
+	align-items: center;
+}
+
+#wrapper_list_inner_view_boardlist {
+	width: 100vw;
+	height: 780px;
+	background-color: #F8F8F8;
+	margin: 0 auto;
+}
+
+#footer_view_boardlist {
+	width: 100vw;
+	height: 150px;
+	float: left;
+	background-color: #363636;
+}
+
+/* paging */
+table tfoot ol.paging {
+	list-style: none;
+}
+
+table tfoot ol.paging li {
+	float: left;
+	margin-right: 8px;
+}
+
+table tfoot ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	border: 1px solid #00B3DC;
+	color: white;
+	font-weight: bold;
+}
+
+table tfoot ol.paging li a:hover {
+	background: #00B3DC;
+	color: white;
+	font-weight: bold;
+}
+
+.disable {
+	padding: 3px 7px;
+	border: 1px solid silver;
+	color: silver;
+}
+
+.now {
+	padding: 3px 7px;
+	border: 1px solid #00B3DC;
+	background: #00B3DC;
+	color: white;
+	font-weight: bold;
+}
+
+/* 프레임 8px여백 없애기 위함  */
+body {
+	margin: 0;
+}
