@@ -8,14 +8,9 @@
 		<setting name="cacheEnabled" value="false" />
 	</settings>
 	<typeAliases>
-<<<<<<< Updated upstream
 		<typeAlias type="com.ict.login.service.VO.VO" alias="vo"/>
 		<typeAlias type="com.ict.login.service.VO.CategoryVO" alias="cvo"/>		
 		<typeAlias type="com.ict.homepage.model.vo.homepage_VO" alias="hvo"/>		
-=======
-		<typeAlias type="com.ict.service.VO.VO" alias="vo"/>
-		<typeAlias type="com.ict.service.VO.CategoryVO" alias="cvo"/>		
-		<typeAlias type="com.ict.homepage.model.vo.homepage_VO" alias="hvo"/>	
 		<typeAlias type="com.ict.admin.boardlist_report.model.vo.Boardlist_Report_VO" alias="board_report_vo" />
 		<typeAlias type="com.ict.admin.boardlist_member.model.vo.Boardlist_Member_VO" alias="board_member_vo" />
 		<typeAlias type="com.ict.admin.boardlist.model.vo.Boardlist_VO" alias="board_vo" />
@@ -24,7 +19,6 @@
 		<typeAlias type="com.ict.admin.login_controller.model.vo.Admin_LoginVO" alias="login_admin_vo" />
 		<typeAlias type="com.ict.admin.adminlist_super.model.vo.Adminlist_Super_VO" alias="adminlist_super_vo" />
 		<typeAlias type="com.ict.admin.userlist_super.model.vo.Userlist_Super_VO" alias="userlist_super_vo" />	
->>>>>>> Stashed changes
 	</typeAliases>
 	<mappers>
 		

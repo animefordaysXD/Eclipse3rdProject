@@ -1,4 +1,4 @@
-package com.ict.homepage.model.controller;
+package com.ict.homepage.controller;
 
 import java.util.List;
 
