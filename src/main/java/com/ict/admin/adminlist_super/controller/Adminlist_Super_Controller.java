@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.admin.adminlist_super.model.service.Adminlist_Super_Service;
@@ -89,6 +91,30 @@ public class Adminlist_Super_Controller {
 	public ModelAndView admincreate_Super() {
 		ModelAndView mv = new ModelAndView("adminlist_super/admincreate_super");
 		return mv;
+	}
+
+	// 관리자 생성 하기
+	@RequestMapping("admincreate_super_ok.do")
+	public ModelAndView admincreate_Super_OK(Adminlist_Super_VO adminlist_Super_VO,
+			@RequestParam("admin_id") String admin_id, @RequestParam("admin_nickname") String admin_nickname) {
+		ModelAndView mv = new ModelAndView("redirect:adminlist_super.do");
+
+		adminlist_Super_VO.setAdmin_id(admin_id);
+		adminlist_Super_VO.setAdmin_pwd("icteud1234");
+		adminlist_Super_VO.setAdmin_salt("salt");
+		adminlist_Super_VO.setAdmin_nickname(admin_nickname);
+
+		int result = adminlist_Super_Service.getAdminCreate(adminlist_Super_VO);
+		return mv;
+	}
+
+	// 관리자 삭제 하기
+	@RequestMapping("adminlist_super_delete.do")
+	public ModelAndView adminlist_Super_Delete(@ModelAttribute("admin_idx") String admin_idx) {
+
+		int result = adminlist_Super_Service.getAdminDelete(admin_idx);
+
+		return new ModelAndView("redirect:adminlist_super.do");
 	}
 
 }
