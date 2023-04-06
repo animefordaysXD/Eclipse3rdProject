@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js">
+
 /* Demo purposes only */
 $(".hover").mouseleave(
   function () {
@@ -18,6 +21,16 @@ $(".hover").mouseleave(
 
 </script>
 <script type="text/javascript">
+
+function storeHashInLocalStorage() {
+	  const hashValue = document.getElementById("hashValue").value;
+	  
+	  localStorage.setItem("hash", hashValue);
+	}
+	
+window.onload = function() {
+	  storeHashInLocalStorage();
+	};
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -81,9 +94,16 @@ firebase.auth().onAuthStateChanged((user) => {
     setInterval(function() {
       plusDivs(1);
     }, 5000);
-
-  });
+    
+   
   
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+	  document.getElementById("getLogOutLink").addEventListener("click", function(event) {
+	    event.preventDefault(); // Prevent the default behavior (navigation)
+	    globalSignOut(); // Call the globalSignOut function
+	  });
+	});
   function showChat() {
 	  const messageArea = document.getElementById("messageArea");
 	  var chatBot = document.getElementById("chatBot");
@@ -94,7 +114,54 @@ firebase.auth().onAuthStateChanged((user) => {
 		  chatBot.style.display = "none";
 	  }
 	}
+  
+  function typeMessage(element, message, index, interval) {
+	  if (index < message.length) {
+	    if (message[index] === '<') {
+	      const tagEndIndex = message.indexOf('>', index);
+	      element.insertAdjacentHTML('beforeend', message.slice(index, tagEndIndex + 1));
+	      index = tagEndIndex + 1;
+	    } else {
+	      element.insertAdjacentHTML('beforeend', message[index]);
+	      index++;
+	    }
+	    setTimeout(() => typeMessage(element, message, index, interval), interval);
+	  }
+	}
+  
+  function kakaoHelp() {
+	    const chatMessageElement = document.getElementById("chatMessage");
+	    chatMessageElement.innerHTML = '';
+	    const kakaoHelpMessage = "카카오톡 관련 업무는 이쪽으로 연략 주시길 바랍니다!<a onclick='#'><i class='fa-solid fa-comment' style='font-size:30px;color:#000000;background-color:yellow;'></i></a>";
+	    typeMessage(chatMessageElement, kakaoHelpMessage, 0, 50);
+	  }
 
+  function staffHelp() {
+	    const chatMessageElement = document.getElementById("chatMessage");
+	    chatMessageElement.innerHTML = '';
+	    const staffHelpMessage = "스태프한테 연략을 하기 위해서는 이쪽으로 연략해주세요. <a onclick='#'><i class='fa-solid fa-clipboard-user' style='font-size:30px;background-color:black;color: #ebebeb;'></i></a>";
+	    typeMessage(chatMessageElement, staffHelpMessage, 0, 50);
+	  }
+  function reportHelp() {
+	    const chatMessageElement = document.getElementById("chatMessage");
+	    chatMessageElement.innerHTML = '';
+	    const staffHelpMessage = "리폿은 이 링크를 통해서 이용해 주세요. <a onclick='#'><i class='fa-solid fa-flag' style='font-size:30px;background-color:aliceblue;color: #2e2929; '></i></a>";
+	    typeMessage(chatMessageElement, staffHelpMessage, 0, 50);
+	  }
+  function FAQHelp() {
+	    const chatMessageElement = document.getElementById("chatMessage");
+	    chatMessageElement.innerHTML = '';
+	    const staffHelpMessage = "자주 묻는 질문은 여기에 정리 돼 있습니다.<a onclick='#'><i class='fa-solid fa-question' style='font-size:30px;background-color:aliceblue'></i></a>";
+	    typeMessage(chatMessageElement, staffHelpMessage, 0, 50);
+	  }
+  function announceHelp() {
+	    const chatMessageElement = document.getElementById("chatMessage");
+	    chatMessageElement.innerHTML = '';
+	    const staffHelpMessage = "공지사항은 이쪽을 확인해주세요. <a onclick='#'><i class='fa-solid fa-bullhorn' style='font-size:30px;background-color:skyblue;color: #f5f5f5; color: #e11414;'></i></a>";
+	    typeMessage(chatMessageElement, staffHelpMessage, 0, 50);
+	  }
+
+  
 </script>
 
 
@@ -129,22 +196,26 @@ padding-top: 135px;
 .mySlides {
 display:none;
 }
-.messageArea {
+.messageArea{
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+   background-color: rgb(220 219 201);
+  border: 5px solid #c9b117ad;
+ border-radius: 30px;
   padding: 10px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
+
 .messageArea.show {
   opacity: 1;
   transform: translateY(0);
   height: 500px;
+  display:flex;
+  flex-direction: column;
+    align-items: center;
   
 }
 .chatBot {
@@ -175,10 +246,31 @@ background-color: rgba(36, 105, 236, 0.2);
         100% { transform: scale(1,1)    translateY(0); color:gray;}
         }
 .messageButtons{
-background-color: blue;
-color: white;
-height:20px;
-width:50px;
+background-color: rgba(255,255,255,0.5);
+color: black;
+border:2px solid black;
+height:50px;
+width:100px;
+border-radius: 30px;
+}
+.messageButtons:hover{
+cursor:pointer;
+color:rgb((83 87 198);
+}
+.chatMessage{
+    display: flex;
+    background-color:rgba(66,177,76,0.4);
+    color: #2443d1;
+    font-size: 25px;
+    height: 200px;
+    width: 300px;
+    justify-content: space-around;
+    flex-direction: column;
+    border: 2px solid green;
+    border-radius: 30px;
+}
+.buttonGroupMessage{
+display:flex;
 }
 
 </style>
@@ -189,8 +281,7 @@ width:50px;
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
-<link rel="stylesheet" type="text/css" 
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
 <link href="resources/mymain/css/mymain.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -200,7 +291,7 @@ width:50px;
 
 </head>
 <body>
-
+<input type="hidden" id="hashValue" value="${hash}">
 <header>	
   <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
   <label for="openSidebarMenu" class="sidebarIconToggle">
@@ -211,7 +302,7 @@ width:50px;
   <div id="sidebarMenu">
     <ul class="sidebarMenuInner">
       <li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-        <li><a href="login.mymain.do"><i class="fi fi-rr-user">&emsp;로그아웃</i></a></li>
+        <li><a id="getLogOutLink" href="#"><i class="fi fi-rr-user">&emsp;로그아웃</i></a></li>
         <li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
         <li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
         <li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
@@ -273,7 +364,7 @@ width:50px;
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href=""style="color: white;">개설방내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
-      <label class="notification new1" for="size_1"><a href="login.mymain.do"style="color: white;">로그아웃</a></label>
+      <label class="notification new1" for="size_1"><a id="getLogOutLink" onclick="globalSignOut()" style="color: white;">로그아웃</a></label>
   
      
       </div>
@@ -283,7 +374,7 @@ width:50px;
 		<div class="container">
 			<ul class="breadcrumb">
 				<li class="br"><a href="#">홈</a></li>
-				<li class="br"><a href="login.mymain.do">로그아웃</a></li>
+				<li class="br"><a id="getLogOutLink" onclick="globalSignOut()">로그아웃</a></li>
 				<li class="br"><a href="#">메뉴</a></li>
 				<li class="br active" aria-current="page">현재페이지</li>
 			</ul>
@@ -322,6 +413,7 @@ width:50px;
  
             }
         }
+       
     </script>
 		
 		
@@ -377,16 +469,45 @@ width:50px;
 
 	</section>
 	<div id="messageArea" class="messageArea" >
-	<button class="messageButtons" type="button">카카오톡</button>
-	<button class="messageButtons" type="button">asd</button>
-	<button class="messageButtons" type="button">asd</button>
-	<button class="messageButtons" type="button">asd</button>
-	<button class="messageButtons" type="button">asd</button>
-	<button onclick="showChat()">닫기</button>
-	<div id="chatMessage" class="chatMessage">안녕하세요!</div>
+	<div style="
+    width: 540px;
+    display: flex;
+    flex-direction: row-reverse;
+	">
+	<button onclick="showChat()" style="
+	    color: black;
+    background-color: #ff000075;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid red;
+    font-size: 20px;
+    font-weight: bold;	
+	">닫기</button>
+	</div>
+	
+	<div id="buttonGroupMessage">
+	<button class="messageButtons" type="button" onclick="kakaoHelp()" >카카오톡</button>
+	<button class="messageButtons" type="button" onclick="staffHelp()" >직원요청</button>
+	<button class="messageButtons" type="button" onclick="reportHelp()" >신고기능</button>
+	<button class="messageButtons" type="button" onclick="announceHelp()" >공지사항</button>
+	<button class="messageButtons" type="button" onclick="FAQHelp()" >FAQ</button>
+	</div>
+	
+	<div style="height:200px"></div>
+	<div id="chatMessage" class="chatMessage"style="
+	 display: flex;
+    background-color:rgba(66,177,76,0.4);
+    color: #2443d1;
+    font-size: 25px;
+    height: 200px;
+    width: 300px;
+    justify-content: space-around;
+    flex-direction: column;
+    border: 2px solid green;
+    border-radius: 30px;	
+	">안녕하세요!</div>
 	</div>
 	<div class="chatBot" id="chatBot" onclick="showChat()">
-	
 	 
 	<p><i id="chatBotIcon" class="fa-solid fa-comment"></i></p>
 	
