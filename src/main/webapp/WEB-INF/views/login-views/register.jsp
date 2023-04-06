@@ -399,7 +399,7 @@ function getButtonsWithValue2True() {
 						<input type="text" class="input_field" id="name" placeholder="이름">
 						<div class="space"></div>
 						<select class="gender" id="gender" name="gender">
-							<option value="">성별을 선택해주세요 123</option>
+							<option value="">성별을 선택해주세요</option>
 							<option value="male">남성</option>
 							<option value="female">여성</option>
 						</select>
