@@ -53,9 +53,11 @@
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
 
-	<!-- 첫페이지 지정 -->
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/login-views/login.mymain.jsp
-		</welcome-file>
-	</welcome-file-list>
+	
+   <!-- 첫페이지 지정 -->
+    <welcome-file-list>
+   		 <welcome-file>/WEB-INF/views/login-views/login.mymain.jsp</welcome-file> 
+   		
+   </welcome-file-list>
+
 </web-app>
