@@ -26,6 +26,9 @@ public class homepage_DAO {
 	 return sqlSessionTemplate.insert("homepage.insert", hvo);	
 	}
 	
+	public String getHashForRoomMake(String hash) {
+		return sqlSessionTemplate.selectOne("getHashForRoomMake", hash);
+	}
 	
 
 }

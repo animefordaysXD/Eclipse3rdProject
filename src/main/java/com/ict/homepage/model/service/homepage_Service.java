@@ -9,6 +9,6 @@ public interface homepage_Service {
 
 	List<homepage_VO> homepageList();
 	int homepageInsert(homepage_VO hvo);
-	
+	String getHashForRoomMake(String hash);
 	
 }

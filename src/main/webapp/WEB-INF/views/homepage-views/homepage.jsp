@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b"></script>
 
 <link href="resources/homepage/css/homepage.css" rel="stylesheet">
 <link rel='stylesheet'
@@ -38,6 +39,8 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+
 function kakaopost() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -47,15 +50,25 @@ function kakaopost() {
     }).open();
 }
 
+
 </script>
 <script type="text/javascript">
+function setHash(){
+	const hash = localStorage.getItem("hash");
+	 document.getElementById("hash").value = hash;
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("showCity").textContent="구를 선택해주세요";
     const buttons = document.querySelectorAll(".location");
-	
+    
 buttons.forEach((button) => {
   button.addEventListener("click", setLoc);
 });
+
+
 });
 
 	
@@ -124,12 +137,85 @@ $(document).ready(function() {
     });
   });
 
+
 </script>
 
+ <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b&libraries=services"></script>
+  <script>
+  
+	  function openKakaoMap() {
+		  var popup = window.open("", "mapPopup", "width=500,height=500");
+
+		    var mapContainer = document.createElement('div');
+		    mapContainer.style.width = 500 + 'px';
+		    mapContainer.style.height = 600 + 'px';
+		    popup.document.body.appendChild(mapContainer);
+
+		    var mapOptions = {
+		        center: new kakao.maps.LatLng(37.5666805, 126.9784147), // 지도의 중심좌표
+		        level: 3
+		    };
+
+		    var map = new kakao.maps.Map(mapContainer, mapOptions);
+
+		    // 지도를 클릭한 위치에 표출할 마커입니다
+		    var marker = new kakao.maps.Marker({
+		        // 지도 중심좌표에 마커를 생성합니다 
+		        position: map.getCenter()
+		    });
+		    // 지도에 마커를 표시합니다
+		    marker.setMap(map);
+
+		    // 지도에 클릭 이벤트를 등록합니다
+		    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+		    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+		        // 클릭한 위도, 경도 정보를 가져옵니다 
+		        var latlng = mouseEvent.latLng;
+
+		        // 마커 위치를 클릭한 위치로 옮깁니다
+		        marker.setPosition(latlng);
+
+		        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+		        message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+		        var resultDiv = popup.document.createElement('div'); // 팝업 내의 요소를 생성하기 위해 popup.document를 사용합니다
+		        resultDiv.id = 'clickLatlng'; // 요소의 id를 설정합니다
+		        resultDiv.innerHTML = message;
+		        popup.document.body.appendChild(resultDiv);
+	            //document.getElementById('setAddress').innerText = message;
+				document.getElementById('latAddress').value = latlng.getLng();
+				document.getElementById('lngAddress').value = latlng.getLat();
+				
+			
+		    	
+		        
+		    });
+		    kakao.maps.services.Geocoder.coord2Address(latlng, function(result, status) {
+		    	  if (status === kakao.maps.services.Status.OK) {
+		    	    var address = result[0].address.address_name;
+		    	    var message = '클릭한 위치는 ' + address + '입니다.';
+		    	    
+		    	    
+		    	    //var address = event.trget.value +"입니다";
+		    	   
+		    	    // 결과를 팝업에 표시
+		    	  //  var resultDiv = popup.document.createElement('div');
+		    	   // resultDiv.id = 'clickAddress';
+		    	   // resultDiv.innerHTML = message;
+		    	  //  popup.document.body.appendChild(resultDiv);
+		    	  }
+		    	});
+	    }
+
+  </script>
+
 </head>
-<body>
+<body onload="setHash()">
+
 	<div id="wrap">
-		<form method="post" action="/button_location">
+		<form method="post" action="homepage_ok.do">
+		
 			<header>
 				<h3 style="text-align: center;">room making</h3>
 			</header>
@@ -309,7 +395,7 @@ $(document).ready(function() {
 							<td>
 
 								<button type="button" class="custom-btn-1 btn-1"
-									onclick="showCity()">
+									onclick="showCity()" >
 									지역구 클릭<br>
 								</button>&emsp;
 								<div id="showCity" class="showCity" ></div>
@@ -349,9 +435,16 @@ $(document).ready(function() {
 							</td>
 					
 							<td class="room_name">모집 장소</td>
-							<td><button type="button" class="custom-btn-1 btn-1" >장소 클릭</button>
+							<td><button type="button" class="custom-btn-1 btn-1" onclick="openKakaoMap()" >장소 클릭</button>
+    						 <div id="mapPopup" style="display:none">
+    						<div id="map" style="width:600px;height:500px;"></div>
+    						</div>
     						
-    						<p><em>지도를 클릭해주세요!</em></p> 
+ 							
+							<input type="hidden" name="latAddress" id="latAddress" value="">
+							<input type="hidden" name="lngAddress" id="lngAddress" value="">
+    						
+    						
 							</td>
 							
 						</tr>
@@ -395,7 +488,8 @@ $(document).ready(function() {
 					</div>
 					<div class="three">
 						<div class="window">
-							<input type="button" value="등록" onclick="homepage_ok(this.form)"
+						<input type="hidden" value="" id="hash" name="hash" class="hash">
+							<input type="submit" value="등록" 
 								class="custom-btn-1 btn-1" /> <input type="reset" value="취소"
 								class="custom-btn-1 btn-1" />
 						</div>
@@ -404,53 +498,8 @@ $(document).ready(function() {
 			</section>
 		</form>
 			</div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dce2b3b82c0dc9a7705feeccd7f8c666"></script>
-<script>
-var map, marker;
-
-function initMap() {
-    var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-    var mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-
-    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-    // 지도를 클릭한 위치에 표출할 마커입니다
-    marker = new kakao.maps.Marker({ 
-        // 지도 중심좌표에 마커를 생성합니다 
-        position: map.getCenter() 
-    }); 
-    // 지도에 마커를 표시합니다
-    marker.setMap(map);
-
-    // 지도에 클릭 이벤트를 등록합니다
-    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-
-        // 클릭한 위도, 경도 정보를 가져옵니다 
-        var latlng = mouseEvent.latLng; 
-
-        // 마커 위치를 클릭한 위치로 옮깁니다
-        marker.setPosition(latlng);
-
-        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-        message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-        var resultDiv = document.getElementById('clickLatlng'); 
-        resultDiv.innerHTML = message;
-
-    });
-}
- function openMap() {
-    // 팝업창을 열고 지도를 표시합니다
-    var mapWindow = window.open("", "지도", "width=500,height=500");
-    // 팝업창이 열리면서 initMap() 함수를 호출하여 지도를 초기화합니다.
-    mapWindow.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>지도</title></head><body onload="initMap()"><div id="map" style="width:100%;height:350px;"></div></body></html>');
-} 
-</script>
-
+			<div id="map" style="width:100%;height:350px;"></div>
+			
 
 
 
@@ -487,15 +536,17 @@ function initMap() {
 			</div>
 		</div>
 	</footer>
-	<script type="text/javascript">
-function homepage_ok(f) {
+<script>
+  function homepage_ok(f) {
 	var title =f.title.value;
 	var name1 =f.name1.value;
+	console.log("name1= "+ name1);
 	var selectElement = document.getElementById("class");
 	var selectedValue = selectElement.value;
 	var msg = document.querySelector('#showCity').textContent;
 	var msg = document.querySelector('#showCity').textContent;
-	
+	var hash =document.getElementById("hash");
+	console.log("hash is " +  hash);
 	
 	
 	if (title ==="") {
@@ -527,10 +578,7 @@ function homepage_ok(f) {
 	f.submit();
 }
 
-
-
-</script>
-
+  </script>
 
 
 </body>

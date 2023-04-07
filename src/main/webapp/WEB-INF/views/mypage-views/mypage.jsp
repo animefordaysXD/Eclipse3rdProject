@@ -289,6 +289,31 @@ var selected = "";
 	  
 	  
   }
+  function changePicture() {
+	  // Create an input element of type "file"
+	  var fileInput = document.createElement("input");
+	  fileInput.type = "file";
+	  
+	  // Add an event listener to the file input to detect when a file is selected
+	  fileInput.addEventListener("change", function() {
+	    // Get the selected file
+	    var file = fileInput.files[0];
+	    
+	    // Create a new FileReader
+	    var reader = new FileReader();
+	    
+	    // Add an event listener to the FileReader to detect when the file is loaded
+	    reader.addEventListener("load", function() {
+	      // Update the "src" attribute of the image with the data URL of the selected file
+	      document.getElementById("mypicture").src = reader.result;
+	    });
+	    
+	    // Read the selected file as a data URL
+	    reader.readAsDataURL(file);
+	  });
+	  
+	  // Trigger a click event on the file input to open the file selection dialog
+	  fileInput.click();
   
  
 

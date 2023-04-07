@@ -35,6 +35,10 @@ public class homepage_Servicempl implements homepage_Service {
 	public List<homepage_VO> homepageList() {
 		return homepage_DAO.homepageList();
 	}
+	@Override
+	public String getHashForRoomMake(String hash) {
+		return homepage_DAO.getHashForRoomMake(hash);
+	}
 	
 	
 
