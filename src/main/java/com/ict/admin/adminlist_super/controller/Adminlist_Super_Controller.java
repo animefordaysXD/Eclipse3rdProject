@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.admin.adminlist_super.model.service.Adminlist_Super_Service;
@@ -93,6 +94,28 @@ public class Adminlist_Super_Controller {
 		return mv;
 	}
 
+	// id 중복 검사 하기
+	@RequestMapping("admin_IdCheck.do")
+	public @ResponseBody String admin_IdCheck(String admin_id) {
+		int result = adminlist_Super_Service.getAdmin_IdCheck(admin_id);
+		if (result > 0) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
+
+	// Nickname 중복 검사 하기
+	@RequestMapping("admin_NicknameCheck.do")
+	public @ResponseBody String admin_NicknameCheck(String admin_nickname) {
+		int result = adminlist_Super_Service.getAdmin_NicknameCheck(admin_nickname);
+		if (result > 0) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
+
 	// 관리자 생성 하기
 	@RequestMapping("admincreate_super_ok.do")
 	public ModelAndView admincreate_Super_OK(Adminlist_Super_VO adminlist_Super_VO,
@@ -115,6 +138,166 @@ public class Adminlist_Super_Controller {
 		int result = adminlist_Super_Service.getAdminDelete(admin_idx);
 
 		return new ModelAndView("redirect:adminlist_super.do");
+	}
+
+	// 검색 하기
+	@RequestMapping("adminlist_super_search.do")
+	public ModelAndView adminlist_Super_Search(@ModelAttribute("search") String search,
+			@ModelAttribute("radio") String radio) {
+		ModelAndView mv = new ModelAndView("adminlist_super/adminlist_super");
+
+		if (radio.equals("select_all")) {
+			int count = adminlist_Super_Service.getTotalCount_AllSearch(search);
+			paging.setTotalRecord(count);
+
+			// 전체 페이지의 수
+			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+				paging.setTotalPage(1);
+			} else {
+				paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+				if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+					paging.setTotalPage(paging.getTotalPage() + 1);
+				}
+			}
+
+			// 현재 페이지 구하기
+			paging.setNowPage(1);
+
+			// 시작 번호와 끝 번호 구하기
+			paging.setBegin((paging.getNowPage() - 1) * paging.getNumPerPage() + 1);
+			paging.setEnd((paging.getBegin() - 1) + paging.getNumPerPage());
+
+			// 시작 블럭과 끝 블록 구하기
+			paging.setBeginBlock(
+					(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+			paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+			// 주의 사항
+			// 만약, 끝블록의 숫자가 전체 페이지의 수보다 크다면 끝블록은 전체 페이지 수로 조정한다.
+			if (paging.getEndBlock() > paging.getTotalPage()) {
+				paging.setEndBlock(paging.getTotalPage());
+			}
+
+			List<Adminlist_Super_VO> adminlist_super_search = adminlist_Super_Service
+					.getList_Admin_AllSearch(paging.getBegin(), paging.getEnd(), search);
+
+			mv.addObject("adminlist_super", adminlist_super_search);
+			mv.addObject("paging", paging);
+
+		} else if (radio.equals("select_admin_idx")) {
+			int count = adminlist_Super_Service.getTotalCount_Admin_Idx(search);
+			paging.setTotalRecord(count);
+
+			// 전체 페이지의 수
+			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+				paging.setTotalPage(1);
+			} else {
+				paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+				if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+					paging.setTotalPage(paging.getTotalPage() + 1);
+				}
+			}
+
+			// 현재 페이지 구하기
+			paging.setNowPage(1);
+
+			// 시작 번호와 끝 번호 구하기
+			paging.setBegin((paging.getNowPage() - 1) * paging.getNumPerPage() + 1);
+			paging.setEnd((paging.getBegin() - 1) + paging.getNumPerPage());
+
+			// 시작 블럭과 끝 블록 구하기
+			paging.setBeginBlock(
+					(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+			paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+			// 주의 사항
+			// 만약, 끝블록의 숫자가 전체 페이지의 수보다 크다면 끝블록은 전체 페이지 수로 조정한다.
+			if (paging.getEndBlock() > paging.getTotalPage()) {
+				paging.setEndBlock(paging.getTotalPage());
+			}
+
+			List<Adminlist_Super_VO> adminlist_super_search = adminlist_Super_Service
+					.getList_Admin_Idx(paging.getBegin(), paging.getEnd(), search);
+
+			mv.addObject("adminlist_super", adminlist_super_search);
+			mv.addObject("paging", paging);
+		} else if (radio.equals("select_admin_id")) {
+			int count = adminlist_Super_Service.getTotalCount_Admin_Id(search);
+			paging.setTotalRecord(count);
+
+			// 전체 페이지의 수
+			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+				paging.setTotalPage(1);
+			} else {
+				paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+				if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+					paging.setTotalPage(paging.getTotalPage() + 1);
+				}
+			}
+
+			// 현재 페이지 구하기
+			paging.setNowPage(1);
+
+			// 시작 번호와 끝 번호 구하기
+			paging.setBegin((paging.getNowPage() - 1) * paging.getNumPerPage() + 1);
+			paging.setEnd((paging.getBegin() - 1) + paging.getNumPerPage());
+
+			// 시작 블럭과 끝 블록 구하기
+			paging.setBeginBlock(
+					(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+			paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+			// 주의 사항
+			// 만약, 끝블록의 숫자가 전체 페이지의 수보다 크다면 끝블록은 전체 페이지 수로 조정한다.
+			if (paging.getEndBlock() > paging.getTotalPage()) {
+				paging.setEndBlock(paging.getTotalPage());
+			}
+
+			List<Adminlist_Super_VO> adminlist_super_search = adminlist_Super_Service
+					.getList_Admin_Id(paging.getBegin(), paging.getEnd(), search);
+
+			mv.addObject("adminlist_super", adminlist_super_search);
+			mv.addObject("paging", paging);
+		} else if (radio.equals("select_admin_nickname")) {
+			int count = adminlist_Super_Service.getTotalCount_Admin_NickName(search);
+			paging.setTotalRecord(count);
+
+			// 전체 페이지의 수
+			if (paging.getTotalRecord() <= paging.getNumPerPage()) {
+				paging.setTotalPage(1);
+			} else {
+				paging.setTotalPage(paging.getTotalRecord() / paging.getNumPerPage());
+				if (paging.getTotalRecord() % paging.getNumPerPage() != 0) {
+					paging.setTotalPage(paging.getTotalPage() + 1);
+				}
+			}
+
+			// 현재 페이지 구하기
+			paging.setNowPage(1);
+
+			// 시작 번호와 끝 번호 구하기
+			paging.setBegin((paging.getNowPage() - 1) * paging.getNumPerPage() + 1);
+			paging.setEnd((paging.getBegin() - 1) + paging.getNumPerPage());
+
+			// 시작 블럭과 끝 블록 구하기
+			paging.setBeginBlock(
+					(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
+			paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
+
+			// 주의 사항
+			// 만약, 끝블록의 숫자가 전체 페이지의 수보다 크다면 끝블록은 전체 페이지 수로 조정한다.
+			if (paging.getEndBlock() > paging.getTotalPage()) {
+				paging.setEndBlock(paging.getTotalPage());
+			}
+
+			List<Adminlist_Super_VO> adminlist_super_search = adminlist_Super_Service
+					.getList_Admin_NickName(paging.getBegin(), paging.getEnd(), search);
+
+			mv.addObject("adminlist_super", adminlist_super_search);
+			mv.addObject("paging", paging);
+		}
+
+		return mv;
 	}
 
 }

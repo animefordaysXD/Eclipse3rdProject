@@ -12,4 +12,20 @@ public interface Boardlist_Member_Service {
 	// 페이징 기법을 이용한 List 화 시키기
 	public List<Boardlist_Member_VO> getList(int begin, int end);
 
+	public int getTotalCount_AllSearch(String u_allsearch);
+
+	public List<Boardlist_Member_VO> getBoardlist_Member_AllSearch(int begin, int end, String u_allsearch);
+
+	public int getTotalCount_Boardlist_Member_Email(String u_email);
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_Email(int begin, int end, String u_email);
+
+	public int getTotalCount_Boardlist_Member_NickName(String u_nickname);
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_NickName(int begin, int end, String u_nickname);
+
+	public int getTotalCount_Boardlist_Member_BDay(String u_bday);
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_BDay(int begin, int end, String u_bday);
+
 }

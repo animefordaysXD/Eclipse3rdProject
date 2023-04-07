@@ -30,10 +30,100 @@
 		#{admin_nickname}, sysdate)
 	</insert>
 
+	<!-- id 중복 체크 -->
+	<select id="admin_idcheck" parameterType="String"
+		resultType="int">
+		select count(*) from admin where admin_id = #{admin_id}
+	</select>
+
+	<!-- 닉네임 중복 체크 -->
+	<select id="admin_nicknamecheck" parameterType="String"
+		resultType="int">
+		select count(*) from admin where admin_nickname =
+		#{admin_nickname}
+	</select>
+
 	<!-- 관리자 삭제 -->
 	<delete id="admindelete" parameterType="String">
 		delete from admin where
 		admin_idx = #{admin_idx}
 	</delete>
+
+	<!-- 전체 검색으로 관리자 수 세기 -->
+	<select id="count_admin_allsearch" parameterType="String"
+		resultType="int">
+		select count(*) from admin where admin_idx like '%' ||
+		#{admin_allsearch} || '%' or admin_id like '%' || #{admin_allsearch}
+		||
+		'%' or admin_nickname like '%' || #{admin_allsearch} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_admin_allsearch" parameterType="Map"
+		resultType="adminlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		admin order by admin_idx desc) a ) where r_num between #{begin} and
+		#{end} and admin_idx like '%' || #{admin_allsearch} || '%' or
+		admin_id
+		like '%' || #{admin_allsearch} || '%' or admin_nickname like '%' ||
+		#{admin_allsearch} || '%'
+	</select>
+
+	<!-- admin_idx로 사용자 수 세기 -->
+	<select id="count_admin_idx" parameterType="String"
+		resultType="int">
+		select
+		count(*) from admin
+		where admin_idx = #{admin_idx}
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_admin_idx" parameterType="Map"
+		resultType="adminlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		admin order by
+		admin_idx desc) a ) where r_num between #{begin} and
+		#{end}
+		and admin_idx = #{admin_idx}
+	</select>
+
+	<!-- admin_id로 사용자 수 세기 -->
+	<select id="count_admin_id" parameterType="String"
+		resultType="int">
+		select count(*) from admin where admin_id like '%' ||
+		#{admin_id} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 ID 검색 출력 -->
+	<select id="list_admin_id" parameterType="Map"
+		resultType="adminlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		admin order by
+		admin_idx desc) a ) where r_num between #{begin} and
+		#{end}
+		and admin_id like '%' ||
+		#{admin_id} || '%'
+	</select>
+
+	<!-- admin_nickname로 사용자 수 세기 -->
+	<select id="count_admin_nickname" parameterType="String"
+		resultType="int">
+		select count(*) from admin where admin_nickname like '%' ||
+		#{admin_nickname} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 ID 검색 출력 -->
+	<select id="list_admin_nickname" parameterType="Map"
+		resultType="adminlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		admin order by
+		admin_idx desc) a ) where r_num between #{begin} and
+		#{end}
+		and admin_nickname like '%' ||
+		#{admin_nickname} || '%'
+	</select>
+
+
+
 
 </mapper>

@@ -64,10 +64,10 @@ public class Userlist_Super_DAO {
 	}
 
 	public List<Userlist_Super_VO> getList_U_Idx(int begin, int end, String u_idx) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("begin", begin);
-		map.put("end", end);
-		map.put("u_idx", Integer.parseInt(u_idx));
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("begin", Integer.toString(begin));
+		map.put("end", Integer.toString(end));
+		map.put("u_idx", u_idx);
 		return sqlSessionTemplate.selectList("userlist_super.list_u_idx", map);
 	}
 
