@@ -91,7 +91,8 @@ function setLoc(event) {
 var city = event.target.value +"구";
 document.getElementById("showCity").textContent=city;
 document.getElementById("showCity");
-
+document.getElementById("city").value = city;
+ 
 }
 
 $(function() {
@@ -101,12 +102,34 @@ $(function() {
 });
 
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js">
 
+$(document).ready(function() {
+    // .location 클래스를 가진 버튼들에 대해 click 이벤트 핸들러를 등록합니다.
+    $('.locations').click(function() {
+      // 클릭된 버튼의 value 값을 locationValue 변수에 저장합니다.
+      var locationValue = $(this).val();
+      // Ajax 요청을 보냅니다.
+      $.ajax({
+        url: 'homepage-views/roomList', // 데이터를 전송할 서버 주소
+        type: 'POST', // 전송 방식
+        data: {location: locationValue}, // 전송할 데이터
+        success: function(response) { // 성공 시 실행할 함수
+          console.log(response); // 서버에서 반환한 응답 확인
+        },
+        error: function(xhr, status, error) { // 실패 시 실행할 함수
+          console.log(error); // 오류 메시지 확인
+        }
+      });
+    });
+  });
+
+</script>
 
 </head>
 <body>
 	<div id="wrap">
-		<form method="post">
+		<form method="post" action="/button_location">
 			<header>
 				<h3 style="text-align: center;">room making</h3>
 			</header>
@@ -235,6 +258,14 @@ $(function() {
  
             }
         }
+        function initMap() {
+        	  var map = new google.maps.Map(document.getElementById('map'), {
+        	    center: {lat: 37.5665, lng: 126.9780},
+        	    zoom: 13
+        	  });
+        	}
+
+        
     </script>
 
 
@@ -252,7 +283,7 @@ $(function() {
 						<tr>
 							<td class="room_name">모임명</td>
 
-							<td colspan="3"><input type="text" name="title" size="25" 
+							<td colspan="3"><input type="text" name="title" size="25"
 								style="height: 25px;"></td>
 
 						</tr>
@@ -274,9 +305,6 @@ $(function() {
 								style="width: 100px;" /></td>
 						<tr>
 
-
-
-
 							<td class="room_name">지역</td>
 							<td>
 
@@ -284,13 +312,12 @@ $(function() {
 									onclick="showCity()">
 									지역구 클릭<br>
 								</button>&emsp;
-								<div id="showCity" class="showCity"></div> <script
-									type="text/javascript">
-					
-					</script>
+								<div id="showCity" class="showCity" ></div>
+								<input type="hidden" name="room_region" id="city">
+				
 
 								<div class="locations" id="locations">
-
+							
 									<button type="button" class="location" value="용산">용산</button>
 									<button type="button" class="location" value="강남">강남</button>
 									<button type="button" class="location" value="강동">강동</button>
@@ -320,39 +347,50 @@ $(function() {
 
 
 							</td>
-
+					
 							<td class="room_name">모집 장소</td>
-							<td><button type="button" class="custom-btn-1 btn-1">장소
-									클릭</button></td>
-
+							<td><button type="button" class="custom-btn-1 btn-1" >장소 클릭</button>
+    						
+    						<p><em>지도를 클릭해주세요!</em></p> 
+							</td>
+							
 						</tr>
+						
+						
 						<tr>
+							<!--  name  , id 값들을  그 컬럼 아이디와맞춰주자 -->
 							<td class="room_name">시작시간</td>
-							<td><input type="time" name="time" >
+							<td><p>
+									<input type="time" name="start_datetime" id="start_datetime">
+								</p>
 							<td class="room_name" style="text-align: center;">종료시간</td>
-							<td><input type="time" name="time1"></td>
+							<td><p>
+									<input type="time" name="end_datetime" id="end_datetime">
+								</p>
 						</tr>
 						<tr>
 							<td class="room_name">모집 종료시간</td>
-							<td><input type="time" name="time" /></td>
+							<td><p>
+									<input type="time" name="final_datetime" id="final_datetime">
+								</p></td>
 
 
 							<td class="room_name">성별</td>
-							<td><input type="radio" name="gender" id="gender"
-								value="1" checked>남성 <input type="radio"
-								name="gender" id="gender" value="2">여성 <input
-								type="radio" name="gender" id="gender" value="3">혼성
-
-							
+							<td><input type="radio" name="gender" id="gender" value="1"
+								checked>남성 <input type="radio" name="gender" id="gender"
+								value="2">여성 <input type="radio" name="gender"
+								id="gender" value="3">혼성
 						</tr>
 						<tr>
 					</table>
+
+					
 					<div>
 						<fieldset>
 							<legend>소개</legend>
-							<textarea name="comment" cols="168" rows="10"
-								style="resize: none;">
-                </textarea>
+
+							<textarea name="room_content" id="room_content" cols="168"
+								rows="10" onblur="this.value = this.value.trim()"></textarea>
 						</fieldset>
 					</div>
 					<div class="three">
@@ -365,8 +403,57 @@ $(function() {
 				</div>
 			</section>
 		</form>
+			</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dce2b3b82c0dc9a7705feeccd7f8c666"></script>
+<script>
+var map, marker;
 
-	</div>
+function initMap() {
+    var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+    var mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+    map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 지도를 클릭한 위치에 표출할 마커입니다
+    marker = new kakao.maps.Marker({ 
+        // 지도 중심좌표에 마커를 생성합니다 
+        position: map.getCenter() 
+    }); 
+    // 지도에 마커를 표시합니다
+    marker.setMap(map);
+
+    // 지도에 클릭 이벤트를 등록합니다
+    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+
+        // 클릭한 위도, 경도 정보를 가져옵니다 
+        var latlng = mouseEvent.latLng; 
+
+        // 마커 위치를 클릭한 위치로 옮깁니다
+        marker.setPosition(latlng);
+
+        var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+        message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+        var resultDiv = document.getElementById('clickLatlng'); 
+        resultDiv.innerHTML = message;
+
+    });
+}
+ function openMap() {
+    // 팝업창을 열고 지도를 표시합니다
+    var mapWindow = window.open("", "지도", "width=500,height=500");
+    // 팝업창이 열리면서 initMap() 함수를 호출하여 지도를 초기화합니다.
+    mapWindow.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>지도</title></head><body onload="initMap()"><div id="map" style="width:100%;height:350px;"></div></body></html>');
+} 
+</script>
+
+
+
+
 	<footer class="footer">
 		<div class="container">
 			<div class="row">
@@ -407,7 +494,8 @@ function homepage_ok(f) {
 	var selectElement = document.getElementById("class");
 	var selectedValue = selectElement.value;
 	var msg = document.querySelector('#showCity').textContent;
-
+	var msg = document.querySelector('#showCity').textContent;
+	
 	
 	
 	if (title ==="") {
@@ -438,6 +526,9 @@ function homepage_ok(f) {
 	f.action="homepage_ok.do";
 	f.submit();
 }
+
+
+
 </script>
 
 
