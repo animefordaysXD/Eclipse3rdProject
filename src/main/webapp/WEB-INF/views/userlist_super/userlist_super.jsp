@@ -74,17 +74,14 @@
 	        }
 	    }
 	    
-		function picture_close() {
-			pop.style.display = "none";
-		}
-		
 		function enterKey(e){
 			if(e.keyCode == 13){
-		    	alert("엔터키를 눌렀네요??");
+				var radio = $("input[type=radio][name=radio]:checked").val();
+				alert("엔터키를 눌렀네요??");
+				alert(radio);
 		    	const search = document.getElementById('search').value;
 		    	alert(search);
-		    	location.href = "userlist_super_search.do?search="+search;
-		    	
+		    	location.href = "userlist_super_search.do?search="+search+"&radio="+radio;
 			}
 		}
 		
@@ -176,19 +173,25 @@
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">사용자 관리 리스트</h2>
+						<a href="userlist_super.do" style="text-decoration: none;"><h2
+								id="headline">사용자 관리 리스트</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
-								</label><label class="radio_label"> <input type="radio"
-									name="radio" /> <span>회원번호</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체검색</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>ID</span>
+									name="radio" value="select_u_idx" onclick="radio_select(event)" />
+									<span>회원번호</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>닉네임</span>
+									name="radio" value="select_u_email"
+									onclick="radio_select(event)" /> <span>ID</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>생년월일</span>
+									name="radio" value="select_u_nickname"
+									onclick="radio_select(event)" /> <span>닉네임</span>
+								</label> <label class="radio_label"> <input type="radio"
+									name="radio" value="select_u_bday"
+									onclick="radio_select(event)" /> <span>생년월일</span>
 								</label>
 							</form>
 						</div>

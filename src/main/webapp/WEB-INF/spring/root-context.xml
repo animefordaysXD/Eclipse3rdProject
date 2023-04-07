@@ -12,7 +12,11 @@
 			value="oracle.jdbc.OracleDriver" />
 		<property name="url"
 			value="jdbc:oracle:thin:@localhost:1521:xe" />
+<<<<<<< HEAD
 		<property name="username" value="c##ictedu2" />
+=======
+		<property name="username" value="c##blank" />
+>>>>>>> bf6bd95db08d6e9c318529906ebd5e4424a20c8d
 		<property name="password" value="1111" />
 	</bean>
 
