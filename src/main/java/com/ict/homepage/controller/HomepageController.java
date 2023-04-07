@@ -57,10 +57,13 @@ public class HomepageController {
 	 hvo.setRoom_count(Integer.parseInt(request.getParameter("name1")));
 	 hvo.setRoom_region((String)request.getParameter("room_region"));
 	 hvo.setRoom_dateregion((String)request.getParameter("dateregion"));
-	 hvo.setStart_datetime((String)request.getParameter("start_datetime"));
+	// hvo.setStart_datetime((String)request.getParameter("start_datetime"));
+	  hvo.setStart_datetime((String)request.getParameter("start_datetime"));
 	 hvo.setEnd_datetime((String)request.getParameter("end_datetime"));
 	 hvo.setFinal_datetime((String)request.getParameter("final_datetime"));
 	 hvo.setRoom_gender(Integer.parseInt(request.getParameter("gender")));
+	 hvo.setRoom_content((String)request.getParameter("room_content"));
+
 		System.out.println("title is " + hvo.getRoom_title());
 		System.out.println("category_type is " + hvo.getCategory_type());
 		System.out.println("name1 is " + hvo.getRoom_count());
@@ -70,8 +73,10 @@ public class HomepageController {
 		System.out.println("end_datetime is " + hvo.getEnd_datetime());
 		System.out.println("final_datetime is " + hvo.getFinal_datetime());
 		System.out.println("gender is " + hvo.getRoom_gender());
+		System.out.println("room_content is " + hvo.getRoom_content());
 		int result = homepage_Service.homepageInsert(hvo);
 		return new ModelAndView("redirect:roomlist.do");
+		
 
 	}
 
