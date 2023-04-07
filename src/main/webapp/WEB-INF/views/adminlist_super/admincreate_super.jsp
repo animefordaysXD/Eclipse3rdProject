@@ -48,6 +48,32 @@
 <link href="resources/attribute_list/css/table_buttons.css"
 	rel="stylesheet">
 <title>관리자 생성</title>
+<script type="text/javascript">
+	function admincreate_super_exit(f) {
+		f.action = "adminlist_super.do"
+	}
+
+	function admincreate_super_ok(f) {
+		if (f.admin_id.value.trim().length <= 0) {
+			alert("관리자 아이디를 입력하세요.");
+			f.admin_id.focus();
+			return;
+		}
+
+		if (f.admin_nickname.value.trim().length <= 0) {
+			alert("관리자 닉네임을 입력하세요.")
+			f.admin_nickname.focus();
+			return;
+		}
+
+		if (confirm("관리자를 생성하시겠습니까?")) {
+			f.action = "admincreate_super_ok.do"
+			alert("관리자가 생성되었습니다.");
+		} else {
+			return;
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -64,45 +90,27 @@
 			</label>
 			<div id="sidebarMenu">
 				<ul class="sidebarMenuInner">
-					<li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-user">&emsp;로그인</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
-					<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
-					<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
-					<li><a href="#"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
+					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트
+						</i></a></li>
+					<li style="font-size: 15px;"><a href="#"><i>&emsp;사용자생성</i></a></li>
+					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트
+						</i></a></li>
+					<li style="font-size: 15px;"><a href="admincreate_super.do"><i>&emsp;관리자생성</i></a></li>
+					<li style="font-size: 15px;"><a href="admin_login.do"><i>&emsp;로그아웃</i></a></li>
 				</ul>
 			</div>
-
-
 			<div class="option">
-
-
-
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
 					</button>
 					<spacer></spacer>
 					<div style="display: none;" id="drop-content">
-
-
 						<div class="profile"></div>
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
-								style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -115,16 +123,13 @@
 					<li class="br active">현재페이지</li>
 				</ul>
 			</div>
-
 		</nav>
-
 		<script>
 			function dp_menu() {
 				let click = document.getElementById("drop-content");
 				if (click.style.display === "none") {
 					click.style.display = "block";
 					return false
-
 				} else {
 					click.style.display = "none";
 
@@ -142,35 +147,42 @@
 			}
 		</script>
 		<section>
-			<div id="container_list">
-				<div id="wrapper_list">
-					<div id="wrapper_list_inner">
-						<h2 id="headline">관리자 생성</h2>
-						<table class="list_table" style="margin-top: 50px;">
-							<colgroup>
-								<col width="240px" />
-								<col width="450px" />
-								<col width="450px" />
-							</colgroup>
-							<tbody>
-								<tr>
-									<th>관리자번호</th>
-									<th>ID</th>
-									<th>닉네임</th>
-								</tr>
-								<tr class="KOTRA-fontsize-80">
-									<td>자동부여</td>
-									<td><input type="text" style="width: 300px; height: 20px"></td>
-									<td><input type="text" style="width: 300px; height: 20px"></td>
-								</tr>
-							</tbody>
-						</table>
-						<button class="btn hover1"
-							style="margin-right: 33px; margin-left: 20px; margin-top: 15px;">취소</button>
-						<button class="btn hover1" style="margin-top: 15px;">관리자생성</button>
+			<form method="post" style="margin: 0 auto;">
+				<div id="container_list">
+					<div id="wrapper_list">
+						<div id="wrapper_list_inner">
+							<h2 id="headline">관리자 생성</h2>
+							<table class="list_table" style="margin-top: 50px;">
+								<colgroup>
+									<col width="240px" />
+									<col width="450px" />
+									<col width="450px" />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>관리자번호</th>
+										<th>ID</th>
+										<th>닉네임</th>
+									</tr>
+									<tr class="KOTRA-fontsize-80">
+										<td>자동부여</td>
+										<td><input type="text" name="admin_id"
+											style="width: 300px; height: 20px"></td>
+										<td><input type="text" name="admin_nickname"
+											style="width: 300px; height: 20px"></td>
+									</tr>
+								</tbody>
+							</table>
+							<button class="btn hover1"
+								onclick="admincreate_super_exit(this.form)"
+								style="margin-right: 33px; margin-left: 20px; margin-top: 15px;">취소</button>
+							<button class="btn hover1"
+								onclick="admincreate_super_ok(this.form)"
+								style="margin-top: 15px;">관리자생성</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</section>
 		<!-- footer 추가  -->
 		<footer class="footer">

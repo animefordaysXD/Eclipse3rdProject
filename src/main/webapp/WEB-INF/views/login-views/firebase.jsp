@@ -33,6 +33,17 @@ const firebaseConfig = {
     	  }
     	});
       
+      async function globalSignOut() {
+    	    try {
+    	        await firebase.auth().signOut();
+    	        alert("User signed out successfully");
+    	        localStorage.removeItem("hash");
+    	        window.location.href = "login.mymain.do";
+    	    } catch (error) {
+    	    	alert("Error signing out: ", error);
+    	    }
+    	}
+      
 </script>
 <body>
 

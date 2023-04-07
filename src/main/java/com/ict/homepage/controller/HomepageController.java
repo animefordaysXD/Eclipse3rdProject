@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.homepage.model.service.homepage_Service;
 import com.ict.homepage.model.vo.homepage_VO;
-import com.ict.login.service.VO.VO;
+
 
 @Controller
 public class HomepageController {
@@ -87,7 +87,21 @@ public class HomepageController {
 		mv.addObject("list", list);
 
 		return mv;
+}
+	public ModelAndView HomePageok(homepage_VO hvo, HttpSession session) {
+		ModelAndView mv = new ModelAndView("redirect:roomlist.do");
+		return mv;
 
+	}
+
+	@RequestMapping("roomList.do")
+	public ModelAndView romm() {
+		ModelAndView mv = new ModelAndView("homepage-views/roomList");
+		List<homepage_VO> list = homepage_Service.homepageList();
+		mv.addObject("list", list);
+
+
+		return mv;
 	}
 
 }

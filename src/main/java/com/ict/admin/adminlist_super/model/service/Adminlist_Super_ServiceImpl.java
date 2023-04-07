@@ -28,4 +28,14 @@ public class Adminlist_Super_ServiceImpl implements Adminlist_Super_Service {
 		return adminlist_Super_DAO.getList(begin, end);
 	}
 
+	@Override
+	public int getAdminCreate(Adminlist_Super_VO adminlist_Super_VO) {
+		return adminlist_Super_DAO.getAdminCreate(adminlist_Super_VO);
+	}
+
+	@Override
+	public int getAdminDelete(String admin_idx) {
+		return adminlist_Super_DAO.getAdminDelete(admin_idx);
+	}
+
 }

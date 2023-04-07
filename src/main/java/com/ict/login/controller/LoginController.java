@@ -156,6 +156,7 @@ public class LoginController {
 			}else {
 				ModelAndView mv = new ModelAndView("login-views/mymain");
 				System.out.println("worked ");
+				System.out.println("hashhash:"+hash);
 				mv.addObject("hash",hash);
 				return mv;
 			}
