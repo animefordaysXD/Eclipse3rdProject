@@ -249,10 +249,10 @@ function checkNick(){
 						<br> <br>
 						<table class="list_table">
 							<colgroup>
-								<col width="200px" />
-								<col width="200px" />
-								<col width="350px" />
-								<col width="400px" />
+								<col width="250px" />
+								<col width="250px" />
+								<col width="250px" />
+								<col width="380px" />
 							</colgroup>
 							<thead>
 								<tr>
@@ -278,14 +278,20 @@ function checkNick(){
 												<!-- 방 제목   -->
 												<td>${k.room_title }</td>
 												<!-- 마감 여부  -->
-												<td>{% if k.close_ok == 1 %}
-													<button type="button" class="seoul">활동종료</button> {% else
-													if k.close_ok == 2 %}
-													<button type="button" class="seoul2">모집종료</button> {% else
-													if k.close_ok == 3 %}
-													<button type="button" class="seoul1">모집중</button>
-												</td> 
-
+												<td>
+												<!-- ==는 안된다 eq ne 이퀄스 를 해줘야함  -->
+												<c:choose>
+											    <c:when test="${k.close_ok eq 1}">
+											       <button type="button" class="seoul2">활동종료</button>
+											    </c:when>
+											    <c:when test="${k.close_ok eq 2}">
+											        <button type="button" class="seoul1">모집종료</button>
+											    </c:when>
+											    <c:otherwise>
+											      <button type="button" class="seoul">모집중</button>
+											    </c:otherwise>
+											</c:choose>
+												</td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

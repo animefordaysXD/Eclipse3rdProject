@@ -11,9 +11,15 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver" />
 		<property name="url"
+<<<<<<< HEAD
 			value="jdbc:oracle:thin:@localhost:1521:orcl" />
 		<property name="username" value="cms" />
 		<property name="password" value="951223" />
+=======
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="c##blank" />
+		<property name="password" value="1111" />
+>>>>>>> 8a2626bb0334d7405289bf3909061f5bfbf9bf4f
 	</bean>
 
 	<!-- mybatis : config (오라클연결 정보, mapper 위치) -->
