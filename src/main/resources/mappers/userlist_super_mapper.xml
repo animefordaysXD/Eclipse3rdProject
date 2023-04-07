@@ -8,7 +8,6 @@
 		select count(*) from users
 	</select>
 
-
 	<!-- Paging 기법을 이용한 사용자 출력 -->
 	<select id="list" parameterType="Map"
 		resultType="userlist_super_vo">
@@ -26,10 +25,119 @@
 		#{u_name}, #{u_gender}, #{u_bday}, #{u_nickname}, 1)
 	</insert>
 
+	<!-- id 중복 체크 -->
+	<select id="user_idcheck" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_email = #{user_id}
+	</select>
+
+	<!-- 닉네임 중복 체크 -->
+	<select id="user_nicknamecheck" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_nickname =
+		#{user_nickname}
+	</select>
+
 	<!-- 사용자 삭제 -->
 	<delete id="userdelete" parameterType="String">
 		delete from users where
 		u_idx = #{u_idx}
 	</delete>
+
+	<!-- 전체 검색으로 사용자 수 세기 -->
+	<select id="count_u_allsearch" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_idx like '%' ||
+		#{u_allsearch}
+		|| '%' or
+		u_email like '%' || #{u_allsearch} || '%' or
+		u_nickname like '%'
+		|| #{u_allsearch} || '%' or
+		u_bday like '%' ||
+		#{u_allsearch} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_u_allsearch" parameterType="Map"
+		resultType="userlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		users order by
+		u_idx desc) a ) where r_num between #{begin} and #{end}
+		and u_idx like '%' || #{u_allsearch}
+		|| '%' or
+		u_email like '%' ||
+		#{u_allsearch}
+		|| '%' or u_nickname like '%'
+		|| #{u_allsearch} || '%' or
+		u_bday like '%'
+		|| #{u_allsearch} || '%'
+	</select>
+
+	<!-- u_idx로 사용자 수 세기 -->
+	<select id="count_u_idx" parameterType="String" resultType="int">
+		select
+		count(*) from users
+		where u_idx = #{u_idx}
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_u_idx" parameterType="Map"
+		resultType="userlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		users order by
+		u_idx desc) a ) where r_num between #{begin} and #{end}
+		and u_idx = #{u_idx}
+	</select>
+
+	<!-- u_email로 사용자 수 세기 -->
+	<select id="count_u_email" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_email like '%' ||
+		#{u_email} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 ID 검색 출력 -->
+	<select id="list_u_email" parameterType="Map"
+		resultType="userlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		users order by
+		u_idx desc) a ) where r_num between #{begin} and #{end}
+		and u_email like '%' ||
+		#{u_email} || '%'
+	</select>
+
+	<!-- u_nickname로 사용자 수 세기 -->
+	<select id="count_u_nickname" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_nickname like '%' ||
+		#{u_nickname} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 NickName 검색 출력 -->
+	<select id="list_u_nickname" parameterType="Map"
+		resultType="userlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		users order by
+		u_idx desc) a ) where r_num between #{begin} and #{end}
+		and u_nickname like '%' ||
+		#{u_nickname} || '%'
+	</select>
+
+	<!-- u_bday로 사용자 수 세기 -->
+	<select id="count_u_bday" parameterType="String"
+		resultType="int">
+		select count(*) from users where u_bday like '%' ||
+		#{u_bday} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 NickName 검색 출력 -->
+	<select id="list_u_bday" parameterType="Map"
+		resultType="userlist_super_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		users order by
+		u_idx desc) a ) where r_num between #{begin} and #{end}
+		and u_bday like '%' ||
+		#{u_bday} || '%'
+	</select>
 
 </mapper>

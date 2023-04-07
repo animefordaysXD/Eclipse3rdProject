@@ -92,7 +92,7 @@
 				<ul class="sidebarMenuInner">
 					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트
 						</i></a></li>
-					<li style="font-size: 15px;"><a href="#"><i>&emsp;사용자생성</i></a></li>
+					<li style="font-size: 15px;"><a href="usercreate_super.do"><i>&emsp;사용자생성</i></a></li>
 					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트
 						</i></a></li>
 					<li style="font-size: 15px;"><a href="admincreate_super.do"><i>&emsp;관리자생성</i></a></li>
