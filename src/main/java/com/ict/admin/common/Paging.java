@@ -11,8 +11,8 @@ public class Paging {
 	private int totalRecord = 0;	// 전체 게시물의 수(원글의 수)
 	private int totalPage = 0; 		// 전체 페이지의 수
 	private int totalBlock = 0; 	// 전체 블록의 수
-	private int numPerPage = 3; 	// 한 페이지안에 존재하는 원글의 수
-	private int pagePerBlock = 3; 	// 한 블록안에 존재하는 페이지의 수
+	private int numPerPage = 10; 	// 한 페이지안에 존재하는 원글의 수
+	private int pagePerBlock = 5; 	// 한 블록안에 존재하는 페이지의 수
 
 	// 실제로 사용되는 변수
 	private int begin = 0; 			// 시작 번호

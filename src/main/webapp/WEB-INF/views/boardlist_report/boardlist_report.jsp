@@ -83,38 +83,6 @@
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -125,15 +93,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
+								for="size_1"><a href="admin_login.do"
 								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
@@ -158,41 +118,39 @@
 					click.style.display = "none";
 				}
 			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-				} else {
-					click.style.display = "none";
-				}
-			}
 		</script>
 		<section>
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">신고내역리스트</h2>
+						<a href="boardlist_report.do" style="text-decoration: none;"><h2
+								id="headline">신고내역리스트</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체검색</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>신고번호</span>
+									name="radio" value="select_target_u_id"
+									onclick="radio_select(event)" /> <span>가해자ID</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>ID</span>
+									name="radio" value="select_target_u_nickname"
+									onclick="radio_select(event)" /> <span>가해자닉네임</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>가해자닉네임</span>
+									name="radio" value="select_u_nickname"
+									onclick="radio_select(event)" /> <span>신고자닉네임</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>신고자닉네임</span>
-								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>신고일자</span>
+									name="radio" value="select_report_date"
+									onclick="radio_select(event)" /> <span>신고일자</span>
 								</label>
 							</form>
 						</div>
 						<div id="container_searchbox">
 							<div class="searchbox">
-								<input type="text" class="searchtxt" placeholder="search">
-								<a class="searchbtn" href="#"> <i class="fas fa-search"></i>
+								<input type="text" class="searchtxt" id="search"
+									placeholder="검색시 엔터키를 눌러주세요" style="font-size: 12px;"
+									onkeypress="return enterKey(event);"> <a
+									class="searchbtn" href="#"> <i class="fas fa-search"></i>
 								</a>
 							</div>
 						</div>
@@ -214,7 +172,7 @@
 									<th>신고자</th>
 									<th>신고사유</th>
 									<th>신고일자</th>
-									<th>신고삭제</th>
+									<th>신고처리현황</th>
 								</tr>
 								<c:choose>
 									<c:when test="${empty boardlist_report}">
@@ -231,7 +189,12 @@
 												<td>${k.u_idx}</td>
 												<td><a class="gradient-btn" href="view_report.do">자세히보기</a></td>
 												<td>${k.report_datetime}</td>
-												<td><a class="gradient-btn">신고삭제</a></td>
+												<c:if test="${k.report_delete==0}">
+													<td><a class="gradient-btn">처리중</a></td>
+												</c:if>
+												<c:if test="${k.report_delete==1}">
+													<td><a class="gradient-btn">처리완료</a></td>
+												</c:if>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

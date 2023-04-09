@@ -78,6 +78,14 @@
 					+ "&radio=" + radio;
 		}
 	}
+
+	function member_nicknameupdate() {
+		alert("닉네임 수정이 완료되었습니다.");
+	}
+
+	function member_getoutmember() {
+		alert("회원 탙퇴가 완료되었습니다.");
+	}
 </script>
 </head>
 <body>
@@ -221,8 +229,12 @@
 												<td>${k.u_nickname}</td>
 												<td>${k.u_bday}</td>
 												<td><a class="gradient-btn" onclick="showHide()">사진보기</a></td>
-												<td><a class="gradient-btn">수정</a></td>
-												<td><a class="gradient-btn">탈퇴시키기</a></td>
+												<td><a class="gradient-btn"
+													href="boardlist_member_nicknameupdate.do?u_idx=${k.u_idx}"
+													onclick="member_nicknameupdate()">수정</a></td>
+												<td><a class="gradient-btn"
+													href="boardlist_member_getoutmember.do?u_idx=${k.u_idx}"
+													onclick="member_getoutmember()">탈퇴시키기</a></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

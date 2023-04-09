@@ -31,6 +31,16 @@ public class Boardlist_Member_ServiceImpl implements Boardlist_Member_Service {
 	}
 
 	@Override
+	public int getBoardlist_Member_Nicknameupdate(String u_idx) {
+		return boardlist_Member_DAO.getBoardlist_Member_Nicknameupdate(u_idx);
+	}
+	
+	@Override
+	public int getBoardlist_Member_getOutmember(String u_idx) {
+		return boardlist_Member_DAO.getBoardlist_Member_getOutmember(u_idx);
+	}
+
+	@Override
 	public int getTotalCount_AllSearch(String u_allsearch) {
 		return boardlist_Member_DAO.getTotalCount_AllSearch(u_allsearch);
 	}

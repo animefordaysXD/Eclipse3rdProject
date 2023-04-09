@@ -18,6 +18,19 @@
 		#{begin} and #{end}
 	</select>
 
+	<!-- 닉네임 변경 -->
+	<update id="update_nickname" parameterType="String">
+		update users set
+		u_nickname = '바른닉네임사용권장' where u_idx = ${u_idx}
+	</update>
+
+	<!-- 회원 탈퇴시키기 -->
+	<update id="update_getoutmember" parameterType="String">
+		update users set
+		u_status = 1 where u_idx = ${u_idx}
+	</update>
+
+
 	<!-- 전체 검색으로 사용자 수 세기 -->
 	<select id="count_boardlist_member_allsearch"
 		parameterType="String" resultType="int">
@@ -55,7 +68,8 @@
 	<!-- u_email로 사용자 수 세기 -->
 	<select id="count_boardlist_member_u_email"
 		parameterType="String" resultType="int">
-		select count(*) from users where u_status = 0 and u_email like '%' ||
+		select count(*) from users where
+		u_status = 0 and u_email like '%' ||
 		#{u_email} || '%'
 	</select>
 
@@ -64,7 +78,8 @@
 		resultType="board_member_vo">
 		select * from ( select rownum r_num, a.* from(select * from
 		users where u_status = 0 order by
-		u_idx desc) a ) where r_num between #{begin} and #{end}
+		u_idx desc) a ) where r_num between
+		#{begin} and #{end}
 		and u_email like '%' ||
 		#{u_email} || '%'
 	</select>
@@ -72,16 +87,19 @@
 	<!-- u_nickname로 사용자 수 세기 -->
 	<select id="count_boardlist_member_u_nickname"
 		parameterType="String" resultType="int">
-		select count(*) from users where u_status = 0 and u_nickname like '%' ||
+		select count(*) from users where
+		u_status = 0 and u_nickname like '%' ||
 		#{u_nickname} || '%'
 	</select>
 
 	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
-	<select id="list_boardlist_member_u_nickname" parameterType="Map"
-		resultType="board_member_vo">
-		select * from ( select rownum r_num, a.* from(select * from
+	<select id="list_boardlist_member_u_nickname"
+		parameterType="Map" resultType="board_member_vo">
+		select * from ( select rownum r_num,
+		a.* from(select * from
 		users where u_status = 0 order by
-		u_idx desc) a ) where r_num between #{begin} and #{end}
+		u_idx desc) a )
+		where r_num between #{begin} and #{end}
 		and u_nickname like '%' ||
 		#{u_nickname} || '%'
 	</select>
@@ -89,7 +107,8 @@
 	<!-- u_bday로 사용자 수 세기 -->
 	<select id="count_boardlist_member_u_bday"
 		parameterType="String" resultType="int">
-		select count(*) from users where u_status = 0 and u_bday like '%' ||
+		select count(*) from users where
+		u_status = 0 and u_bday like '%' ||
 		#{u_bday} || '%'
 	</select>
 
@@ -98,7 +117,8 @@
 		resultType="board_member_vo">
 		select * from ( select rownum r_num, a.* from(select * from
 		users where u_status = 0 order by
-		u_idx desc) a ) where r_num between #{begin} and #{end}
+		u_idx desc) a ) where r_num between
+		#{begin} and #{end}
 		and u_bday like '%' ||
 		#{u_bday} || '%'
 	</select>
