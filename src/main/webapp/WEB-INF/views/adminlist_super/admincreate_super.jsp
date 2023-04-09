@@ -49,6 +49,54 @@
 	rel="stylesheet">
 <title>관리자 생성</title>
 <script type="text/javascript">
+	function get_IdCheck() {
+		var admin_id = $('#admin_id').val();
+		$.ajax({
+			url : "admin_IdCheck.do",
+			type : "post",
+			data : {
+				admin_id : admin_id
+			},
+			dataType : 'text',
+			success : function(result) {
+				if (result === "1") {
+					$("#id_feedback").html('이미 사용중인 아이디입니다.');
+					$("#id_feedback").attr('color', '#dc3545');
+				} else {
+					$("#id_feedback").html('사용할 수 있는 아이디입니다.');
+					$("#id_feedback").attr('color', '#2fd380');
+				}
+			},
+			error : function() {
+				alert("서버요청실패");
+			}
+		});
+	};
+
+	function get_NicknameCheck() {
+		var admin_nickname = $('#admin_nickname').val();
+		$.ajax({
+			url : "admin_NicknameCheck.do",
+			type : "post",
+			data : {
+				admin_nickname : admin_nickname
+			},
+			dataType : 'text',
+			success : function(result) {
+				if (result === "1") {
+					$("#nickname_feedback").html('이미 사용중인 닉네임입니다.');
+					$("#nickname_feedback").attr('color', '#dc3545');
+				} else {
+					$("#nickname_feedback").html('사용할 수 있는 닉네임입니다.');
+					$("#nickname_feedback").attr('color', '#2fd380');
+				}
+			},
+			error : function() {
+				alert("서버요청실패");
+			}
+		});
+	};
+
 	function admincreate_super_exit(f) {
 		f.action = "adminlist_super.do"
 	}
@@ -110,7 +158,8 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="admin_login.do"
+								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -130,16 +179,6 @@
 				if (click.style.display === "none") {
 					click.style.display = "block";
 					return false
-				} else {
-					click.style.display = "none";
-
-				}
-			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-
 				} else {
 					click.style.display = "none";
 
@@ -166,10 +205,17 @@
 									</tr>
 									<tr class="KOTRA-fontsize-80">
 										<td>자동부여</td>
-										<td><input type="text" name="admin_id"
-											style="width: 300px; height: 20px"></td>
+										<td><input type="text" name="admin_id" id="admin_id"
+											onblur="get_IdCheck();" style="width: 300px; height: 20px">
+											<div>
+												<font id="id_feedback" size="2"></font>
+											</div></td>
 										<td><input type="text" name="admin_nickname"
-											style="width: 300px; height: 20px"></td>
+											id="admin_nickname" onblur="get_NicknameCheck();"
+											style="width: 300px; height: 20px">
+											<div>
+												<font id="nickname_feedback" size="2"></font>
+											</div></td>
 									</tr>
 								</tbody>
 							</table>
