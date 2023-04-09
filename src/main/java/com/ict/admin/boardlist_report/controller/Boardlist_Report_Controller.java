@@ -37,14 +37,6 @@ public class Boardlist_Report_Controller {
 		this.paging = paging;
 	}
 
-//	----------------------------------
-// 기본동작 구현완료 0404
-//	@RequestMapping("admin_login.do")
-//	public ModelAndView admin_Login() {
-//		ModelAndView mv = new ModelAndView("admin_login");
-//		return mv;
-//	}
-
 	@RequestMapping("boardlist_report.do")
 	public ModelAndView getboardList_Report(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("boardlist_report/boardlist_report");
@@ -72,7 +64,6 @@ public class Boardlist_Report_Controller {
 		// 뒤로 갔을때 현재 페이지로 돌아가야하니까 현재 페이지도 기록해둔다.
 		// cPage로 전역변수화 시킨다.
 		cPage = request.getParameter("cPage");
-		logger.info("현재페이지" + cPage);
 		if (cPage == null) {
 			paging.setNowPage(1);
 		} else {
@@ -90,11 +81,9 @@ public class Boardlist_Report_Controller {
 		// 시작 블록
 		paging.setBeginBlock(
 				(int) ((paging.getNowPage() - 1) / paging.getPagePerBlock()) * paging.getPagePerBlock() + 1);
-		System.out.println("시작블록" + paging.getBeginBlock());
 
 		// 끝 블록
 		paging.setEndBlock(paging.getBeginBlock() + paging.getPagePerBlock() - 1);
-		System.out.println("끝블록" + paging.getEndBlock());
 
 		// 주의 사항
 		// 만약, 끝블록의 숫자가 전체 페이지의 수보다 크다면 끝블록은 전체 페이지 수로 조정한다.

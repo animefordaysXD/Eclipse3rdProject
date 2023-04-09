@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.admin.boardlist_member.model.service.Boardlist_Member_Service;
@@ -98,6 +99,21 @@ public class Boardlist_Member_Controller {
 		return mv;
 	}
 
+	// 관리자용 닉네임 변경
+	@RequestMapping("boardlist_member_nicknameupdate.do")
+	public ModelAndView boardlist_Member_Nicknameupdate(@RequestParam("u_idx") String u_idx) {
+		int result = boardlist_Member_Service.getBoardlist_Member_Nicknameupdate(u_idx);
+		return new ModelAndView("redirect:boardlist_member.do");
+	}
+
+	// 관리자용 회원 탈퇴시키기
+	@RequestMapping("boardlist_member_getoutmember.do")
+	public ModelAndView boardlist_Member_getOutmember(@RequestParam("u_idx") String u_idx) {
+		int result = boardlist_Member_Service.getBoardlist_Member_getOutmember(u_idx);
+		return new ModelAndView("redirect:boardlist_member.do");
+	}
+
+	// 검색하기
 	@RequestMapping("boardlist_member_search.do")
 	public ModelAndView boardlist_Member_Search(@ModelAttribute("search") String search,
 			@ModelAttribute("radio") String radio) {

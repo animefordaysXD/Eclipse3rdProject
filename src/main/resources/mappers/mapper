@@ -154,28 +154,33 @@ VALUES (USERS_SEQ.NEXTVAL
  - 관련 Query문
  
  1)
-CREATE TABLE ROOM
-(
-ROOM_IDX NUMBER PRIMARY KEY,
-ROOM_TITLE VARCHAR2(100) NOT NULL,
-CATEGORY_TYPE NUMBER NOT NULL,
-ROOM_COUNT NUMBER NOT NULL,
-ROOM_REGION VARCHAR2(50)NOT NULL,
-ROOM_GENDER NUMBER NOT NULL,
-START_DATETIME DATE NOT NULL,
-END_DATETIME DATE NOT NULL,
-ROOM_CONTENT VARCHAR2(250) NOT NULL,
-WRITE_DATETIME DATE NOT NULL,
-CLOSE_OK NUMBER NOT NULL,
-U_NICKNAME VARCHAR2(50) NOT NULL,
-U_IDX NUMBER NOT NULL,
-BEGIN_DATETIME DATE NOT NULL,
-FINAL_DATETIME DATE NOT NULL,
-ROOM_DEL_CODE NUMBER DEFAULT 0,
-ADMIN_IDX NUMBER,
-ROOM_DEL_ADMIN VARCHAR2(50),
-ROOM_DEL_DATETIME DATE,
-ROOM_DATEREGION VARCHAR2(50) NOT NULL
+CREATE TABLE room (
+    room_idx    number        NOT NULL,
+    room_title    varchar2(100)        NOT NULL,
+    category_type    varchar2(50)        NOT NULL,
+    room_count    number        NOT NULL,
+    room_region    varchar2(50)        NOT NULL,
+    room_gender    number        NOT NULL,
+    start_datetime    date        NOT NULL,
+    end_datetime    date        NOT NULL,
+    room_content    varchar2(250)        NOT NULL,
+    write_datetime    date        NOT NULL,
+    close_ok    number        NOT NULL,
+    u_nickname    varchar2(50)        NOT NULL,
+    u_idx    number        NOT NULL,
+    begin_datetime    date        NOT NULL,
+    final_datetime    date        NOT NULL,
+    room_del_code    number    DEFAULT 0    NULL,
+    admin_idx    number        NULL,
+    room_del_admin    varchar2(50)        NULL,
+    room_del_datetime    date        NULL,
+    room_dateregion    varchar2(200)        NOT NULL,
+    room_logitude varchar2(50) NOT NULL,
+    room_latitude varchar2(200) NOT NULL
+);
+
+ALTER TABLE room ADD CONSTRAINT PK_ROOM PRIMARY KEY (
+    room_idx
 );
 
  2)
@@ -190,10 +195,11 @@ NOORDER;
 
  3)
 INSERT INTO ROOM
-(ROOM_IDX,ROOM_TITLE, CATEGORY_TYPE, ROOM_COUNT, ROOM_REGION, ROOM_GENDER, START_DATETIME, END_DATETIME, ROOM_CONTENT, WRITE_DATETIME, CLOSE_OK, U_NICKNAME, U_IDX, BEGIN_DATETIME, FINAL_DATETIME, ROOM_DATEREGION)
+(ROOM_IDX,ROOM_TITLE, CATEGORY_TYPE, ROOM_COUNT, ROOM_REGION, ROOM_GENDER, START_DATETIME, END_DATETIME, ROOM_CONTENT, WRITE_DATETIME, CLOSE_OK, U_NICKNAME, U_IDX, BEGIN_DATETIME, FINAL_DATETIME, ROOM_DATEREGION,
+room_logitude, room_latitude)
 VALUES (ROOM_SEQ.NEXTVAL
 , '테스트방 0001'
-, 0
+, 'bowling'
 , 4
 , '마포구'
 , 3
@@ -207,6 +213,8 @@ VALUES (ROOM_SEQ.NEXTVAL
 , SYSDATE
 , SYSDATE
 , '테스트장소'
+, '33.33'
+, '44.44'
 );
 
 5. Adminlist_Super

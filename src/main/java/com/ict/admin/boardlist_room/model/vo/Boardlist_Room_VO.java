@@ -1,9 +1,9 @@
 package com.ict.admin.boardlist_room.model.vo;
 
 public class Boardlist_Room_VO {
-	private int room_idx, category_type, room_count, room_gender, close_ok, u_idx, room_del_code, admin_idx;
-	private String room_title, room_region, start_datetime, end_datetime, room_content, write_datetime, u_nickname,
-			begin_datetime, final_datetime, room_del_admin, room_del_datetime;
+	private int room_idx, room_count, room_gender, close_ok, u_idx, room_del_code, admin_idx;
+	private String category_type, room_title, room_region, start_datetime, end_datetime, room_content, write_datetime,
+			u_nickname, begin_datetime, final_datetime, room_del_admin, room_del_datetime;
 
 	public int getRoom_idx() {
 		return room_idx;
@@ -13,11 +13,11 @@ public class Boardlist_Room_VO {
 		this.room_idx = room_idx;
 	}
 
-	public int getCategory_type() {
+	public String getCategory_type() {
 		return category_type;
 	}
 
-	public void setCategory_type(int category_type) {
+	public void setCategory_type(String category_type) {
 		this.category_type = category_type;
 	}
 

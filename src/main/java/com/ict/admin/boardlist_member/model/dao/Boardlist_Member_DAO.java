@@ -33,6 +33,14 @@ public class Boardlist_Member_DAO {
 		return sqlSessionTemplate.selectList("boardlist_member.list", map);
 	}
 
+	public int getBoardlist_Member_Nicknameupdate(String u_idx) {
+		return sqlSessionTemplate.update("boardlist_member.update_nickname", u_idx);
+	}
+
+	public int getBoardlist_Member_getOutmember(String u_idx) {
+		return sqlSessionTemplate.update("boardlist_member.update_getoutmember", u_idx);
+	}
+
 	public int getTotalCount_AllSearch(String u_allsearch) {
 		return sqlSessionTemplate.selectOne("boardlist_member.count_boardlist_member_allsearch", u_allsearch);
 	}
