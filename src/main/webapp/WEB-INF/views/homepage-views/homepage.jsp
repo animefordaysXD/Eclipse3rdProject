@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b"></script>
 
 <link href="resources/homepage/css/homepage.css" rel="stylesheet">
 <link rel='stylesheet'
@@ -38,8 +39,13 @@
 	rel="stylesheet">
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+	
 
+
+
+
+<script>
+	
 
 function kakaopost() {
     new daum.Postcode({
@@ -53,6 +59,26 @@ function kakaopost() {
 
 </script>
 <script type="text/javascript">
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+	  var breadcrumb = document.getElementById("breadcrumb");
+	  var path = window.location.pathname.split('/').filter(function(e){return e});
+	  var breadcrumbHTML = "";
+	  var url = "/";
+	  
+	  for (var i = 0; i < path.length; i++) {
+	    url += path[i] + "/";
+	    if (i == path.length - 1) {
+	      breadcrumbHTML += "<li class='br active'>" + path[i] + "</li>";
+	    } else {
+	      breadcrumbHTML += "<li><a href='" + url + "'>" + path[i] + "</a></li>";
+	    }
+	  }
+	  
+	  breadcrumb.innerHTML = breadcrumbHTML;
+	});
 function setHash(){
 	const hash = localStorage.getItem("hash");
 	 document.getElementById("hash").value = hash;
@@ -117,6 +143,8 @@ $(function() {
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js">
 
+
+
 $(document).ready(function() {
     // .location 클래스를 가진 버튼들에 대해 click 이벤트 핸들러를 등록합니다.
     $('.locations').click(function() {
@@ -140,8 +168,9 @@ $(document).ready(function() {
 
 </script>
 
- <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b&libraries=services"></script>
-  <script>
+<script
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97abe4b711a5b7e051d1dcbcf6787f7b&libraries=services"></script>
+<script>
   
 	  function openKakaoMap() {
 		  var popup = window.open("", "mapPopup", "width=500,height=500");
@@ -214,8 +243,7 @@ $(document).ready(function() {
 <body onload="setHash()">
 
 	<div id="wrap">
-		<form method="post" action="homepage_ok.do">
-		
+
 			<header>
 				<h3 style="text-align: center;">room making</h3>
 			</header>
@@ -228,14 +256,14 @@ $(document).ready(function() {
 				</label>
 				<div id="sidebarMenu">
 					<ul class="sidebarMenuInner">
-						<li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-						<li><a href="#"><i class="fi fi-rr-user">&emsp;로그인</i></a></li>
+						<li><a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
+						<li><a href="complete.do"><i class="fi fi-rr-user">&ensp;로그아웃</i></a></li>
 						<li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
 						<li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
 						<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
 						<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
-						<li><a href="#"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
-						<li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
+						<li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
+						<li><a href=""><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
 						<li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
 					</ul>
 				</div>
@@ -299,29 +327,38 @@ $(document).ready(function() {
 									for="size_1"><a href="" style="color: white;">신청내역</a></label>
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
-									for="size_1"><a href="" style="color: white;">개설방내역</a></label>
+									for="size_1"><a href="roomlist.do" style="color: white;">개설방내역</a></label>
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
-									for="size_1"><a href="" style="color: white;">로그아웃</a></label>
+									for="size_1"><a href="complete.do" style="color: white;">로그아웃</a></label>
 
 
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="container">
-					<ul class="breadcrumb">
-						<li class="br"><a href="#">&emsp;&emsp;홈</a></li>
-						<li class="br"><a href="#">로그인</a></li>
-						<li class="br"><a href="#">메뉴</a></li>
-						<li class="br active">현재페이지</li>
-					</ul>
-				</div>
-
+							
+			<div class="container">
+			<ul class="breadcrumb" style="padding: revert;">
+				<li class="br"><a href="#">홈</a></li>
+				<li class="br"><a href="complete.do">로그아웃</a></li>
+				<li class="br">메인</li>
+				<li class="br active" aria-current="page" style="color: white;">모임방 개설방</li>
+			</ul>
+			
+		</div>
+ 			
+ 			
+			
 			</nav>
 
+		<form method="post" action="homepage_ok.do">
+
+
 			<script>
-    
+			
+			// 현재 페이지의 URL 가져오기
+			
 
         function dp_menu(){
             let click = document.getElementById("drop-content");
@@ -377,10 +414,10 @@ $(document).ready(function() {
 							<td class="room_name">카테고리</td>
 							<td><select name="category_type" id="class">
 									<option value="">카테고리선택</option>
-									<option value="bowling">볼링</option>
-									<option value="badminton">클라이밍</option>
-									<option value="basketball">농구</option>
-									<option value="badminton">배드민턴</option>
+									<option value="볼링">볼링</option>
+									<option value="클라이밍">클라이밍</option>
+									<option value="농구">농구</option>
+									<option value="배드민턴">배드민턴</option>
 
 							</select></td>
 
@@ -395,15 +432,15 @@ $(document).ready(function() {
 							<td>
 
 								<button type="button" class="custom-btn-1 btn-1"
-									onclick="showCity()" >
+									onclick="showCity()">
 									지역구 클릭<br>
 								</button>&emsp;
-								<div id="showCity" class="showCity" ></div>
-								<input type="hidden" name="room_region" id="city">
-				
+								<div id="showCity" class="showCity"></div> <input type="hidden"
+								name="room_region" id="city">
+
 
 								<div class="locations" id="locations">
-							
+
 									<button type="button" class="location" value="용산">용산</button>
 									<button type="button" class="location" value="강남">강남</button>
 									<button type="button" class="location" value="강동">강동</button>
@@ -433,23 +470,21 @@ $(document).ready(function() {
 
 
 							</td>
-					
+
 							<td class="room_name">모집 장소</td>
-							<td><button type="button" class="custom-btn-1 btn-1" onclick="openKakaoMap()" >장소 클릭</button>
-    						 <div id="mapPopup" style="display:none">
-    						<div id="map" style="width:600px;height:500px;"></div>
-    						</div>
-    						
- 							
-							<input type="hidden" name="latAddress" id="latAddress" value="">
-							<input type="hidden" name="lngAddress" id="lngAddress" value="">
-    						
-    						
+							<td><button type="button" class="custom-btn-1 btn-1"
+									onclick="openKakaoMap()">장소 클릭</button>
+								<div id="mapPopup" style="display: none">
+									<div id="map" style="width: 600px; height: 500px;"></div>
+								</div> <input type="hidden" name="latAddress" id="latAddress" value="">
+								<input type="hidden" name="lngAddress" id="lngAddress" value="">
+
+
 							</td>
-							
+
 						</tr>
-						
-						
+
+
 						<tr>
 							<!--  name  , id 값들을  그 컬럼 아이디와맞춰주자 -->
 							<td class="room_name">시작시간</td>
@@ -477,7 +512,7 @@ $(document).ready(function() {
 						<tr>
 					</table>
 
-					
+
 					<div>
 						<fieldset>
 							<legend>소개</legend>
@@ -488,18 +523,17 @@ $(document).ready(function() {
 					</div>
 					<div class="three">
 						<div class="window">
-						<input type="hidden" value="" id="hash" name="hash" class="hash">
-							<input type="submit" value="등록" 
-								class="custom-btn-1 btn-1" /> <input type="reset" value="취소"
-								class="custom-btn-1 btn-1" />
+							<input type="hidden" value="" id="hash" name="hash" class="hash">
+							<input type="submit" value="등록" class="custom-btn-1 btn-1" /> <input
+								type="reset" value="취소" class="custom-btn-1 btn-1" />
 						</div>
 					</div>
 				</div>
 			</section>
 		</form>
-			</div>
-			<div id="map" style="width:100%;height:350px;"></div>
-			
+	</div>
+	<div id="map" style="width: 100%; height: 350px;"></div>
+
 
 
 
@@ -536,7 +570,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</footer>
-<script>
+	<script>
   function homepage_ok(f) {
 	var title =f.title.value;
 	var name1 =f.name1.value;

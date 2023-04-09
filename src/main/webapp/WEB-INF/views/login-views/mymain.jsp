@@ -375,11 +375,10 @@ display:flex;
 			<ul class="breadcrumb">
 				<li class="br"><a href="#">홈</a></li>
 				<li class="br"><a id="getLogOutLink" onclick="globalSignOut()">로그아웃</a></li>
-				<li class="br"><a href="#">메뉴</a></li>
-				<li class="br active" aria-current="page">현재페이지</li>
+				<li class="br active" aria-current="page">메인</li>
 			</ul>
 		</div>
-   
+ 
    </nav>
    
    <div class="emailNotVerti" id="emailNotVerti" >

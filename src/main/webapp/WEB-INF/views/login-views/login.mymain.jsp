@@ -77,9 +77,8 @@ $(".hover").mouseleave(
 		<div class="container">
 			<ul class="breadcrumb">
 				<li class="br"><a href="#">홈</a></li>
-				<li class="br"><a href="#">로그인</a></li>
-				<li class="br"><a href="#">메뉴</a></li>
-				<li class="br active">현재페이지</li>
+				<li class="br"><a href="login.do">로그인</a></li>
+			
 			</ul>
 		</div>
    
