@@ -38,6 +38,7 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
 function kakaopost() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -49,6 +50,7 @@ function kakaopost() {
 
 </script>
 <script type="text/javascript">
+	
 document.addEventListener("DOMContentLoaded", function() {
     //document.getElementById("showCity").textContent="구를 선택해주세요";
     const buttons = document.querySelectorAll(".location");
@@ -125,13 +127,13 @@ function checkNick(){
 			</label>
 			<div id="sidebarMenu">
 				<ul class="sidebarMenuInner">
-					<li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-user">&emsp;로그인</i></a></li>
+					<li><a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
+					<li><a href="complete.do"><i class="fi fi-rr-user">&emsp;로그아웃</i></a></li>
 					<li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
 					<li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
 					<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
 					<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
-					<li><a href="#"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
+					<li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
 					<li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
 					<li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
 				</ul>
@@ -195,9 +197,9 @@ function checkNick(){
 								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
 								class="checkbox1" type="checkbox" id="size_1" value="small"
 								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
+								href="roomlist.do" style="color: white;">개설방내역</a></label> <input class="checkbox1"
 								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
+								class="notification new1" for="size_1"><a href="complete.do"
 								style="color: white;">로그아웃</a></label>
 
 
@@ -205,19 +207,29 @@ function checkNick(){
 					</div>
 				</div>
 			</div>
-			<div class="container">
-				<ul class="breadcrumb">
-					<li class="br"><a href="#">&emsp;&emsp;홈</a></li>
-					<li class="br"><a href="#">로그인</a></li>
-					<li class="br"><a href="#">메뉴</a></li>
-					<li class="br active">현재페이지</li>
-				</ul>
-			</div>
-
+		<div class="container">
+			<ul class="breadcrumb" style="padding: revert;">
+				<li class="br"><a href="#">홈</a></li>
+				<li class="br"><a href="complete.do">로그아웃</a></li>
+				<li class="br">메인</li>
+				<li class="br">모임방 개설</li>
+				<li class="br active" aria-current="page" style="color: white;">개설방 내역</li>
+			</ul>
+			
+		</div>
 		</nav>
 
 		<script>
-    
+    	
+		// 현재 페이지의 URL 가져오기
+		var url = window.location.href;
+
+		// URL에서 페이지 이름 가져오기
+		var pageName = url.substring(url.lastIndexOf("/") + 1);
+
+		// 이동 경로에 페이지 이름 추가하기
+		var breadcrumb = document.getElementById("breadcrumb");
+		breadcrumb.innerHTML += '<li class="active">' + pageName + '</li>';
 
         function dp_menu(){
             let click = document.getElementById("drop-content");
@@ -279,18 +291,17 @@ function checkNick(){
 												<td>${k.room_title }</td>
 												<!-- 마감 여부  -->
 												<td>
-												<!-- ==는 안된다 eq ne 이퀄스 를 해줘야함  -->
-												<c:choose>
-											    <c:when test="${k.close_ok eq 1}">
-											       <button type="button" class="seoul2">활동종료</button>
-											    </c:when>
-											    <c:when test="${k.close_ok eq 2}">
-											        <button type="button" class="seoul1">모집종료</button>
-											    </c:when>
-											    <c:otherwise>
-											      <button type="button" class="seoul">모집중</button>
-											    </c:otherwise>
-											</c:choose>
+													<!-- ==는 안된다 eq ne 이퀄스 를 해줘야함  --> <c:choose>
+														<c:when test="${k.close_ok eq 1}">
+															<button type="button" class="seoul2">활동종료</button>
+														</c:when>
+														<c:when test="${k.close_ok eq 2}">
+															<button type="button" class="seoul1">모집종료</button>
+														</c:when>
+														<c:otherwise>
+															<button type="button" class="seoul">모집중</button>
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</tr>
 										</c:forEach>
@@ -302,7 +313,7 @@ function checkNick(){
 					</div>
 				</div>
 			</div>
-		
+
 
 
 		</section>

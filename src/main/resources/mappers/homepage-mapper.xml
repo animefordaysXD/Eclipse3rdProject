@@ -16,20 +16,26 @@
         #{close_ok}, #{u_nickname}, #{u_idx}, #{begin_datetime}, TO_DATE(#{final_datetime}, 'HH24:MI:SS')
 </insert>
  -->
- 
- <insert id="insert" parameterType="hvo">
-    insert into room (
+<insert id="insert" parameterType="hvo">
+    INSERT INTO room (
         room_idx, room_title, category_type, room_count, room_region, room_gender, start_datetime,
-        end_datetime, room_dateregion, room_content, write_datetime, close_ok, u_nickname, u_idx,
-        begin_datetime, final_datetime)
-    values (
+        end_datetime, room_longitude,room_latitude, room_content, write_datetime, close_ok, u_nickname, u_idx,
+        final_datetime, begin_datetime)
+    VALUES (
         room_seq.nextval, #{room_title}, #{category_type}, #{room_count}, #{room_region}, #{room_gender},
-      	TO_DATE(#{start_datetime},'HH24:MI:SS') ,TO_DATE(#{end_datetime}, 'HH24:MI:SS'), #{room_dateregion}, #{room_content}, TO_DATE(sysdate,'YYYY-MM-DD'),
-        #{close_ok}, #{u_nickname}, #{u_idx}, #{begin_datetime}, TO_DATE(#{final_datetime}, 'HH24:MI:SS'))
-</insert>
+        TO_DATE(#{start_datetime},'HH24:MI:SS'), TO_DATE(#{end_datetime}, 'HH24:MI:SS'), #{longitude},#{latitude}, #{room_content},
+        SYSDATE, #{close_ok}, #{u_nickname}, #{u_idx},
+        TO_DATE(#{final_datetime}, 'HH24:MI:SS'),SYSDATE)
+</insert> 
+
+
 
 	<select id="getList" resultType="hvo">
 	select * from room order by room_idx
+	</select>
+	
+	<select id="getHashForRoomMake" parameterType="String" resultType="String">
+	select u_nickname from users where u_hash = #{hash}
 	</select>
 	
 </mapper>
