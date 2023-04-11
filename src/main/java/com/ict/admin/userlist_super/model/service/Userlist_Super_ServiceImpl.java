@@ -55,10 +55,6 @@ public class Userlist_Super_ServiceImpl implements Userlist_Super_Service {
 
 	@Override
 	public List<Userlist_Super_VO> getList_U_AllSearch(int begin, int end, String u_allsearch) {
-		System.out.println(begin + "비긴");
-		System.out.println(end + "엔드");
-		System.out.println(u_allsearch + "유올써치");
-
 		return userlist_Super_DAO.getList_U_AllSearch(begin, end, u_allsearch);
 	}
 

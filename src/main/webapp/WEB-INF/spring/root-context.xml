@@ -11,9 +11,10 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="c##ictedu" />
-		<property name="password" value="1111" />
+			value="jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="username" value="cms" />
+		<property name="password" value="951223" />
+
 	</bean>
 
 	<!-- mybatis : config (오라클연결 정보, mapper 위치) -->
@@ -29,28 +30,29 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
-	
-<!-- Spring mail configuration -->
-   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-      <property name="host" value="smtp.gmail.com" />
-      <property name="port" value="587" />
-      <property name="username" value="${email.account}" />
-      <property name="password" value="${email.password}" />
-      <property name="javaMailProperties">
-         <props>
-                <prop key="mail.transport.protocol">smtp</prop>
-                <prop key="mail.smtp.auth">true</prop>
-                <!-- gmail의 경우 보안문제 업데이트로 인해 SSLSocketFactory를 추가해야 smtp 사용 가능. -->
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.debug">true</prop>
-                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+
+	<!-- Spring mail configuration -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="${email.account}" />
+		<property name="password" value="${email.password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<!-- gmail의 경우 보안문제 업데이트로 인해 SSLSocketFactory를 추가해야 smtp 사용 가능. -->
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
 				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-            </props>
-      </property>
-      
-   </bean>
-	
+			</props>
+		</property>
+
+	</bean>
+
 
 	<!-- DAO 어노테이션 -->
 	<context:annotation-config />

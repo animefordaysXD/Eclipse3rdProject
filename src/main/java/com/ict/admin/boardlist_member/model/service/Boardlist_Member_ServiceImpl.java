@@ -30,4 +30,54 @@ public class Boardlist_Member_ServiceImpl implements Boardlist_Member_Service {
 		return boardlist_Member_DAO.getList(begin, end);
 	}
 
+	@Override
+	public int getBoardlist_Member_Nicknameupdate(String u_idx) {
+		return boardlist_Member_DAO.getBoardlist_Member_Nicknameupdate(u_idx);
+	}
+	
+	@Override
+	public int getBoardlist_Member_getOutmember(String u_idx) {
+		return boardlist_Member_DAO.getBoardlist_Member_getOutmember(u_idx);
+	}
+
+	@Override
+	public int getTotalCount_AllSearch(String u_allsearch) {
+		return boardlist_Member_DAO.getTotalCount_AllSearch(u_allsearch);
+	}
+
+	@Override
+	public List<Boardlist_Member_VO> getBoardlist_Member_AllSearch(int begin, int end, String u_allsearch) {
+		return boardlist_Member_DAO.getBoardlist_Member_AllSearch(begin, end, u_allsearch);
+	}
+
+	@Override
+	public int getTotalCount_Boardlist_Member_Email(String u_email) {
+		return boardlist_Member_DAO.getTotalCount_Boardlist_Member_Email(u_email);
+	}
+
+	@Override
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_Email(int begin, int end, String u_email) {
+		return boardlist_Member_DAO.getList_Boardlist_Member_Email(begin, end, u_email);
+	}
+
+	@Override
+	public int getTotalCount_Boardlist_Member_NickName(String u_nickname) {
+		return boardlist_Member_DAO.getTotalCount_Boardlist_Member_NickName(u_nickname);
+	}
+
+	@Override
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_NickName(int begin, int end, String u_nickname) {
+		return boardlist_Member_DAO.getList_Boardlist_Member_NickName(begin, end, u_nickname);
+	}
+
+	@Override
+	public int getTotalCount_Boardlist_Member_BDay(String u_bday) {
+		return boardlist_Member_DAO.getTotalCount_Boardlist_Member_BDay(u_bday);
+	}
+
+	@Override
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_BDay(int begin, int end, String u_bday) {
+		return boardlist_Member_DAO.getList_Boardlist_Member_BDay(begin, end, u_bday);
+	}
+
 }

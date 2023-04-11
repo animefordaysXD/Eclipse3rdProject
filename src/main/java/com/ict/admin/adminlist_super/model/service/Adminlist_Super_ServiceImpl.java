@@ -34,8 +34,58 @@ public class Adminlist_Super_ServiceImpl implements Adminlist_Super_Service {
 	}
 
 	@Override
+	public int getAdmin_IdCheck(String admin_id) {
+		return adminlist_Super_DAO.getAdmin_IdCheck(admin_id);
+	}
+
+	@Override
+	public int getAdmin_NicknameCheck(String admin_nickname) {
+		return adminlist_Super_DAO.getAdmin_NicknameCheck(admin_nickname);
+	}
+
+	@Override
 	public int getAdminDelete(String admin_idx) {
 		return adminlist_Super_DAO.getAdminDelete(admin_idx);
+	}
+
+	@Override
+	public int getTotalCount_AllSearch(String admin_allsearch) {
+		return adminlist_Super_DAO.getTotalCount_AllSearch(admin_allsearch);
+	}
+
+	@Override
+	public List<Adminlist_Super_VO> getList_Admin_AllSearch(int begin, int end, String admin_allsearch) {
+		return adminlist_Super_DAO.getList_Admin_AllSearch(begin, end, admin_allsearch);
+	}
+
+	@Override
+	public int getTotalCount_Admin_Idx(String admin_idx) {
+		return adminlist_Super_DAO.getTotalCount_Admin_Idx(admin_idx);
+	}
+
+	@Override
+	public List<Adminlist_Super_VO> getList_Admin_Idx(int begin, int end, String admin_idx) {
+		return adminlist_Super_DAO.getList_Admin_Idx(begin, end, admin_idx);
+	}
+
+	@Override
+	public int getTotalCount_Admin_Id(String admin_id) {
+		return adminlist_Super_DAO.getTotalCount_Admin_Id(admin_id);
+	}
+
+	@Override
+	public List<Adminlist_Super_VO> getList_Admin_Id(int begin, int end, String admin_id) {
+		return adminlist_Super_DAO.getList_Admin_Id(begin, end, admin_id);
+	}
+
+	@Override
+	public int getTotalCount_Admin_NickName(String admin_nickname) {
+		return adminlist_Super_DAO.getTotalCount_Admin_NickName(admin_nickname);
+	}
+
+	@Override
+	public List<Adminlist_Super_VO> getList_Admin_NickName(int begin, int end, String admin_nickname) {
+		return adminlist_Super_DAO.getList_Admin_NickName(begin, end, admin_nickname);
 	}
 
 }

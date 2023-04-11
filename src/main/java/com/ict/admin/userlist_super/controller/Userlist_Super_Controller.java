@@ -102,7 +102,6 @@ public class Userlist_Super_Controller {
 	// Nickname 중복 검사 하기
 	@RequestMapping("user_NicknameCheck.do")
 	public @ResponseBody String user_NicknameCheck(String user_nickname) {
-		System.out.println("오니?" + user_nickname);
 		int result = userlist_Super_Service.getUser_NicknameCheck(user_nickname);
 		if (result > 0) {
 			return "1";
@@ -142,12 +141,10 @@ public class Userlist_Super_Controller {
 	@RequestMapping("userlist_super_search.do")
 	public ModelAndView userlist_Super_Search(@ModelAttribute("search") String search,
 			@ModelAttribute("radio") String radio) {
-		System.out.println("확인용" + radio + search);
 		ModelAndView mv = new ModelAndView("userlist_super/userlist_super");
 
 		if (radio.equals("select_all")) {
 			int count = userlist_Super_Service.getTotalCount_AllSearch(search);
-			System.out.println(count);
 			paging.setTotalRecord(count);
 
 			// 전체 페이지의 수
