@@ -59,11 +59,19 @@
 		f.action = "boardlist_write.do";
 		f.submit();
 	}
+
+	function enterKey(e) {
+		if (e.keyCode == 13) {
+			var radio = $("input[type=radio][name=radio]:checked").val();
+			const search = document.getElementById('search').value;
+			location.href = "boardlist_member_search.do?search=" + search
+					+ "&radio=" + radio;
+		}
+	}
 </script>
 </head>
 <body>
 	<div id="wrap">
-		<!-- <form enctype="multipart/form-data"> -->
 		<header>
 			<h3 style="text-align: center;">room making</h3>
 		</header>
@@ -87,38 +95,6 @@
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -129,15 +105,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
+								for="size_1"><a href="admin_login.do"
 								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
@@ -162,37 +130,36 @@
 					click.style.display = "none";
 				}
 			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-				} else {
-					click.style.display = "none";
-				}
-			}
 		</script>
 		<section>
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">자유게시판</h2>
+						<a href="boardlist.do" style="text-decoration: none;"><h2
+								id="headline">자유게시판</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체보기</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>제목</span>
+									name="radio" value="select_report_title"
+									onclick="radio_select(event)" /> <span>제목</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>작성자</span>
+									name="radio" value="select_report_writer"
+									onclick="radio_select(event)" /> <span>작성자</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>작성일</span>
+									name="radio" value="select_report_writedate"
+									onclick="radio_select(event)" /> <span>작성일</span>
 								</label>
 							</form>
 						</div>
 						<div id="container_searchbox">
 							<div class="searchbox">
-								<input type="text" class="searchtxt" placeholder="search">
-								<a class="searchbtn" href="#"> <i class="fas fa-search"></i>
+								<input type="text" class="searchtxt" id="search"
+									placeholder="검색시 엔터키를 눌러주세요" style="font-size: 12px;"
+									onkeypress="return enterKey(event);"> <a
+									class="searchbtn" href="#"> <i class="fas fa-search"></i>
 								</a>
 							</div>
 						</div>
@@ -222,7 +189,9 @@
 										<c:forEach var="k" items="${boardlist}" varStatus="vs">
 											<tr class="KOTRA-fontsize-80">
 												<td>${k.post_code}</td>
-												<td>${k.post_title}</td>
+												<td><a
+													href="view_boardlist.do?post_idx=${k.post_idx}&cPage=${paging.nowPage}">${k.post_title}</a></td>
+												<%-- <td>${k.post_title}</td> --%>
 												<td>${k.u_idx}</td>
 												<td>${k.post_datetime}</td>
 												<td>${k.post_hit}</td>
@@ -314,7 +283,6 @@
 				</div>
 			</div>
 		</footer>
-		<!-- 		</form> -->
 	</div>
 </body>
 </html>

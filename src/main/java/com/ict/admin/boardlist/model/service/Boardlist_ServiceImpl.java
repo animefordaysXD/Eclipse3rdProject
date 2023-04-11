@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ict.admin.boardlist.model.dao.Boardlist_DAO;
 import com.ict.admin.boardlist.model.vo.Boardlist_VO;
 
-
 @Service
 public class Boardlist_ServiceImpl implements Boardlist_Service {
 
@@ -29,4 +28,13 @@ public class Boardlist_ServiceImpl implements Boardlist_Service {
 		return boardlist_DAO.getList(begin, end);
 	}
 
+	@Override
+	public int getBoardHit(String post_idx) {
+		return boardlist_DAO.getBoardHit(post_idx);
+	}
+
+	@Override
+	public Boardlist_VO getBoardOneList(String post_idx) {
+		return boardlist_DAO.getBoardOneList(post_idx);
+	}
 }
