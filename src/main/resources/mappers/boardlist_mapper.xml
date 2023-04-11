@@ -17,4 +17,18 @@
 		desc) a ) where r_num between #{begin} and #{end}
 	</select>
 
+	<!-- 조회수 업데이트 -->
+	<update id="hitup" parameterType="String">
+		update post set post_hit =
+		post_hit + 1
+		where post_idx = #{post_idx}
+	</update>
+
+	<!-- 원글보기 -->
+	<select id="onelist" parameterType="String"
+		resultType="board_vo">
+		select *
+		from post where post_idx = #{post_idx}
+	</select>
+
 </mapper>

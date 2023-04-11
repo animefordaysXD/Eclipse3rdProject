@@ -42,6 +42,7 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="resources/homepage/css/homepage.css" rel="stylesheet">
 <!--  -->
+
 <link href="resources/view_origin/css/view_origin.css" rel="stylesheet">
 <link href="resources/boardlist_write/css/boardlist_write.css"
 	rel="stylesheet">
@@ -49,17 +50,16 @@
 	rel="stylesheet">
 <link href="resources/attribute_list/css/attribute_table.css"
 	rel="stylesheet">
-<title>게시글작성</title>
+<link href="resources/boardlist_write/css/boardlist_write.css"
+	rel="stylesheet">
+<link href="resources/view_boardlist/css/view_boardlist.css"
+	rel="stylesheet">
+<title>게시글보기</title>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 <script type="text/javascript">
 	function list_go(f) {
 		f.action = "boardlist.do";
-		f.submit();
-	}
-
-	function list_write(f) {
-		alert("등록버튼");
-
-		f.action = "boardlist_write_ok.do";
 		f.submit();
 	}
 </script>
@@ -126,56 +126,66 @@
 					}
 				}
 			</script>
-			<section>
-				<div id="container_list">
-					<div id="wrapper_list">
-						<div id="wrapper_list_inner">
+			<section id="section_view_boardlist">
+				<div id="container_list_view_boardlist">
+					<div id="wrapper_list_view_boardlist">
+						<div id="wrapper_list_inner_view_boardlist">
 							<a href="boardlist.do" style="text-decoration: none;"><h2
-									id="headline">게시글작성</h2></a>
+									id="headline">${boardlist_VO.post_title}</h2></a>
 							<div id="top_border"></div>
-							<input type="text" id="boardlist_write_title" name="post_title"
-								placeholder="제목을 입력해 주세요.">
-							<textarea id="boardlist_write_content" name="post_content"
-								placeholder="내용을 입력해 주세요."></textarea>
-							<button class="btn hover1" onclick="list_go(this.form)"
-								style="margin-right: 33px; margin-left: 20px; margin-top: 15px;">취소</button>
-							<button class="btn hover1" style="margin-top: 15px;"
-								onclick="list_write(this.form)">등록</button>
-							<%-- <input type="hidden" name="u_idx" value="${u_idx}"> --%>
+							<table id="view_boardlist_category">
+								<colgroup>
+									<col width="98px;" />
+									<col width="278px;" />
+									<col width="98px;" />
+									<col width="278px;" />
+									<col width="98px;" />
+									<col width="278px;" />
+								</colgroup>
+								<tbody>
+									<tr>
+										<td
+											style="border-right: 2px solid rgb(233, 233, 233); user-select: none;">작성자</td>
+										<td
+											style="border-right: 2px solid rgb(233, 233, 233); user-select: none;">${boardlist_VO.u_idx}</td>
+										<td
+											style="border-right: 2px solid rgb(233, 233, 233); user-select: none;">작성일</td>
+										<td
+											style="border-right: 2px solid rgb(233, 233, 233); user-select: none;">${boardlist_VO.post_datetime}</td>
+										<td
+											style="border-right: 2px solid rgb(233, 233, 233); user-select: none;">조회수</td>
+										<td style="user-select: none;">${boardlist_VO.post_hit}</td>
+									</tr>
+								</tbody>
+							</table>
+							<div id="view_boardlist_content">
+								<p>${boardlist_VO.post_content}</p>
+							</div>
+							<!-- <input type="text" id="view_boardlist_content" value=""
+								name="inputValue"> -->
 
+							<div id="bottom_border"></div>
+							<input type="text" id="view_boardlist_comment" placeholder="댓글창1">
+							<!-- <input type="text" id="view_boardlist_comment" placeholder="댓글창2">
+						<input type="text" id="view_boardlist_comment" placeholder="댓글창3">
+						<input type="text" id="view_boardlist_comment" placeholder="댓글창4">
+						<input type="text" id="view_boardlist_comment" placeholder="댓글창5">
+						<input type="text" id="view_boardlist_comment" placeholder="댓글창6"> -->
+							<div id="view_boardlist_buttonbox"
+								style="width: 1200px; height: 150px; background-color: #F8F8F8; margin: 0 auto;">
+								<button class="btn hover1" onclick="list_go(this.form)"
+									style="margin-right: 33px; margin-left: 20px; margin-top: 15px;">뒤로</button>
+								<button class="btn hover1" style="margin-top: 15px;">댓글작성</button>
+							</div>
+							<div
+								style="width: 100vw; height: 370px; background-color: #F8F8F8;"></div>
+							<div id="footer_view_boardlist"></div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<!-- footer 추가  -->
-			<footer class="footer">
-				<div class="container">
-					<div class="row">
-						<div class="footer-col">
-							<div class="social-links" style="text-indent: 95px;">
-								<p>친절한 고객센터 1688-4757
-								<p>월요일-금요일10:00-17:00</p>
-								<p>[주말/공휴일휴무]고객상담을 위한 연락처로 마케팅 제안은 정중히 사양합니다</p>
-							</div>
-						</div>
-						<div class="footer-col1">
-							<h2 style="margin-top: 22px">Social Media</h2>
-							<ul class="social-icons" style="margin-top: -3px;">
-								<li><a
-									href="https://www.facebook.com/profile.php?id=100091363184815"
-									class="social-square"><i class="fab  fa-facebook-f fa-1x"></i></a></li>
-								<li><a
-									href="https://www.youtube.com/channel/UCd_IGM4iCm0IUjsozb_xO8w"
-									class="social-square"><i class="fab  fa-youtube fa"></i></a></li>
-								<li><a href="https://www.instagram.com/neulddyaeng.o/"
-									class="social-square"><i class="fab  fa-instagram fa"></i></a></li>
-								<li><a href="https://blog.naver.com/tjdwosk3"
-									class="social-square"><i class="fa-brands fa-line fa"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+
 		</div>
 	</form>
 </body>

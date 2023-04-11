@@ -8,14 +8,17 @@
 }
 
 #view_boardlist_content {
-	width: 1140px;
+	width: 1120px;
 	height: 400px;
 	font-size: 15px;
 	border: 2px solid rgb(233, 233, 233);
 	outline: none;
 	margin: 0 auto;
 	margin-bottom: 10px;
-	display: block;
+	/* display: block; */
+	background-color: white;
+	align-content: left;
+	padding: 10px 10px 10px 10px;
 }
 
 #bottom_border {
