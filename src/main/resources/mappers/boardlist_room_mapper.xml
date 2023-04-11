@@ -6,7 +6,7 @@
 
 	<!-- 게시물 갯수 세기 -->
 	<select id="count" resultType="int">
-		select count(*) from room
+		select count(*) from room where room_del_code = 0
 	</select>
 
 	<!-- Paging 기법을 이용한 게시물 출력 -->
@@ -14,7 +14,144 @@
 		select * from (
 		select rownum r_num, a.* from(select * from room order
 		by room_idx
-		desc) a ) where r_num between #{begin} and #{end}
+		desc) a ) where r_num between #{begin} and #{end} and room_del_code = 0
 	</select>
 
+	<update id="room_admindelete" parameterType="String">
+		update room set
+		room_del_code = 1 where room_idx = ${room_idx}
+	</update>
+
+	<!-- 전체 검색으로 사용자 수 세기 -->
+	<select id="count_boardlist_room_allsearch"
+		parameterType="String" resultType="int">
+		select count(*) from room where
+		room_del_code = 0 and category_type like '%' ||
+		#{u_allsearch}
+		|| '%' or
+		room_title like
+		'%' || #{u_allsearch} || '%' or
+		u_nickname like '%'
+		||
+		#{u_allsearch} ||
+		'%' or
+		write_datetime like '%' ||
+		#{u_allsearch} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_boardlist_room_allsearch" parameterType="Map"
+		resultType="board_room_vo">
+		select * from ( select rownum r_num, a.* from(select * from
+		room order by
+		room_idx desc) a ) where r_num between #{begin} and
+		#{end}
+		and room_del_code = 0 and category_type like '%' ||
+		#{u_allsearch}
+		|| '%' or
+		room_title
+		like '%' ||
+		#{u_allsearch}
+		|| '%' or
+		u_nickname like '%'
+		||
+		#{u_allsearch} || '%' or
+		write_datetime like '%'
+		|| #{u_allsearch} || '%'
+	</select>
+
+	<!-- category_type로 사용자 수 세기 -->
+	<select id="count_boardlist_room_category_type"
+		parameterType="String" resultType="int">
+		select count(*) from room where
+		room_del_code = 0 and category_type like '%' ||
+		#{category_type} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_boardlist_room_category_type"
+		parameterType="Map" resultType="board_room_vo">
+		select * from ( select rownum r_num,
+		a.* from(select * from
+		room where room_del_code = 0 order by
+		room_idx
+		desc) a ) where r_num between
+		#{begin} and #{end}
+		and category_type like
+		'%' ||
+		#{category_type} || '%'
+	</select>
+
+	<!-- room_title로 사용자 수 세기 -->
+	<select id="count_boardlist_room_room_title"
+		parameterType="String" resultType="int">
+		select count(*) from room where
+		room_del_code = 0 and room_title like '%' ||
+		#{room_title} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_boardlist_room_room_title" parameterType="Map"
+		resultType="board_room_vo">
+		select * from ( select rownum r_num,
+		a.* from(select * from
+		room where room_del_code = 0 order by
+		room_idx
+		desc) a ) where r_num
+		between
+		#{begin} and #{end}
+		and room_title like
+		'%' ||
+		#{room_title} ||
+		'%'
+	</select>
+
+	<!-- u_nickname로 사용자 수 세기 -->
+	<select id="count_boardlist_room_u_nickname"
+		parameterType="String" resultType="int">
+		select count(*) from room where
+		room_del_code = 0 and u_nickname like '%' ||
+		#{u_nickname} || '%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_boardlist_room_u_nickname" parameterType="Map"
+		resultType="board_room_vo">
+		select * from ( select rownum r_num,
+		a.* from(select * from
+		room where room_del_code = 0 order by
+		room_idx
+		desc) a ) where r_num
+		between
+		#{begin} and #{end}
+		and u_nickname like
+		'%' ||
+		#{u_nickname} ||
+		'%'
+	</select>
+
+	<!-- u_nickname로 사용자 수 세기 -->
+	<select id="count_boardlist_room_write_datetime"
+		parameterType="String" resultType="int">
+		select count(*) from room where
+		room_del_code = 0 and write_datetime like '%' ||
+		#{write_datetime} ||
+		'%'
+	</select>
+
+	<!-- Paging 기법을 이용한 회원번호 검색 출력 -->
+	<select id="list_boardlist_room_write_datetime"
+		parameterType="Map" resultType="board_room_vo">
+		select * from ( select rownum r_num,
+		a.* from(select * from
+		room where room_del_code = 0 order by
+		room_idx
+		desc) a ) where r_num
+		between
+		#{begin} and #{end}
+		and write_datetime like
+		'%' ||
+		#{write_datetime} ||
+		'%'
+	</select>
 </mapper>

@@ -63,6 +63,14 @@
 			return;
 		}
 	}
+	
+	function enterKey(e){
+		if(e.keyCode == 13){
+			var radio = $("input[type=radio][name=radio]:checked").val();
+		   	const search = document.getElementById('search').value;
+		    location.href = "adminlist_super_search.do?search="+search+"&radio="+radio;
+		}
+	}
 </script>
 </head>
 <body>
@@ -82,7 +90,7 @@
 				<ul class="sidebarMenuInner">
 					<li style="font-size: 15px;"><a href="userlist_super.do"><i>&emsp;사용자관리<br>&emsp;리스트
 						</i></a></li>
-					<li style="font-size: 15px;"><a href="#"><i>&emsp;사용자생성</i></a></li>
+					<li style="font-size: 15px;"><a href="usercreate_super.do"><i>&emsp;사용자생성</i></a></li>
 					<li style="font-size: 15px;"><a href="adminlist_super.do"><i>&emsp;관리자관리<br>&emsp;리스트
 						</i></a></li>
 					<li style="font-size: 15px;"><a href="admincreate_super.do"><i>&emsp;관리자생성</i></a></li>
@@ -100,15 +108,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
+								for="size_1"><a href="admin_login.do"
 								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
@@ -133,39 +133,36 @@
 					click.style.display = "none";
 				}
 			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-				} else {
-					click.style.display = "none";
-				}
-			}
 		</script>
 		<section>
-			<!-- <form method="post" style="margin: 0 auto;"> -->
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">관리자 관리 리스트</h2>
+						<a href="adminlist_super.do" style="text-decoration: none;"><h2
+								id="headline">관리자 관리 리스트</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
-								<!-- <div id="container_radio_form"> -->
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체검색</span>
 								</label><label class="radio_label"> <input type="radio"
-									name="radio" /> <span>관리자번호</span>
+									name="radio" value="select_admin_idx"
+									onclick="radio_select(event)" /> <span>관리자번호</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>ID</span>
+									name="radio" value="select_admin_id"
+									onclick="radio_select(event)" /> <span>ID</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>닉네임</span>
+									name="radio" value="select_admin_nickname"
+									onclick="radio_select(event)" /> <span>닉네임</span>
 								</label>
 							</form>
 						</div>
 						<div id="container_searchbox">
 							<div class="searchbox">
-								<input type="text" class="searchtxt" placeholder="search">
-								<a class="searchbtn" href="#"> <i class="fas fa-search"></i>
+								<input type="text" class="searchtxt" id="search"
+									placeholder="검색시 엔터키를 눌러주세요" style="font-size: 12px;"
+									onkeypress="return enterKey(event);"> <a
+									class="searchbtn" href="#"> <i class="fas fa-search"></i>
 								</a>
 							</div>
 						</div>

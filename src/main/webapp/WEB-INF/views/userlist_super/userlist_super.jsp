@@ -65,28 +65,25 @@
 	}
 	
 	var popup = document.getElementById('pop');
-	    function showHide(){
-	        if(pop.style.display==="none"){
-	            pop.style.display = "flex";
-	        }
-	        else if(pop.style.display==="flex"){
-	            pop.style.display = "none";
-	        }
+	function showHide(){
+		if(pop.style.display==="none"){
+			pop.style.display = "flex";
+	    } else if(pop.style.display==="flex"){
+	    	pop.style.display = "none";
 	    }
-	    
-		function picture_close() {
-			pop.style.display = "none";
+	}
+	
+	function picture_close() {
+		pop.style.display = "none";
+	}
+	
+	function enterKey(e){
+		if(e.keyCode == 13){
+			var radio = $("input[type=radio][name=radio]:checked").val();
+		   	const search = document.getElementById('search').value;
+		    location.href = "userlist_super_search.do?search="+search+"&radio="+radio;
 		}
-		
-		function enterKey(e){
-			if(e.keyCode == 13){
-		    	alert("엔터키를 눌렀네요??");
-		    	const search = document.getElementById('search').value;
-		    	alert(search);
-		    	location.href = "userlist_super_search.do?search="+search;
-		    	
-			}
-		}
+	}
 		
 </script>
 </head>
@@ -125,7 +122,8 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="admin_login.do"
+								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -149,15 +147,6 @@
 					click.style.display = "none";
 				}
 			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-				} else {
-					click.style.display = "none";
-				}
-			}
-			
 		</script>
 		<section>
 			<div id="pop"
@@ -176,19 +165,25 @@
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">사용자 관리 리스트</h2>
+						<a href="userlist_super.do" style="text-decoration: none;"><h2
+								id="headline">사용자 관리 리스트</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
-								</label><label class="radio_label"> <input type="radio"
-									name="radio" /> <span>회원번호</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체검색</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>ID</span>
+									name="radio" value="select_u_idx" onclick="radio_select(event)" />
+									<span>회원번호</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>닉네임</span>
+									name="radio" value="select_u_email"
+									onclick="radio_select(event)" /> <span>ID</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>생년월일</span>
+									name="radio" value="select_u_nickname"
+									onclick="radio_select(event)" /> <span>닉네임</span>
+								</label> <label class="radio_label"> <input type="radio"
+									name="radio" value="select_u_bday"
+									onclick="radio_select(event)" /> <span>생년월일</span>
 								</label>
 							</form>
 						</div>

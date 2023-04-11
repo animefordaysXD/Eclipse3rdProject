@@ -2,7 +2,7 @@ package com.ict.homepage.model.vo;
 
 public class homepage_VO {
 
-private int romm_idx ,  room_count , room_gender, close_ok , rooom_del_code , u_idx ;
+private int romm_idx ,  room_count , room_gender, close_ok , room_del_code , u_idx ;
 private String room_title, room_region, start_datetime, end_datetime, room_content, write_datetime, u_nickname,
             begin_datetime, final_datetime , room_dateregion, category_type ;
 public int getRomm_idx() {
@@ -36,11 +36,12 @@ public int getClose_ok() {
 public void setClose_ok(int close_ok) {
 	this.close_ok = close_ok;
 }
-public int getRooom_del_code() {
-	return rooom_del_code;
+
+public int getRoom_del_code() {
+	return room_del_code;
 }
-public void setRooom_del_code(int rooom_del_code) {
-	this.rooom_del_code = rooom_del_code;
+public void setRoom_del_code(int room_del_code) {
+	this.room_del_code = room_del_code;
 }
 public int getU_idx() {
 	return u_idx;
@@ -110,9 +111,5 @@ public void setRoom_dateregion(String room_dateregion) {
 }
 
 
- 
- 
- 
 }
-
 

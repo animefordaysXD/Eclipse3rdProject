@@ -32,4 +32,60 @@ public class Boardlist_Member_DAO {
 		map.put("end", end);
 		return sqlSessionTemplate.selectList("boardlist_member.list", map);
 	}
+
+	public int getBoardlist_Member_Nicknameupdate(String u_idx) {
+		return sqlSessionTemplate.update("boardlist_member.update_nickname", u_idx);
+	}
+
+	public int getBoardlist_Member_getOutmember(String u_idx) {
+		return sqlSessionTemplate.update("boardlist_member.update_getoutmember", u_idx);
+	}
+
+	public int getTotalCount_AllSearch(String u_allsearch) {
+		return sqlSessionTemplate.selectOne("boardlist_member.count_boardlist_member_allsearch", u_allsearch);
+	}
+
+	public List<Boardlist_Member_VO> getBoardlist_Member_AllSearch(int begin, int end, String u_allsearch) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("begin", Integer.toString(begin));
+		map.put("end", Integer.toString(end));
+		map.put("u_allsearch", u_allsearch);
+		return sqlSessionTemplate.selectList("boardlist_member.list_boardlist_member_allsearch", map);
+	}
+
+	public int getTotalCount_Boardlist_Member_Email(String u_email) {
+		return sqlSessionTemplate.selectOne("boardlist_member.count_boardlist_member_u_email", u_email);
+	}
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_Email(int begin, int end, String u_email) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("begin", Integer.toString(begin));
+		map.put("end", Integer.toString(end));
+		map.put("u_email", u_email);
+		return sqlSessionTemplate.selectList("boardlist_member.list_boardlist_member_u_email", map);
+	}
+
+	public int getTotalCount_Boardlist_Member_NickName(String u_nickname) {
+		return sqlSessionTemplate.selectOne("boardlist_member.count_boardlist_member_u_nickname", u_nickname);
+	}
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_NickName(int begin, int end, String u_nickname) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("begin", Integer.toString(begin));
+		map.put("end", Integer.toString(end));
+		map.put("u_nickname", u_nickname);
+		return sqlSessionTemplate.selectList("boardlist_member.list_boardlist_member_u_nickname", map);
+	}
+
+	public int getTotalCount_Boardlist_Member_BDay(String u_bday) {
+		return sqlSessionTemplate.selectOne("boardlist_member.count_boardlist_member_u_bday", u_bday);
+	}
+
+	public List<Boardlist_Member_VO> getList_Boardlist_Member_BDay(int begin, int end, String u_bday) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("begin", Integer.toString(begin));
+		map.put("end", Integer.toString(end));
+		map.put("u_bday", u_bday);
+		return sqlSessionTemplate.selectList("boardlist_member.list_boardlist_member_u_bday", map);
+	}
 }

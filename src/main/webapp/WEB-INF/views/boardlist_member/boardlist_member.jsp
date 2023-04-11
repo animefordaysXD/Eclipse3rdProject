@@ -56,6 +56,37 @@
 <title>회원관리리스트</title>
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<script type="text/javascript">
+	var popup = document.getElementById('pop');
+	function showHide() {
+		if (pop.style.display === "none") {
+			pop.style.display = "flex";
+		} else if (pop.style.display === "flex") {
+			pop.style.display = "none";
+		}
+	}
+
+	function picture_close() {
+		pop.style.display = "none";
+	}
+
+	function enterKey(e) {
+		if (e.keyCode == 13) {
+			var radio = $("input[type=radio][name=radio]:checked").val();
+			const search = document.getElementById('search').value;
+			location.href = "boardlist_member_search.do?search=" + search
+					+ "&radio=" + radio;
+		}
+	}
+
+	function member_nicknameupdate() {
+		alert("닉네임 수정이 완료되었습니다.");
+	}
+
+	function member_getoutmember() {
+		alert("회원 탙퇴가 완료되었습니다.");
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -73,45 +104,15 @@
 				<ul class="sidebarMenuInner">
 					<li style="font-size: 15px;"><a href="boardlist_member.do"><i>&emsp;회원관리리스트</i></a></li>
 					<li style="font-size: 15px;"><a href="boardlist_room.do"><i>&emsp;방관리리스트</i></a></li>
-					<li style="font-size: 15px;"><a href="boardlist_report.do"><i>&emsp;신고내역<br>&emsp;관리리스트</i></a></li>
-					<li style="font-size: 15px;"><a href="boardlist_outmember.do"><i>&emsp;탈퇴회원<br>&emsp;관리리스트</i></a></li>
+					<li style="font-size: 15px;"><a href="boardlist_report.do"><i>&emsp;신고내역<br>&emsp;관리리스트
+						</i></a></li>
+					<li style="font-size: 15px;"><a href="boardlist_outmember.do"><i>&emsp;탈퇴회원<br>&emsp;관리리스트
+						</i></a></li>
 					<li style="font-size: 15px;"><a href="boardlist.do"><i>&emsp;공지사항</i></a></li>
 					<li style="font-size: 15px;"><a href="admin_login.do"><i>&emsp;로그아웃</i></a></li>
 				</ul>
 			</div>
 			<div class="option">
-				<div class="dropdown1">
-					<button onclick="dp_menu1()" class="button1">
-						<i class="material-icons dp48">notifications</i>
-					</button>
-					<spacer></spacer>
-					<span class="num-count">2</span>
-					<div style="display: none;" id="drop-content1">
-						<div class="notification-icon right"></div>
-						<div class="profile1"></div>
-						<div style="float: right;">
-							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="dropdown">
 					<button onclick="dp_menu()" class="button">
 						<i class="fi fi-rr-user" style="font-size: 20px;"></i>
@@ -122,15 +123,7 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href=""
+								for="size_1"><a href="admin_login.do"
 								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
@@ -155,37 +148,49 @@
 					click.style.display = "none";
 				}
 			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
-				} else {
-					click.style.display = "none";
-				}
-			}
 		</script>
 		<section>
+			<div id="pop"
+				style="float: left; background-color: rgba(96, 151, 246, 0.58); height: 500px; width: 380px; display: none; position: fixed; top: 25%; left: 43%; z-index: 999;">
+				<div
+					style="align-items: center; flex-direction: column; display: flex; justify-content: center; margin: 0 auto; margin-top: 20px; height: 450px; width: 350px;">
+					<div
+						style="background-color: yellow; width: 300px; height: 350px; margin-bottom: 10px;">사진</div>
+					<div
+						style="display: flex; justify-content: center; width: 180px; height: 50px;">
+						<input type="button" style="width: 50px; height: 30px;" value="닫기"
+							onclick="picture_close()">
+					</div>
+				</div>
+			</div>
 			<div id="container_list">
 				<div id="wrapper_list">
 					<div id="wrapper_list_inner">
-						<h2 id="headline">회원관리리스트</h2>
+						<a href="boardlist_member.do" style="text-decoration: none;"><h2
+								id="headline">회원관리리스트</h2></a>
 						<div id="container_radio">
 							<form id="container_radio_form">
 								<label class="radio_label"> <input type="radio"
-									name="radio" checked /> <span>전체보기</span>
+									name="radio" value="select_all" onclick="radio_select(event)"
+									checked /> <span>전체검색</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>ID</span>
+									name="radio" value="select_u_id" onclick="radio_select(event)" />
+									<span>ID</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>닉네임</span>
+									name="radio" value="select_u_nickname"
+									onclick="radio_select(event)" /> <span>닉네임</span>
 								</label> <label class="radio_label"> <input type="radio"
-									name="radio" /> <span>생년월일</span>
+									name="radio" value="select_u_bday"
+									onclick="radio_select(event)" /> <span>생년월일</span>
 								</label>
 							</form>
 						</div>
 						<div id="container_searchbox">
 							<div class="searchbox">
-								<input type="text" class="searchtxt" placeholder="search">
-								<a class="searchbtn" href="#"> <i class="fas fa-search"></i>
+								<input type="text" class="searchtxt" id="search"
+									placeholder="검색시 엔터키를 눌러주세요" style="font-size: 12px;"
+									onkeypress="return enterKey(event);"> <a
+									class="searchbtn" href="#"> <i class="fas fa-search"></i>
 								</a>
 							</div>
 						</div>
@@ -223,9 +228,13 @@
 												<td>${k.u_email}</td>
 												<td>${k.u_nickname}</td>
 												<td>${k.u_bday}</td>
-												<td><a class="gradient-btn">사진보기</a></td>
-												<td><a class="gradient-btn">수정</a></td>
-												<td><a class="gradient-btn">탈퇴시키기</a></td>
+												<td><a class="gradient-btn" onclick="showHide()">사진보기</a></td>
+												<td><a class="gradient-btn"
+													href="boardlist_member_nicknameupdate.do?u_idx=${k.u_idx}"
+													onclick="member_nicknameupdate()">수정</a></td>
+												<td><a class="gradient-btn"
+													href="boardlist_member_getoutmember.do?u_idx=${k.u_idx}"
+													onclick="member_getoutmember()">탈퇴시키기</a></td>
 											</tr>
 										</c:forEach>
 									</c:otherwise>

@@ -50,6 +50,54 @@
 	rel="stylesheet">
 <title>사용자 생성</title>
 <script type="text/javascript">
+	function get_IdCheck() {
+		var user_id = $('#user_id').val();
+		$.ajax({
+			url : "user_IdCheck.do",
+			type : "post",
+			data : {
+				user_id : user_id
+			},
+			dataType : 'text',
+			success : function(result) {
+				if (result === "1") {
+					$("#id_feedback").html('이미 사용중인 아이디입니다.');
+					$("#id_feedback").attr('color', '#dc3545');
+				} else {
+					$("#id_feedback").html('사용할 수 있는 아이디입니다.');
+					$("#id_feedback").attr('color', '#2fd380');
+				}
+			},
+			error : function() {
+				alert("서버요청실패");
+			}
+		});
+	};
+
+	function get_NicknameCheck() {
+		var user_nickname = $('#user_nickname').val();
+		$.ajax({
+			url : "user_NicknameCheck.do",
+			type : "post",
+			data : {
+				user_nickname : user_nickname
+			},
+			dataType : 'text',
+			success : function(result) {
+				if (result === "1") {
+					$("#nickname_feedback").html('이미 사용중인 닉네임입니다.');
+					$("#nickname_feedback").attr('color', '#dc3545');
+				} else {
+					$("#nickname_feedback").html('사용할 수 있는 닉네임입니다.');
+					$("#nickname_feedback").attr('color', '#2fd380');
+				}
+			},
+			error : function() {
+				alert("서버요청실패");
+			}
+		});
+	};
+
 	function usercreate_super_exit(f) {
 		f.action = "userlist_super.do"
 	}
@@ -129,7 +177,8 @@
 						<div class="notification-container">
 							<input class="checkbox1" type="checkbox" id="size_1"
 								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">로그아웃</a></label>
+								for="size_1"><a href="admin_login.do"
+								style="color: white;">로그아웃</a></label>
 						</div>
 					</div>
 				</div>
@@ -149,14 +198,6 @@
 				if (click.style.display === "none") {
 					click.style.display = "block";
 					return false
-				} else {
-					click.style.display = "none";
-				}
-			}
-			function dp_menu1() {
-				let click = document.getElementById("drop-content1");
-				if (click.style.display === "none") {
-					click.style.display = "block";
 				} else {
 					click.style.display = "none";
 				}
@@ -190,12 +231,19 @@
 									<tr class="KOTRA-fontsize-80">
 										<td>자동부여</td>
 										<td><input type="text" style="height: 20px"
-											name="user_id"></td>
+											name="user_id" id="user_id" onblur="get_IdCheck();">
+											<div>
+												<font id="id_feedback" size="2"></font>
+											</div></td>
 										<td><input type="text" style="height: 20px"
 											name="user_name"></td>
 										<td><input type="text" style="height: 20px"
-											name="user_nickname"></td>
-										<td><input type="text" style="height: 20px"
+											name="user_nickname" id="user_nickname"
+											onblur="get_NicknameCheck();">
+											<div>
+												<font id="nickname_feedback" size="2"></font>
+											</div></td>
+										<td><input type="date" style="height: 20px"
 											name="user_birthday"></td>
 										<td><select name="gender_select"
 											style="width: 180px; height: 25px">
@@ -211,8 +259,7 @@
 								style="margin-right: 33px; margin-left: 20px; margin-top: 15px;">취소</button>
 							<button class="btn hover1"
 								onclick="usercreate_super_ok(this.form)"
-								style="margin-top: 15px;">사용자생성</button>
-
+								style="margin-left: 20px; margin-top: 15px;">사용자생성</button>
 						</div>
 					</div>
 				</div>
