@@ -12,4 +12,6 @@ public interface LoginService {
 	public int getNaver(VO vo);
 	public int checkHash(String hash);
 	public String getHash(String email);
+	public int setProf(VO vo);
+	public VO getProf(String hash);
 }

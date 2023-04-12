@@ -1,18 +1,20 @@
 package com.ict.login.controller;
 
+import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import java.security.SecureRandom;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ict.homepage.model.service.homepage_Service;
-import com.ict.homepage.model.vo.homepage_VO;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ict.login.service.LoginService;
 import com.ict.login.service.VO.CategoryVO;
 import com.ict.login.service.VO.VO;
@@ -38,12 +42,12 @@ public class LoginController {
 		}
 	
 
-	
-	
-	
-	
-	
-	
+	   @Autowired
+	    private Cloudinary cloudinary;
+
+	public void setCloudinary(Cloudinary cloudinary) {
+		this.cloudinary = cloudinary;
+	}
 	
 
 	@RequestMapping(value = "login.do")
@@ -258,8 +262,68 @@ public class LoginController {
 			}
 	}
 	
+	@RequestMapping("mypage.do")
+	public ModelAndView getMyPage(@RequestParam("hash") String hash) {
+	ModelAndView mv = new ModelAndView("mypage-views/mypage");
+	VO vo = loginService.getProf(hash);	  
+	  mv.addObject("vo", vo);
+		
+		return mv;
+	}
 	
-	
+	@RequestMapping(value = "uploadFile.do", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getFileUpload(@RequestParam("profPic")MultipartFile file,@RequestParam("hash")String hash,String oldFile) {
+		
+		String imageName = file.getName(); // Replace with the actual image name
+		String userFolder = "user_" + hash + "/";
+		String imageUrl = cloudinary.url().resourceType("image").generate(userFolder + imageName);
+		System.out.println("image is" + imageName);
+		System.out.println("userFolder is" + userFolder);
+		System.out.println("imageUrl is" + imageUrl);
+		System.out.println("old file is " + oldFile);
+		
+		  String publicId = oldFile.replace("https://res.cloudinary.com/dustgly37/image/upload/", "");
+          // Remove the version number if present (e.g., "v1681284559/")
+		  publicId = publicId.replaceAll("v\\d+/", "");
+          // Remove the file extension if present (e.g., ".jpg")
+          publicId = publicId.replaceAll("\\.[^.]*$", "");
+          
+		if(!file.isEmpty()) {
+			try {
+			
+		       
+		        System.out.println("destroy file of " + publicId);
+		        // Delete the previous image
+		        cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+
+		        // Upload the new image
+		        Map<?, ?> uploadResult = cloudinary.uploader().upload(file.getBytes(),
+		                ObjectUtils.asMap("resource_type", "auto", "public_id", userFolder + file.getOriginalFilename()));
+		        Map<String, Object> response = new HashMap<>();
+	            response.put("url", uploadResult.get("url"));
+	            ObjectMapper objectMapper = new ObjectMapper();
+	            String jsonResponse = objectMapper.writeValueAsString(response);
+	            System.out.println("json response is : " + jsonResponse);
+	            VO vo = new VO();
+	            vo.setHash(hash);
+	            vo.setProfPicString(jsonResponse);
+	            int result = loginService.setProf(vo);
+	            if(result==0) {
+	            	System.out.println("failed insert of profPic");
+	            }
+	            return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		        return new ResponseEntity<>("Error uploading file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		    }
+		}else {
+			  return new ResponseEntity<>("File is empty", HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		
+		
+	}
 	
 		
 	

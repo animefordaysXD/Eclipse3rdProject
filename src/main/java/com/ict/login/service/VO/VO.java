@@ -4,7 +4,7 @@ package com.ict.login.service.VO;
 
 public class VO {
 	String email,password,name,gender,birthday,nickName,region,pTime,pTime2,
-	sns_type,admin_chk,getCat,hash;	
+	sns_type,admin_chk,getCat,hash,profPicString,regDate;	
 	int idx,emailConf;
 	
 	public String getEmail() {
@@ -96,6 +96,18 @@ public class VO {
 	}
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+	public String getProfPicString() {
+		return profPicString;
+	}
+	public void setProfPicString(String profPicString) {
+		this.profPicString = profPicString;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	
 	

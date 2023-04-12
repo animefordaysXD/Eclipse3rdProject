@@ -52,6 +52,14 @@ public class LoginServiceImpl implements LoginService {
 	public String getHash(String email) {
 		return dao.getHash(email);
 	}
+	@Override
+	public int setProf(VO vo) {
+		return dao.setProf(vo);
+	}
+	@Override
+	public VO getProf(String hash) {
+		return dao.getProf(hash);
+	}
 
 
 }

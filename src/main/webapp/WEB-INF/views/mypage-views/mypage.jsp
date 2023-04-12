@@ -186,7 +186,12 @@ div[data-badge="9"] {
   background: url(resources/mypage/images/9.png) no-repeat;background-size: cover;
 }
 
-
+.mypage_information_text.editable {
+  /* styles when editable */
+  background-color: #F8F8F8;
+  border: 1px solid black;
+  color: black;
+}
 
 </style>
 <script>
@@ -218,19 +223,19 @@ var selected = "";
 	  const closePopupButton = document.getElementById('close-popup');
 	  const badges = document.querySelectorAll('.badges');
 	  const hiddenBadges = document.querySelectorAll('.hiddenBadges');
-	 
-	 
-	 
+	  
+	  
+	  const editBtn = document.getElementById("editBtn");
+	  const infoTexts = document.querySelectorAll(".mypage_information_text");
 
-	  // Function to show the popup with the badge content
+	  editBtn.addEventListener("click", function() {
+	    infoTexts.forEach(text => {
+	      text.contentEditable = "true";
+	      text.classList.add("editable"); // add a class for styling
+	    });
+	  });
 	 
-	
-
-		  // Function to hide the popup
-		 
-
-		  // Add click event listeners to the badge elements
-	
+	 
 
 
 		  // Add click event listeners to the hidden badge elements
@@ -245,6 +250,12 @@ var selected = "";
 
 		  // Add a click event listener to the close button
 		  closePopupButton.addEventListener('click', hidePopup);
+		  
+		  
+		  var response = '${vo.profPicString}';
+		  var obj = JSON.parse(response);
+		  var url = obj.url;
+		  document.getElementById("mypicture").src = url;
 	});
   function showPopup() {
 		 
@@ -289,6 +300,50 @@ var selected = "";
 	  
 	  
   }
+
+	    
+	    $(document).ready(function() {
+	        $('#mypicture').on('click', function() {
+	            $('#image-input').trigger('click');
+	        });
+
+	        $('#image-input').on('change', function() {
+	        	var oldFile = document.getElementById("mypicture").src;
+	            var file = this.files[0]; // Get the selected file
+	            var formData = new FormData();
+	            var hash = localStorage.getItem("hash");
+	            formData.append('profPic', file);
+				formData.append('oldFile',oldFile);
+	            $.ajax({
+	                url: 'uploadFile.do',
+	                type: 'POST',
+	                enctype: 'multipart/form-data',
+	                data: formData,
+	                processData: false,
+	                contentType: false,
+	                dataType: 'json',
+	                beforeSend: function(xhr) {
+	                    xhr.setRequestHeader('hash', localStorage.getItem("hash"));
+	                    formData.append('hash', localStorage.getItem("hash")); // Add the hash parameter to formData
+	                },
+	                success: function(response) {
+	                    console.log('Image uploaded successfully');
+	                    if (response.url) {
+	                        // Update the image src with the new uploaded image URL
+	                        $('#mypicture').attr('src', response.url);
+	                    }
+	                },
+	                error: function(xhr, status, error) {
+	                	  console.error('Image upload failed:', error);
+	                	    console.log('Status:', status);
+	                	    console.log('XHR:', xhr);
+	                	    console.log('Response:', xhr.responseText);
+	                }
+	            });
+	        });
+	    });
+	    
+	   
   
  
 
@@ -311,12 +366,13 @@ var selected = "";
 						<div id="wrapper_inner">
 							<div id="pictureandbadgeandflower"
 								style="background-color: black; display: flex; flex-direction: column; align-items: center;">
-								<div class="wrapper_picture" style="background-color: black;">
+								<div class="wrapper_picture" style="background-color: black;height:306.91px; width:400px;">
 									<div class="item_picture">
-										<div class="polaroid">
+										<div class="polaroid" style="height:283px;">
 											<img id="mypicture"
-												src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/dXAhQuT.jpg">
-											<div class="caption">By Joshua Sortino</div>
+												src="${url}">
+												<input type="file" id="image-input" name="file" style="display: none;" enctype="multipart/form-data" >
+											<div class="caption">안녕하세요!</div>
 										</div>
 									</div>
 								</div>
@@ -394,31 +450,31 @@ var selected = "";
 									<table id="membertable">
 										<tr>
 											<td class="mypage_information">이름</td>
-											<td class="mypage_information_text">주성재</td>
+											<td class="mypage_information_text" contenteditable="false"> '${vo.name}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">닉네임</td>
-											<td class="mypage_information_text">프론트대장님</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.nickName}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">아이디(이메일)</td>
-											<td class="mypage_information_text">jut343@naver.com</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.email}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">성별</td>
-											<td class="mypage_information_text">남</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.gender}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">생년월일</td>
-											<td class="mypage_information_text">1997.07.12</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.birthday}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">가입일</td>
-											<td class="mypage_information_text">2023.03.21</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.regDate}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">지역</td>
-											<td class="mypage_information_text">마포구</td>
+											<td class="mypage_information_text" contenteditable="false">'${vo.region}'</td>
 										</tr>
 										<tr>
 											<td class="mypage_information">매너점수</td>
@@ -437,7 +493,7 @@ var selected = "";
 								</div>
 								<div id="memberbutton">
 									<div class="portfolio-experiment" style="background: black;">
-										<a> <span class="text">회원정보수정</span> <span
+										<a> <span class="text" id="editBtn">회원정보 수정</span> <span
 											class="line -right"></span> <span class="line -top"></span> <span
 											class="line -left"></span> <span class="line -bottom"></span>
 										</a>

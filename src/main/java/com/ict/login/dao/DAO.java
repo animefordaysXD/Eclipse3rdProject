@@ -60,7 +60,13 @@ public class DAO {
 	public String getHash(String email) {
 		return sqlSessionTemplate.selectOne("login.getHash",email);
 	}
-
+	
+	public int setProf(VO vo) {
+		return sqlSessionTemplate.update("login.setProf", vo);
+	}
+	public VO getProf(String hash) {
+		return sqlSessionTemplate.selectOne("login.getProfile", hash);
+	}
 
 
 

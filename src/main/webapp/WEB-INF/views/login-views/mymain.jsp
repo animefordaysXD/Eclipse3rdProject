@@ -29,7 +29,9 @@ function storeHashInLocalStorage() {
 	}
 	
 window.onload = function() {
+	
 	  storeHashInLocalStorage();
+	  var hash = localStorage.getItem("hash");
 	};
 
 firebase.auth().onAuthStateChanged((user) => {
@@ -358,7 +360,7 @@ display:flex;
     </div>
     <div class="notification-container">
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
-      <label class="notification new1" for="size_1"><a href="" style="color: white;">마이페이지</a></label>
+      <label class="notification new1" for="size_1"><a href="mypage.do?hash=${hash}" style="color: white;">마이페이지</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href="" style="color: white;">신청내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
