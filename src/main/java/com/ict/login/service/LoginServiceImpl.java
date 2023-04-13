@@ -60,6 +60,22 @@ public class LoginServiceImpl implements LoginService {
 	public VO getProf(String hash) {
 		return dao.getProf(hash);
 	}
+	@Override
+	public String getAttendDates(String hash) {
+		return dao.getAttendDates(hash);
+	}
+	@Override
+	public int insertAttend(VO vo) {
+		return dao.insertAttend(vo);
+	}
+	@Override
+	public int insertCity(VO vo) {
+		return dao.insertCity(vo);
+	}
+	@Override
+	public int insertNick(VO vo) {
+		return dao.insertNick(vo);
+	}
 
 
 }

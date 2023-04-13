@@ -67,6 +67,18 @@ public class DAO {
 	public VO getProf(String hash) {
 		return sqlSessionTemplate.selectOne("login.getProfile", hash);
 	}
+	public String getAttendDates(String hash) {
+		return sqlSessionTemplate.selectOne("login.getAttendDates",hash);
+	}
+	public int insertAttend(VO vo) {
+		return sqlSessionTemplate.update("login.setAttendDate",vo);
+	}
+	public int insertCity(VO vo) {
+		return sqlSessionTemplate.update("login.setCity",vo);
+	}
+	public int insertNick(VO vo) {
+		return sqlSessionTemplate.update("login.setNick", vo);
+	}
 
 
 

@@ -14,4 +14,8 @@ public interface LoginService {
 	public String getHash(String email);
 	public int setProf(VO vo);
 	public VO getProf(String hash);
+	public String getAttendDates(String hash);
+	public int insertAttend(VO vo);
+	public int insertCity(VO vo);
+	public int insertNick(VO vo);
 }

@@ -3,6 +3,7 @@ package com.ict.login.controller;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ibm.icu.text.SimpleDateFormat;
 import com.ict.login.service.LoginService;
 import com.ict.login.service.VO.CategoryVO;
 import com.ict.login.service.VO.VO;
@@ -282,13 +284,16 @@ public class LoginController {
 		System.out.println("imageUrl is" + imageUrl);
 		System.out.println("old file is " + oldFile);
 		
-		  String publicId = oldFile.replace("https://res.cloudinary.com/dustgly37/image/upload/", "");
+		  String publicId = oldFile.replace("http://res.cloudinary.com/dustgly37/image/upload/", "");
           // Remove the version number if present (e.g., "v1681284559/")
 		  publicId = publicId.replaceAll("v\\d+/", "");
           // Remove the file extension if present (e.g., ".jpg")
           publicId = publicId.replaceAll("\\.[^.]*$", "");
           
 		if(!file.isEmpty()) {
+			 if (!file.getContentType().startsWith("image/")) {
+			        return new ResponseEntity<>("PNG only", HttpStatus.BAD_REQUEST);
+			    }
 			try {
 			
 		       
@@ -325,7 +330,73 @@ public class LoginController {
 		
 	}
 	
+	
+	
+	@RequestMapping("getAttend.do")
+	public ResponseEntity<?> getAttend(@RequestParam("hash") String hash) {
+		String result = loginService.getAttendDates(hash);
+		Date now = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("d");
+		String todayDate = dateFormat.format(now);
+		int result2=0;
+		if(result==null||result.isEmpty()) {
+			VO vo = new VO();
+			vo.setAttendDate(todayDate);
+			vo.setHash(hash);
+			result2 = loginService.insertAttend(vo);
+			
+		}else {
+			String attendDates = loginService.getAttendDates(hash);
+			 attendDates += "," + todayDate;
+			 System.out.println("attend date : " + attendDates);
+			 VO vo = new VO();
+				vo.setAttendDate(attendDates);
+				vo.setHash(hash);
+			  result2 = loginService.insertAttend(vo);	
+			 
+		}
+		 System.out.println("result2 : " + result2);
+		  Map<String, Object> response = new HashMap<>();
+		 VO vo = new VO();
+		  vo = loginService.getProf(hash);
+		 String link= vo.getProfPicString();
+		  vo.setProfPicString(link);
+		  
+		 
+		 if(result2 > 0) {
+		        response.put("status", "1");
+		        response.put("vo", vo); // Add the vo object to the response
+		        return ResponseEntity.status(HttpStatus.OK).body(response);
+		    } else {
+		        response.put("status", "0");
+		        response.put("vo", vo); // Add the vo object to the response
+		        return ResponseEntity.status(HttpStatus.OK).body(response);
+		    }
 		
+	}
+		
+	
+	@RequestMapping("getCity.do")
+	public ResponseEntity<?> getCity(@RequestParam("region") String region,@RequestParam("hash")String hash) {
+		VO vo = new VO();
+		vo.setRegion(region);
+		vo.setHash(hash);
+		loginService.insertCity(vo);
+		  Map<String, Object> response = new HashMap<>();
+        response.put("vo", vo); // Add the vo object to the response
+	        return ResponseEntity.status(HttpStatus.OK).body(response);		
+	}
+	
+	@RequestMapping("setNick.do")
+	public ResponseEntity<?> setNick(@RequestParam("nickName")String nickname, @RequestParam("hash") String hash){
+		VO vo = new VO();
+		vo.setNickName(nickname);
+		vo.setHash(hash);
+		loginService.insertNick(vo);
+		Map<String, Object> response = new HashMap<>();
+		 response.put("vo", vo);
+		 return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
 	
 	
 

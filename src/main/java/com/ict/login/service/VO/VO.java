@@ -4,7 +4,7 @@ package com.ict.login.service.VO;
 
 public class VO {
 	String email,password,name,gender,birthday,nickName,region,pTime,pTime2,
-	sns_type,admin_chk,getCat,hash,profPicString,regDate;	
+	sns_type,admin_chk,getCat,hash,profPicString,regDate,attendDate;	
 	int idx,emailConf;
 	
 	public String getEmail() {
@@ -108,6 +108,12 @@ public class VO {
 	}
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+	public String getAttendDate() {
+		return attendDate;
+	}
+	public void setAttendDate(String attendDate) {
+		this.attendDate = attendDate;
 	}
 	
 	

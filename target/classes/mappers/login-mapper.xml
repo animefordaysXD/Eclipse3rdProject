@@ -58,6 +58,29 @@ select u_hash from users where u_email = #{email}
   <result column="u_region" property="region" />
   <result column="u_profPic" property="profPicString" />
 </resultMap>
+
+<select id="getAttendDates" parameterType="String" resultType="String" >
+select attenddates from users where u_hash = #{hash}
+</select>
+
+<update id="setAttendDate" parameterType="vo">
+UPDATE users
+  SET attenddates = #{attendDate}
+  WHERE u_hash = #{hash}
+</update>
+<update id="setCity" parameterType="vo">
+UPDATE users
+  SET u_region = #{region}
+  WHERE u_hash = #{hash}
+
+</update>
+<update id="setNick" parameterType="vo">
+UPDATE users
+  SET u_nickName = #{nickName}
+  WHERE u_hash = #{hash}
+</update>
+
+
 	
 </mapper>
 
