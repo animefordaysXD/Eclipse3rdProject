@@ -221,6 +221,10 @@ public class LoginController {
 	public ModelAndView findPassword() {
 		return new ModelAndView("login-views/passwordFind");
 	}
+	@RequestMapping("mypage.do")
+	public ModelAndView getMyPage() {
+		return new ModelAndView("mypage-views/mypage");
+	}
 	
 	@RequestMapping("kakaoLogin.do")
 	@ResponseBody

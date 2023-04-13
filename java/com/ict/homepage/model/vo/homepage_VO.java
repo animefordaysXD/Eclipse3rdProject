@@ -4,7 +4,7 @@ public class homepage_VO {
 
 private int romm_idx ,  room_count , room_gender, close_ok , room_del_code , u_idx ;
 private String room_title, room_region, start_datetime, end_datetime, room_content, write_datetime, u_nickname,
-            begin_datetime, final_datetime , room_dateregion, category_type ;
+            begin_datetime, final_datetime ,longitude,latitude,category_type ;
 public int getRomm_idx() {
 	return romm_idx;
 }
@@ -103,12 +103,19 @@ public String getFinal_datetime() {
 public void setFinal_datetime(String final_datetime) {
 	this.final_datetime = final_datetime;
 }
-public String getRoom_dateregion() {
-	return room_dateregion;
+public String getLongitude() {
+	return longitude;
 }
-public void setRoom_dateregion(String room_dateregion) {
-	this.room_dateregion = room_dateregion;
+public void setLongitude(String longitude) {
+	this.longitude = longitude;
 }
+public String getLatitude() {
+	return latitude;
+}
+public void setLatitude(String latitude) {
+	this.latitude = latitude;
+}
+
 
 
 }

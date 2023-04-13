@@ -19,6 +19,28 @@
 <link href="resources/mypage/css/font.css" rel="stylesheet">
 <link href="resources/mypage/css/photo.css" rel="stylesheet" />
 <link href="resources/mypage/css/progressbar.css" rel="stylesheet">
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
+	<link href="resources/homepage/css/homepage.css" rel="stylesheet">
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel='stylesheet'
+	href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
 	crossorigin="anonymous">
@@ -475,6 +497,35 @@ var selected = "";
 	  
   }
 
+  function changePicture() {
+	  // Create an input element of type "file"
+	  var fileInput = document.createElement("input");
+	  fileInput.type = "file";
+	  
+	  // Add an event listener to the file input to detect when a file is selected
+	  fileInput.addEventListener("change", function() {
+	    // Get the selected file
+	    var file = fileInput.files[0];
+	    
+	    // Create a new FileReader
+	    var reader = new FileReader();
+	    
+	    // Add an event listener to the FileReader to detect when the file is loaded
+	    reader.addEventListener("load", function() {
+	      // Update the "src" attribute of the image with the data URL of the selected file
+	      document.getElementById("mypicture").src = reader.result;
+	    });
+	    
+	    // Read the selected file as a data URL
+	    reader.readAsDataURL(file);
+	  });
+	  
+	  // Trigger a click event on the file input to open the file selection dialog
+	  fileInput.click();
+  
+ 
+
+
 	    
 	    $(document).ready(function() {
 	        $('#mypicture').on('click', function() {
@@ -622,12 +673,132 @@ var selected = "";
   
   </script>
 <body>
-	<div id="wrap">
+	<div id="wrap"style="background: black;">
 		<header>
 			<h3 style="text-align: center;">today Time's</h3>
 		</header>
 		<!-- navigator 추가  -->
-		<nav style="border-bottom: 1px solid gray"></nav>
+		<nav>
+		<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+				<label for="openSidebarMenu" class="sidebarIconToggle">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div id="sidebarMenu">
+					<ul class="sidebarMenuInner">
+						<li><a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
+						<li><a href="complete.do"><i class="fi fi-rr-user">&ensp;로그아웃</i></a></li>
+						<li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
+						<li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
+						<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
+						<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
+						<li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
+						<li><a href="view_report.do"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
+						<li><a href="boardlist.do"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
+					</ul>
+				</div>
+
+
+				<div class="option">
+
+					<div class="dropdown1">
+						<button onclick="dp_menu1()" class="button1">
+							<i class="material-icons dp48">notifications</i>
+						</button>
+
+						<spacer></spacer>
+						<span class="num-count">2</span>
+						<div style="display: none;" id="drop-content1">
+							<div class="notification-icon  right"></div>
+
+							<div class="profile1"></div>
+
+							<div style="float: right;">
+							    <div class="notification-container1">
+							        <input class="checkbox" type="checkbox" id="size_1" value="small" checked />
+							        <label class="notification new" for="size_1"><em>1</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_2" value="small" checked />
+							        <label class="notification new" for="size_2"><em>2</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_4" value="small" checked />
+							        <label class="notification" for="size_4"><em>3</em> new <a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_5" value="small" checked />
+							        <label class="notification" for="size_5"><em>4</em><a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							    </div>
+							</div>
+						</div>
+					</div>
+
+					<div class="dropdown">
+						<button onclick="dp_menu()" class="button">
+							<i class="fi fi-rr-user" style="font-size: 20px;"></i>
+						</button>
+						<spacer></spacer>
+						<div style="display: none;" id="drop-content">
+
+
+							<div class="profile"></div>
+							<div class="notification-container">
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="mypage.do" style="color: white;">마이페이지</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="" style="color: white;">신청내역</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="roomlist.do" style="color: white;">개설방내역</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="complete.do" style="color: white;">로그아웃</a></label>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+							
+			<div class="container">
+			<ul class="breadcrumb" style="padding: revert;">
+				<li class="br"><a href="#">홈</a></li>
+				<li class="br"><a href="complete.do">로그아웃</a></li>
+				<li class="br">메인</li>
+				<li class="br active" aria-current="page" style="color: white;">모임방 개설방</li>
+			</ul>
+			
+		</div>
+		
+		
+		</nav>
+		<script type="text/javascript">
+		
+		// 현재 페이지의 URL 가져오기
+		
+
+    function dp_menu(){
+        let click = document.getElementById("drop-content");
+        if(click.style.display === "none"){
+            click.style.display = "block";
+            return false
+
+        }else{
+            click.style.display = "none";
+
+        }
+    }
+    function dp_menu1(){
+        let click = document.getElementById("drop-content1");
+        if(click.style.display === "none"){
+            click.style.display = "block";
+
+        }else{
+            click.style.display = "none";
+
+        }
+    }
+		
+		
+		</script>
 		<section style="height: 920px; background-color: black;">
 			<div id="container_list">
 				<div id="wrapper_list">
@@ -856,7 +1027,41 @@ var selected = "";
 			</div>
 		</section>
 		<!-- footer 추가  -->
-		<footer style="border-top: 1px solid gray"></footer>
+		<footer style="border-top: 1px solid gray"  class="footer">
+		
+		<div class="container">
+			<div class="row">
+				<div class="footer-col">
+					<div class="social-links" style="text-indent: 95px;">
+						<p>친절한 고객센터 1688-4757
+						<p>월요일-금요일10:00-17:00</p>
+						<p>[주말/공휴일휴무]고객상담을 위한 연락처로 마케팅 제안은 정중히 사양합니다</p>
+
+
+
+					</div>
+				</div>
+
+				<div class="footer-col1">
+					<h2 style="margin-top: 22px">Social Media</h2>
+					<ul class="social-icons" style="margin-top: -3px;">
+						<li><a
+							href="https://www.facebook.com/profile.php?id=100091363184815"
+							class="social-square"><i class="fab  fa-facebook-f fa-1x"></i></a></li>
+						<li><a
+							href="https://www.youtube.com/channel/UCd_IGM4iCm0IUjsozb_xO8w"
+							class="social-square"><i class="fab  fa-youtube fa"></i></a></li>
+						<li><a href="https://www.instagram.com/neulddyaeng.o/"
+							class="social-square"><i class="fab  fa-instagram fa"></i></a></li>
+						<li><a href="https://blog.naver.com/tjdwosk3"
+							class="social-square"><i class="fa-brands fa-line fa"></i></a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		
+		</footer>
 	</div>
 </body>
 </html>
