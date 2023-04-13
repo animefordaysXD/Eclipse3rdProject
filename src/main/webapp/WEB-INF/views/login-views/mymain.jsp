@@ -302,7 +302,7 @@ display:flex;
   <div id="sidebarMenu">
     <ul class="sidebarMenuInner">
       <li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-        <li><a id="getLogOutLink" href="#"><i class="fi fi-rr-user">&emsp;로그아웃</i></a></li>
+        <li><a id="getLogOutLink" href="#"><i class="fi fi-rr-user">&ensp;로그아웃</i></a></li>
         <li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
         <li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
         <li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
@@ -358,7 +358,7 @@ display:flex;
     </div>
     <div class="notification-container">
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
-      <label class="notification new1" for="size_1"><a href="" style="color: white;">마이페이지</a></label>
+      <label class="notification new1" for="size_1"><a href="mypage.do" style="color: white;">마이페이지</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href="" style="color: white;">신청내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />

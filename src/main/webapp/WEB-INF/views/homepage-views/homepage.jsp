@@ -173,11 +173,11 @@ $(document).ready(function() {
 <script>
   
 	  function openKakaoMap() {
-		  var popup = window.open("", "mapPopup", "width=500,height=500");
+		  var popup = window.open("", "mapPopup", "width=800,height=800");
 
 		    var mapContainer = document.createElement('div');
-		    mapContainer.style.width = 500 + 'px';
-		    mapContainer.style.height = 600 + 'px';
+		    mapContainer.style.width = 1000 + 'px';
+		    mapContainer.style.height = 800 + 'px';
 		    popup.document.body.appendChild(mapContainer);
 
 		    var mapOptions = {
@@ -235,9 +235,13 @@ $(document).ready(function() {
 		    	  //  popup.document.body.appendChild(resultDiv);
 		    	  }
 		    	});
+		    
+		    
+		    
 	    }
-
+			
   </script>
+  
 
 </head>
 <body onload="setHash()">
@@ -263,8 +267,8 @@ $(document).ready(function() {
 						<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
 						<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
 						<li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
-						<li><a href=""><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
-						<li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
+						<li><a href="view_report.do"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
+						<li><a href="boardlist.do"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
 					</ul>
 				</div>
 
@@ -284,28 +288,17 @@ $(document).ready(function() {
 							<div class="profile1"></div>
 
 							<div style="float: right;">
-								<div class="notification-container1">
-									<input class="checkbox" type="checkbox" id="size_1"
-										value="small" checked /> <label class="notification new"
-										for="size_1"><em>1</em> new <a href="">guest
-											account(s)</a> have been created.<i
-										class="material-icons dp48 right">clear</i></label> <input
-										class="checkbox" type="checkbox" id="size_2" value="small"
-										checked /> <label class="notification new" for="size_2"><em>2</em>
-										new <a href="">lead(s)</a> are available in the system.<i
-										class="material-icons dp48 right">clear</i></label> <input
-										class="checkbox" type="checkbox" id="size_4" value="small"
-										checked /> <label class="notification" for="size_4"><em>3</em>
-										new <a href="">calendar event(s)</a> are scheduled for today.<i
-										class="material-icons dp48 right">clear</i></label> <input
-										class="checkbox" type="checkbox" id="size_5" value="small"
-										checked /> <label class="notification" for="size_5"><em>4</em>
-										blog post <a href="">comment(s)</a> need approval.<i
-										class="material-icons dp48 right">clear</i></label>
-
-								</div>
+							    <div class="notification-container1">
+							        <input class="checkbox" type="checkbox" id="size_1" value="small" checked />
+							        <label class="notification new" for="size_1"><em>1</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_2" value="small" checked />
+							        <label class="notification new" for="size_2"><em>2</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_4" value="small" checked />
+							        <label class="notification" for="size_4"><em>3</em> new <a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_5" value="small" checked />
+							        <label class="notification" for="size_5"><em>4</em><a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							    </div>
 							</div>
-
 						</div>
 					</div>
 
@@ -321,7 +314,7 @@ $(document).ready(function() {
 							<div class="notification-container">
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
-									for="size_1"><a href="" style="color: white;">마이페이지</a></label>
+									for="size_1"><a href="mypage.do" style="color: white;">마이페이지</a></label>
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
 									for="size_1"><a href="" style="color: white;">신청내역</a></label>
@@ -387,8 +380,7 @@ $(document).ready(function() {
         	    zoom: 13
         	  });
         	}
-
-        
+	
     </script>
 
 
@@ -475,7 +467,6 @@ $(document).ready(function() {
 							<td><button type="button" class="custom-btn-1 btn-1"
 									onclick="openKakaoMap()">장소 클릭</button>
 								<div id="mapPopup" style="display: none">
-									<div id="map" style="width: 600px; height: 500px;"></div>
 								</div> <input type="hidden" name="latAddress" id="latAddress" value="">
 								<input type="hidden" name="lngAddress" id="lngAddress" value="">
 
@@ -532,7 +523,7 @@ $(document).ready(function() {
 			</section>
 		</form>
 	</div>
-	<div id="map" style="width: 100%; height: 350px;"></div>
+
 
 
 

@@ -134,8 +134,8 @@ function checkNick(){
 					<li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
 					<li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
 					<li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
-					<li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
+					<li><a href="view_report.do"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
+					<li><a href="boardlist.do"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
 				</ul>
 			</div>
 
@@ -155,24 +155,14 @@ function checkNick(){
 
 						<div style="float: right;">
 							<div class="notification-container1">
-								<input class="checkbox" type="checkbox" id="size_1"
-									value="small" checked /> <label class="notification new"
-									for="size_1"><em>1</em> new <a href="">guest
-										account(s)</a> have been created.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_2" value="small"
-									checked /> <label class="notification new" for="size_2"><em>2</em>
-									new <a href="">lead(s)</a> are available in the system.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_4" value="small"
-									checked /> <label class="notification" for="size_4"><em>3</em>
-									new <a href="">calendar event(s)</a> are scheduled for today.<i
-									class="material-icons dp48 right">clear</i></label> <input
-									class="checkbox" type="checkbox" id="size_5" value="small"
-									checked /> <label class="notification" for="size_5"><em>4</em>
-									blog post <a href="">comment(s)</a> need approval.<i
-									class="material-icons dp48 right">clear</i></label>
-
+								 <input class="checkbox" type="checkbox" id="size_1" value="small" checked />
+							        <label class="notification new" for="size_1"><em>1</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_2" value="small" checked />
+							        <label class="notification new" for="size_2"><em>2</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_4" value="small" checked />
+							        <label class="notification" for="size_4"><em>3</em> new <a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							        <input class="checkbox" type="checkbox" id="size_5" value="small" checked />
+							        <label class="notification" for="size_5"><em>4</em><a href=""></a><i class="material-icons dp48 right">clear</i></label>
 							</div>
 						</div>
 
@@ -187,26 +177,27 @@ function checkNick(){
 					<div style="display: none;" id="drop-content">
 
 
-						<div class="profile"></div>
-						<div class="notification-container">
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">마이페이지</a></label>
-							<input class="checkbox1" type="checkbox" id="size_1"
-								value="small" checked /> <label class="notification new1"
-								for="size_1"><a href="" style="color: white;">신청내역</a></label> <input
-								class="checkbox1" type="checkbox" id="size_1" value="small"
-								checked /> <label class="notification new1" for="size_1"><a
-								href="roomlist.do" style="color: white;">개설방내역</a></label> <input class="checkbox1"
-								type="checkbox" id="size_1" value="small" checked /> <label
-								class="notification new1" for="size_1"><a href="complete.do"
-								style="color: white;">로그아웃</a></label>
+					<div class="profile"></div>
+							<div class="notification-container">
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="mypage.do" style="color: white;">마이페이지</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="" style="color: white;">신청내역</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="roomlist.do" style="color: white;">개설방내역</a></label>
+								<input class="checkbox1" type="checkbox" id="size_1"
+									value="small" checked /> <label class="notification new1"
+									for="size_1"><a href="complete.do" style="color: white;">로그아웃</a></label>
 
 
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			
 		<div class="container">
 			<ul class="breadcrumb" style="padding: revert;">
 				<li class="br"><a href="#">홈</a></li>

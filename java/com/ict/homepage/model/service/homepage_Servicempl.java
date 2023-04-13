@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ict.homepage.model.dao.homepage_DAO;
+import com.ict.homepage.model.vo.notification_VO;
 import com.ict.homepage.model.vo.homepage_VO;
 
 @Service
@@ -39,7 +40,11 @@ public class homepage_Servicempl implements homepage_Service {
 	public String getHashForRoomMake(String hash) {
 		return homepage_DAO.getHashForRoomMake(hash);
 	}
-	
+	@Override
+	public List<notification_VO> alarmList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

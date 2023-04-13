@@ -34,9 +34,24 @@
 	select * from room order by room_idx
 	</select>
 	
+	<select id="">
+	
+	
+	</select>
+	
 	<select id="getHashForRoomMake" parameterType="String" resultType="String">
 	select u_nickname from users where u_hash = #{hash}
 	</select>
+	
+	<insert id="insert1" parameterType="avo">
+	  insert into notification(
+	    not_idx, not_type, not_message, not_datetime, not_read_datetime, not_url, u_idx, target_u_idx, room_idx, post_idx, report_pro_idx ,not_check
+	  )
+	  values(
+	    notification_seq.nextval,  #{not_type},  #{not_message}, #{not_datetime}, #{not_read_datetime}, #{not_url}, #{u_idx}, 
+	    #{target_u_idx}, #{room_idx}, #{post_idx}, #{report_pro_idx},#{not_check}
+	  )
+	 </insert>
 	
 </mapper>
 
