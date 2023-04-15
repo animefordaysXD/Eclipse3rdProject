@@ -3,11 +3,13 @@ package com.ict.admin.boardlist.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -95,9 +97,28 @@ public class Boardlist_Controller {
 		return mv;
 	}
 
+	@RequestMapping("boardlist_write_ok.do")
+	public ModelAndView getboardList_Write_OK(Boardlist_VO boardlist_VO, HttpSession session, String post_title,
+			String post_content, String u_idx) {
+		ModelAndView mv = new ModelAndView("redirect:boardlist.do");
+		System.out.println(post_title);
+		System.out.println(post_content);
+		/* System.out.println(u_idx); */
+
+		return mv;
+	}
+
 	@RequestMapping("view_boardlist.do")
-	public ModelAndView view_Boardlist() {
-		ModelAndView mv = new ModelAndView("view_boardlist");
+	public ModelAndView view_Boardlist(@ModelAttribute("cPage") String cPage,
+			@ModelAttribute("post_idx") String post_idx) {
+		ModelAndView mv = new ModelAndView("boardlist/view_boardlist");
+		// hit 업데이트
+		int hit = boardlist_Service.getBoardHit(post_idx);
+
+		// 상세보기
+		Boardlist_VO boardlist_VO = boardlist_Service.getBoardOneList(post_idx);
+
+		mv.addObject("boardlist_VO", boardlist_VO);
 		return mv;
 	}
 

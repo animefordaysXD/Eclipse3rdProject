@@ -30,4 +30,12 @@ public class Boardlist_DAO {
 		map.put("end", end);
 		return sqlSessionTemplate.selectList("boardlist.list", map);
 	}
+
+	public int getBoardHit(String post_idx) {
+		return sqlSessionTemplate.update("boardlist.hitup", post_idx);
+	}
+
+	public Boardlist_VO getBoardOneList(String post_idx) {
+		return sqlSessionTemplate.selectOne("boardlist.onelist", post_idx);
+	}
 }

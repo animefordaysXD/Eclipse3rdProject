@@ -29,7 +29,9 @@ function storeHashInLocalStorage() {
 	}
 	
 window.onload = function() {
+	
 	  storeHashInLocalStorage();
+	  var hash = localStorage.getItem("hash");
 	};
 
 firebase.auth().onAuthStateChanged((user) => {
@@ -301,15 +303,15 @@ display:flex;
   </label>
   <div id="sidebarMenu">
     <ul class="sidebarMenuInner">
-      <li><a href="#"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
-        <li><a id="getLogOutLink" href="#"><i class="fi fi-rr-user">&emsp;로그아웃</i></a></li>
+      <li><a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><i class="fi fi-sr-home">&emsp;&emsp;홈</i></a></li>
+        <li><a id="getLogOutLink" href="#"><i class="fi fi-rr-user">&ensp;로그아웃</i></a></li>
         <li><a href="#"><i class="fi fi-rr-basketball">&emsp;농구</i></a></li>
         <li><a href="#"><i class="fi fi-rr-baby">&ensp;클라이밍</i></a></li>
         <li><a href="#"><i class="fi fi-rs-bowling">&emsp;볼링</i></a></li>
         <li><a href="#"><i class="fi fi-ts-racquet">&ensp;배드민턴</i></a></li>
         <li><a href="homepage.do"><i class="fi fi-rs-house-flood">&ensp;방만들기</i></a></li>
-        <li><a href="#"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
-        <li><a href="#"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
+        <li><a href="view_report.do"><i class="fi fi-rr-thumbtack">&ensp;신고하기</i></a></li>
+        <li><a href="boardlist.do"><i class="fi fi-rr-comment-sms">&ensp;게시판</i></a></li>
     </ul>
   </div>
   
@@ -358,7 +360,7 @@ display:flex;
     </div>
     <div class="notification-container">
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
-      <label class="notification new1" for="size_1"><a href="" style="color: white;">마이페이지</a></label>
+      <label class="notification new1" for="size_1"><a href="mypage.do?hash=${hash}" style="color: white;">마이페이지</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
       <label class="notification new1" for="size_1"><a href="" style="color: white;">신청내역</a></label>
     	<input class="checkbox1" type="checkbox" id="size_1" value="small" checked />
@@ -372,14 +374,13 @@ display:flex;
         </div>
   	  </div>
 		<div class="container">
-			<ul class="breadcrumb">
+			<ul class="breadcrumb" style="padding: revert;">
 				<li class="br"><a href="#">홈</a></li>
-				<li class="br"><a id="getLogOutLink" onclick="globalSignOut()">로그아웃</a></li>
-				<li class="br"><a href="#">메뉴</a></li>
-				<li class="br active" aria-current="page">현재페이지</li>
+				<li class="br"><a href="complete.do">로그아웃</a></li>
+				<li class="br  active" aria-current="page" style="color: white;">메인</li>
 			</ul>
+			
 		</div>
-   
    </nav>
    
    <div class="emailNotVerti" id="emailNotVerti" >

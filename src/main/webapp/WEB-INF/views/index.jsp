@@ -43,7 +43,6 @@ nav {
 		<nav>
 			<ul class="menu">
 				<li><a href="admin_login.do"> 로그인 </a></li>
-				<li><a href="view_boardlist.do"> 게시글보기 </a></li>
 			</ul>
 		</nav>
 	</header>

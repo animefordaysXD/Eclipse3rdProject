@@ -37,6 +37,50 @@ select count(*) from users where u_hash= #{hash}
 <select id="getHash" parameterType="String" resultType="String">
 select u_hash from users where u_email = #{email}
 </select>
+<update id="setProf" parameterType="vo">
+  UPDATE users
+  SET u_profpic = #{profPicString}
+  WHERE u_hash = #{hash}
+</update>
+<select id="getProfile" parameterType="String" resultMap="profileResultMap">
+  SELECT u_name, u_nickname, u_email, u_gender, u_bday, u_regDate, u_region,
+          u_profPic
+  FROM users
+  WHERE u_hash = #{hash}
+</select>
+<resultMap id="profileResultMap" type="com.ict.login.service.VO.VO">
+  <result column="u_name" property="name" />
+  <result column="u_nickname" property="nickName" />
+  <result column="u_email" property="email" />
+  <result column="u_gender" property="gender" />
+  <result column="u_bday" property="birthday" />
+  <result column="u_regDate" property="regDate" />
+  <result column="u_region" property="region" />
+  <result column="u_profPic" property="profPicString" />
+</resultMap>
+
+<select id="getAttendDates" parameterType="String" resultType="String" >
+select attenddates from users where u_hash = #{hash}
+</select>
+
+<update id="setAttendDate" parameterType="vo">
+UPDATE users
+  SET attenddates = #{attendDate}
+  WHERE u_hash = #{hash}
+</update>
+<update id="setCity" parameterType="vo">
+UPDATE users
+  SET u_region = #{region}
+  WHERE u_hash = #{hash}
+
+</update>
+<update id="setNick" parameterType="vo">
+UPDATE users
+  SET u_nickName = #{nickName}
+  WHERE u_hash = #{hash}
+</update>
+
+
 	
 </mapper>
 

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.homepage.model.vo.notification_VO;
 import com.ict.homepage.model.vo.homepage_VO;
 
 @Repository
@@ -26,6 +27,11 @@ public class homepage_DAO {
 	 return sqlSessionTemplate.insert("homepage.insert", hvo);	
 	}
 	
-	
+	public String getHashForRoomMake(String hash) {
+		return sqlSessionTemplate.selectOne("getHashForRoomMake", hash);
+	}
+	public List<notification_VO> alarmList(){
+		return sqlSessionTemplate.selectList("alarmList");
+	}
 
 }
