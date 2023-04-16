@@ -427,9 +427,15 @@ var selected = "";
 		  
 		  
 		  var response = '${vo.profPicString}';
+		  if(response===null||response===''){
+			  document.getElementById("mypicture").src = 
+				 "https://res.cloudinary.com/dustgly37/image/upload/v1681279564/cld-sample-2.jpg";
+				  
+		  }else{
 		  var obj = JSON.parse(response);
 		  var url = obj.url;
 		  document.getElementById("mypicture").src = url;
+		  }
 	});
   function showPopup() {
 		 
@@ -552,7 +558,7 @@ var selected = "";
 	        var attendanceCookieValue = localStorage.getItem("hash") + "|1";
 	        setCookie("attendance", attendanceCookieValue, 1);
 	        updateProfilePictureUrl(response.vo); 
-	        location.reload();
+	        location.reload(true);
 	      }else{
 	        alert('출석 실패');
 	      }      

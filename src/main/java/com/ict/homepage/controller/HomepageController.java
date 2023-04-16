@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.homepage.model.service.homepage_Service;
 import com.ict.homepage.model.vo.homepage_VO;
+import com.ict.homepage.model.vo.notification_VO;
 import com.ict.login.service.VO.VO;
 
 
@@ -24,6 +26,8 @@ public class HomepageController {
 	public void setHomepage_Service(homepage_Service homepage_Service) {
 		this.homepage_Service = homepage_Service;
 	}
+	
+	
 
 	@RequestMapping("manager.mymain.do")
 	public ModelAndView MyMain1() {
@@ -110,6 +114,19 @@ public class HomepageController {
 
 
 		return mv;
+	}
+	@RequestMapping("makeNotif.do")
+	public String makeNot(@RequestParam("hash") String Hash,@ModelAttribute notification_VO avo) {
+		int idx = homepage_Service.getUserIdx(Hash);
+		System.out.println("idx is : " + idx);
+		avo.setU_idx(idx);
+		int result = homepage_Service.createRoomNoti(avo);
+		System.out.println("result is : " + result);
+		if(result>0) {
+			return "1";
+		}else {
+			return "0";
+		}
 	}
 
 }

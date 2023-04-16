@@ -45,6 +45,14 @@ public class homepage_Servicempl implements homepage_Service {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public int getUserIdx(String hash) {
+		return homepage_DAO.getUserIdx(hash);
+	}
+	@Override
+	public int createRoomNoti(notification_VO avo) {
+		return homepage_DAO.createRoomNoti(avo);
+	}
 	
 
 }

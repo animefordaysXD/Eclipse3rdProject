@@ -11,6 +11,7 @@ public interface homepage_Service {
 	int homepageInsert(homepage_VO hvo);
 	String getHashForRoomMake(String hash);
 	List<notification_VO> alarmList();
-
+	public int getUserIdx(String hash);
+	public int createRoomNoti(notification_VO avo);
 	
 }
