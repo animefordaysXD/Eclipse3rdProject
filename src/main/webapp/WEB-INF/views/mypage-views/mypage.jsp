@@ -34,25 +34,17 @@
 	animation: moveArrow 0.5s linear !important;
 }
 
-@
-keyframes moveArrow { 0% {
-	transform: translateX(0);
-	opacity: 1;
-}
 
-100
-%
-{
-transform
-:
-translateX(
-100%
-);
-opacity
-:
-0;
-}
-}
+@keyframes moveArrow {
+      0% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
 .badges {
 	width: 100px;
 	height: 98px;
@@ -93,63 +85,23 @@ opacity
 	animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
 }
 
-@
-keyframes shake { 10%, 90% {
-	transform: translate3d(-1px, 0, 0);
-}
+@keyframes shake {
+      10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+      
+      20%, 80% {
+        transform: translate3d(2px, 0, 0);
+      }
 
-20
-%
-,
-80
-%
-{
-transform
-:
-translate3d(
-2px
-,
-0
-,
-0
-);
-}
-30
-%
-,
-50
-%
-,
-70
-%
-{
-transform
-:
-translate3d(
--4px
-,
-0
-,
-0
-);
-}
-40
-%
-,
-60
-%
-{
-transform
-:
-translate3d(
-4px
-,
-0
-,
-0
-);
-}
-}
+      30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+
+      40%, 60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
 
 /* Droplet animations */
 .droplet {
@@ -166,25 +118,16 @@ translate3d(
 	animation: fall 1s linear forwards;
 }
 
-@
-keyframes fall { 0% {
-	opacity: 1;
-	transform: translateY(0);
-}
-
-100
-%
-{
-opacity
-:
-0;
-transform
-:
-translateY(
-100px
-);
-}
-}
+@keyframes fall {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+    }
 .hiddenBadges {
 	display: inline-block;
 	width: 150px;

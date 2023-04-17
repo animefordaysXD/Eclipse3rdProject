@@ -13,5 +13,7 @@ public interface homepage_Service {
 	List<notification_VO> alarmList();
 	public int getUserIdx(String hash);
 	public int createRoomNoti(notification_VO avo);
+	public List<notification_VO> getNotif(int idx);
+	public int getNotifCount(int idx);
 	
 }

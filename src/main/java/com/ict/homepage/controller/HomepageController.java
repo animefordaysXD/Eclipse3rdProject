@@ -1,21 +1,25 @@
 package com.ict.homepage.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ict.homepage.model.service.homepage_Service;
 import com.ict.homepage.model.vo.homepage_VO;
 import com.ict.homepage.model.vo.notification_VO;
-import com.ict.login.service.VO.VO;
 
 
 @Controller
@@ -55,8 +59,10 @@ public class HomepageController {
 	}
 
 	@RequestMapping("homepage_ok.do")
-	public ModelAndView HomePageok( homepage_VO hvo, HttpServletRequest request) {
+	public ModelAndView HomePageok( homepage_VO hvo, HttpServletRequest request,@RequestParam("result")int result) {
+		System.out.println("homepageOK Result is : " + result);
 		//인설트 값 vo 쓰려면 넣어줘어야한다 
+		hvo.setRomm_idx(result);
 	 hvo.setRoom_title((String)request.getParameter("title"));
 	 hvo.setCategory_type((String)request.getParameter("category_type"));
 	 hvo.setRoom_count(Integer.parseInt(request.getParameter("name1")));
@@ -86,7 +92,7 @@ public class HomepageController {
 		String getHash = homepage_Service.getHashForRoomMake(request.getParameter("hash"));
 		System.out.println("hash는 " + getHash);
 		hvo.setU_nickname(getHash);
-		int result = homepage_Service.homepageInsert(hvo);
+		int result2 = homepage_Service.homepageInsert(hvo);
 		return new ModelAndView("redirect:roomlist.do");
 		
 
@@ -116,17 +122,27 @@ public class HomepageController {
 		return mv;
 	}
 	@RequestMapping("makeNotif.do")
-	public String makeNot(@RequestParam("hash") String Hash,@ModelAttribute notification_VO avo) {
-		int idx = homepage_Service.getUserIdx(Hash);
-		System.out.println("idx is : " + idx);
-		avo.setU_idx(idx);
-		int result = homepage_Service.createRoomNoti(avo);
-		System.out.println("result is : " + result);
-		if(result>0) {
-			return "1";
-		}else {
-			return "0";
-		}
+	public ResponseEntity<?> makeNot(@RequestParam("hash") String hash, @ModelAttribute notification_VO avo) {
+	    System.out.println("makeNot hash is : " + hash);
+	    int idx = homepage_Service.getUserIdx(hash);
+	    System.out.println("idx is : " + idx);
+	    avo.setU_idx(idx);
+	    int result = homepage_Service.createRoomNoti(avo);
+	    System.out.println("result is : " + result);
+	    
+	    // Return the result as a JSON object within a ResponseEntity
+	    return new ResponseEntity<>(Collections.singletonMap("result", result), HttpStatus.OK);
 	}
-
+	
+	@RequestMapping("getNotif.do")
+	@ResponseBody
+	public ResponseEntity<List<notification_VO>> getNotifs(@RequestParam("hash") String hash) {
+	    int idx = homepage_Service.getUserIdx(hash);
+	    int count = homepage_Service.getNotifCount(idx);
+	    List<notification_VO> list = new ArrayList<notification_VO>();
+	    
+	        list.addAll(homepage_Service.getNotif(idx));
+	    
+	    return ResponseEntity.ok().body(list);
+	}
 }

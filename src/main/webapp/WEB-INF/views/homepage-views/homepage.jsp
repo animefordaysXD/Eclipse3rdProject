@@ -293,14 +293,9 @@ $(document).ready(function() {
 
 							<div style="float: right;">
 							    <div class="notification-container1">
-							        <input class="checkbox" type="checkbox" id="size_1" value="small" checked />
-							        <label class="notification new" for="size_1"><em>1</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
-							        <input class="checkbox" type="checkbox" id="size_2" value="small" checked />
-							        <label class="notification new" for="size_2"><em>2</em> new <a href=""></a> <i class="material-icons dp48 right">clear</i></label>
-							        <input class="checkbox" type="checkbox" id="size_4" value="small" checked />
-							        <label class="notification" for="size_4"><em>3</em> new <a href=""></a><i class="material-icons dp48 right">clear</i></label>
-							        <input class="checkbox" type="checkbox" id="size_5" value="small" checked />
-							        <label class="notification" for="size_5"><em>4</em><a href=""></a><i class="material-icons dp48 right">clear</i></label>
+							       
+							       
+							      
 							    </div>
 							</div>
 						</div>
@@ -315,10 +310,10 @@ $(document).ready(function() {
 
 
 							<div class="profile"></div>
-							<div class="notification-container">
+							<div class="notification-container" >
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
-									for="size_1"><a href="mypage.do" style="color: white;">마이페이지</a></label>
+									for="size_1"><a href="" style="color: white;">마이페이지</a></label>
 								<input class="checkbox1" type="checkbox" id="size_1"
 									value="small" checked /> <label class="notification new1"
 									for="size_1"><a href="" style="color: white;">신청내역</a></label>
@@ -360,8 +355,8 @@ $(document).ready(function() {
         function dp_menu(){
             let click = document.getElementById("drop-content");
             if(click.style.display === "none"){
-                click.style.display = "block";
-                return false
+                click.style.display = "flex";
+               
  
             }else{
                 click.style.display = "none";
@@ -370,8 +365,11 @@ $(document).ready(function() {
         }
         function dp_menu1(){
             let click = document.getElementById("drop-content1");
+            
+            
             if(click.style.display === "none"){
-                click.style.display = "block";
+                click.style.display = "flex";
+               
  
             }else{
                 click.style.display = "none";
@@ -384,6 +382,48 @@ $(document).ready(function() {
         	    zoom: 13
         	  });
         	}
+        
+        	$(document).ready(function() {
+        	let hash = localStorage.getItem("hash");
+        	    $.ajax({
+        	        url: "getNotif.do",
+        	        data: { hash: hash},
+        	        dataType: "json",
+        	        success: function(data) {
+        	            var notifDiv = $(".notification-container1");
+        	            
+        	            $.each(data, function(index, notif) {
+        	                var input = $("<input>", {
+        	                    type: "checkbox",
+        	                    id: "size_" + notif.not_idx,
+        	                    value: notif.not_check,
+        	                    checked: (notif.not_check == 1)
+        	                }).on("click", updateCheckValue);
+        	                
+        	                var label = $("<label>", {
+        	                    class: (notif.not_check == 1 ? "notification new" : "notification"),
+        	                    for: "size_" + notif.not_idx,
+        	                    html: "<em>" + notif.not_idx + "</em> new <a href='" + notif.url + "'></a><i class='material-icons dp48 right'>clear</i>"
+        	                });
+        	                
+        	                notifDiv.append(input).append(label);
+        	            });
+        	        },
+        	        error: function(jqXHR, textStatus, errorThrown) {
+        	            console.log("Error retrieving errorThrown: " + errorThrown);
+        	            console.log("Error retrieving jqXHR: " + jqXHR);
+        	            console.log("Error retrieving textStatus: " + textStatus);
+        	        }
+        	    });
+        	});
+        	function updateCheckValue() {
+        	    var isChecked = $(this).is(":checked");
+        	    if (isChecked) {
+        	        $(this).val("1");
+        	    } 
+        	}
+        	
+        	
 	
     </script>
 
@@ -467,7 +507,7 @@ $(document).ready(function() {
 
 							</td>
 
-							<td class="room_name" required>모집 장소</td>
+							<td class="room_name">모집 장소</td>
 							<td><button type="button" class="custom-btn-1 btn-1"
 									onclick="openKakaoMap()">장소 클릭</button>
 								<div id="mapPopup" style="display: none">
@@ -566,7 +606,7 @@ $(document).ready(function() {
 		</div>
 	</footer>
 	<script>
-	 function homepage_ok(f) {
+	async function homepage_ok(f) {
 	var title =f.title.value;
 	var name1 =f.name1.value;
 	console.log("name1= "+ name1);
@@ -574,7 +614,7 @@ $(document).ready(function() {
 	var selectedValue = selectElement.value;
 	var msg = document.querySelector('#showCity').textContent;
 	var msg = document.querySelector('#showCity').textContent;
-	var hash =document.getElementById("hash");
+	var hash =document.getElementById("hash").value;
 	console.log("hash is " +  hash);
 			
 	 if (selectedValue === "") {
@@ -595,39 +635,53 @@ $(document).ready(function() {
 		return;
 	}	
 
-	 notificationMake(hash);
-	
-		    f.action = "homepage_ok.do";
+	  try {
+		    // Call notificationMake and wait for the result
+		    const result = await notificationMake(hash);
+		    console.log('Result:', result);
+
+		    // Set the form action and submit the form
+		    f.action = "homepage_ok.do?result="+result;
 		    f.submit();
+		  } catch (error) {
+		    console.error('Error in homepage_ok:', error);
+		  }
+		
 }
   
-  function notificationMake(hash){
-	  console.log("notificationMake called");
+	async function notificationMake(hash) {
+		  console.log("notificationMake called");
+		  let message = '방 생성이 완료되었습니다.';
+		  let type = '방 생성';
+		  let urlLog = 'goNotRoom.do?idx=';
 
-	   
-	        $.ajax({
-	            url: 'makeNotif.do',
-	            type: 'POST',
-	            data: {
-	              hash: hash,
-	              message: '방 생성이 완료되었습니다.',
-	              type: '방 생성',
-	              url: 'goNotRoom.do?idx='
-	            },
-	            success: function (response) {
-	              console.log(response);
-	             
-	            },
-	            error: function (xhr, status, error) {
-	              console.log("error: " + error);
-	              console.log("xhr: " + JSON.stringify(xhr));
-	              console.log("status: " + status);
-	             
-	            },
-	        });
-	  
-	    
-	}
+		  // Create a FormData object to hold the POST data
+		  let formData = new FormData();
+		  formData.append("hash", hash);
+		  formData.append("message", message);
+		  formData.append("type", type);
+		  formData.append("url", urlLog);
+
+		  // Return a Promise that resolves with the result from the fetch request
+		  return fetch('makeNotif.do', {
+		    method: 'POST',
+		    body: formData,
+		  })
+		    .then(async response => {
+		      if (!response.ok) {
+		    	  console.log('response: ' + response);
+		        throw new Error('Network response was not ok');
+		      }
+		      let data = await response.json();
+		      console.log("data is : " + data);
+		      return data.result;
+		    })
+		    .catch(error => {
+		    	console.log('error response: ' + response);
+		      console.error('There was a problem with the fetch operation:', error);
+		    });
+		}
+
 
   </script>
 

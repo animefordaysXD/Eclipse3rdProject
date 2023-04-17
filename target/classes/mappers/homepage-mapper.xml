@@ -5,15 +5,13 @@
 <mapper namespace="homepage">
 
 <insert id="insert" parameterType="hvo">
- <selectKey keyProperty="romm_idx" resultType="int" order="BEFORE">
-      SELECT room_seq.currval AS romm_idx FROM dual
-    </selectKey>
+
     INSERT INTO room (
         room_idx, room_title, category_type, room_count, room_region, room_gender, start_datetime,
         end_datetime, room_longitude,room_latitude, room_content, write_datetime, close_ok, u_nickname, u_idx,
         final_datetime, begin_datetime)
     VALUES (
-       #{room_idx} , #{room_title}, #{category_type}, #{room_count}, #{room_region}, #{room_gender},
+       #{romm_idx} , #{room_title}, #{category_type}, #{room_count}, #{room_region}, #{room_gender},
         TO_DATE(#{start_datetime},'HH24:MI:SS'), TO_DATE(#{end_datetime}, 'HH24:MI:SS'), #{longitude},#{latitude}, #{room_content},
         SYSDATE, #{close_ok}, #{u_nickname}, #{u_idx},
         TO_DATE(#{final_datetime}, 'HH24:MI:SS'),SYSDATE)
@@ -31,17 +29,26 @@
 	</select>
 	
 	
-	 <insert id="createRoomNot" parameterType="avo">
-	
+	<insert id="createRoomNot" parameterType="avo">
+    <selectKey keyProperty="room_idx" resultType="int" order="BEFORE">
+        SELECT room_seq.nextval AS room_idx FROM dual
+    </selectKey>
     INSERT INTO notifications (
         not_idx, not_type, not_message, not_datetime, not_url, u_idx, room_idx)
     VALUES (
-        notification_seq.nextval, #{type}, #{message}, SYSDATE, #{url}||room_seq.nextval, #{u_idx}, room_seq.nextval)
-	 </insert>
+        notification_seq.nextval, #{type}, #{message}, SYSDATE, #{url}||#{room_idx}, #{u_idx}, #{room_idx})
+</insert>
 	 
 	 <select id="getUIDX" parameterType="String" resultType="int">
 	 select u_idx from users where u_hash=#{hash}
 	 </select>	
+	 
+	 <select id="getNotif" parameterType="Integer" resultType="avo">
+	 select * from notifications where u_idx = #{idx}	 
+	 </select>
+	 <select id="getNotifCount" parameterType="Integer" resultType="Integer">
+	 select count(*) from notifications where u_idx = #{idx}	 
+	 </select>
 	
 </mapper>
 

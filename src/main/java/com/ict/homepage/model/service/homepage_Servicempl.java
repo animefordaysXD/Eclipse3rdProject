@@ -53,6 +53,13 @@ public class homepage_Servicempl implements homepage_Service {
 	public int createRoomNoti(notification_VO avo) {
 		return homepage_DAO.createRoomNoti(avo);
 	}
-	
+	@Override
+	public List<notification_VO> getNotif(int idx) {
+		return homepage_DAO.getNotif(idx);
+	}
+	@Override
+	public int getNotifCount(int idx) {
+		return homepage_DAO.getNotifCount(idx);
+	}
 
 }

@@ -49,6 +49,15 @@ header {
 
 .notification {
 	box-sizing: border-box;
+	background-color: black;
+	color:white;
+	
+}
+.notification:hover {
+	box-sizing: border-box;
+	background-color: black;
+	color:white;
+	cursor:pointer;
 }
 
 .notification.new {
@@ -264,6 +273,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle>.diagonal.part-2 {
 }
 
 .notification-container1 {
+	display:flex;
 	cursor: default;
 	position: absolute;
 	z-index: 999;
@@ -279,6 +289,7 @@ input[type=checkbox]:checked ~ .sidebarIconToggle>.diagonal.part-2 {
 	animation-iteration-count: 1;
 	animation-timing-function: all;
 	animation-duration: 0.75s;
+	flex-direction:column;
 }
 
 .breadcrumb {

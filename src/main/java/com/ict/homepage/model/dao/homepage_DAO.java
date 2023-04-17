@@ -30,14 +30,19 @@ public class homepage_DAO {
 	public String getHashForRoomMake(String hash) {
 		return sqlSessionTemplate.selectOne("getHashForRoomMake", hash);
 	}
-	public List<notification_VO> alarmList(){
-		return sqlSessionTemplate.selectList("alarmList");
-	}
+	
 	public int createRoomNoti(notification_VO avo) {
-		return sqlSessionTemplate.insert("createRoomNot", avo);
+		int result= sqlSessionTemplate.insert("createRoomNot", avo);
+		return avo.getRoom_idx();
 	}
 	public int getUserIdx(String hash) {
 		return sqlSessionTemplate.selectOne("getUIDX", hash);
+	}
+	public List<notification_VO> getNotif(int idx){
+		return sqlSessionTemplate.selectList("getNotif", idx);
+	}
+	public int getNotifCount(int idx) {
+		return sqlSessionTemplate.selectOne("getNotifCount", idx);
 	}
 	
 
