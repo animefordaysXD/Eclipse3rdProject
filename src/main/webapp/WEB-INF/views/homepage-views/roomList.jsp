@@ -115,9 +115,10 @@ function checkNick(){
 </head>
 <body style="overflow-x: hidden">
 	<div id="wrap">
-		<header>
-			<h3 style="text-align: center;">room making</h3>
-		</header>
+			<header>
+					<h3 style="text-align: center;"> 
+					<a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><img alt="" src="resources/image/main.png" style="width: 100px; margin-top: 20px"></a></h3>
+			</header>
 		<nav>
 			<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
 			<label for="openSidebarMenu" class="sidebarIconToggle">

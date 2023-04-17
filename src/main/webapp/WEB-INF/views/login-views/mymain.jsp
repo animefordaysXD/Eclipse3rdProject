@@ -317,7 +317,8 @@ display:flex;
   
   
  
-		<h3 style="text-align: center;">today Time's </h3>
+	
+			<h3 style="text-align: center;"><img alt="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t" src="resources/image/main.png" style="width: 100px; margin-top: -20px;"></h3>
 		
 		<nav>
 		<div class="option">
