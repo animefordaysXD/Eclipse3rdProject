@@ -359,7 +359,7 @@ function getButtonsWithValue2True() {
 		        window.location.href = "complete.do?email="+codedEmail;
 		      } else {
 		    	  var codedEmail = btoa($('#email').val());
-		        window.location.href = "complete.do?email="+codedEmail";
+		        window.location.href = "complete.do?email="+codedEmail;
 		      }
 		    },
 		    error: function(xhr, status, error) {
