@@ -239,6 +239,10 @@ $(document).ready(function() {
 		    
 		    
 	    }
+	  
+	  function createNots(){
+		  
+	  }
 			
   </script>
   
@@ -397,7 +401,7 @@ $(document).ready(function() {
 
 					<table id="room" class="btn draw-border">
 						<tr>
-							<td class="room_name">모임명</td>
+							<td class="room_name" required>모임명</td>
 
 							<td colspan="3"><input type="text" name="title" size="25"
 								style="height: 25px;"></td>
@@ -405,7 +409,7 @@ $(document).ready(function() {
 						</tr>
 						<tr>
 							<td class="room_name">카테고리</td>
-							<td><select name="category_type" id="class">
+							<td><select name="category_type" id="class" required>
 									<option value="">카테고리선택</option>
 									<option value="볼링">볼링</option>
 									<option value="클라이밍">클라이밍</option>
@@ -416,7 +420,7 @@ $(document).ready(function() {
 
 
 							<td class="room_name" id="px1"
-								style="left: 50px; margin-top: 20px;">인원</td>
+								style="left: 50px; margin-top: 20px;" required>인원</td>
 							<td><input type="number" name="name1" min="2" max="10"
 								style="width: 100px;" /></td>
 						<tr>
@@ -429,7 +433,7 @@ $(document).ready(function() {
 									지역구 클릭<br>
 								</button>&emsp;
 								<div id="showCity" class="showCity"></div> <input type="hidden"
-								name="room_region" id="city">
+								name="room_region" id="city" required>
 
 
 								<div class="locations" id="locations">
@@ -464,12 +468,12 @@ $(document).ready(function() {
 
 							</td>
 
-							<td class="room_name">모집 장소</td>
+							<td class="room_name" required>모집 장소</td>
 							<td><button type="button" class="custom-btn-1 btn-1"
 									onclick="openKakaoMap()">장소 클릭</button>
 								<div id="mapPopup" style="display: none">
-								</div> <input type="hidden" name="latAddress" id="latAddress" value="">
-								<input type="hidden" name="lngAddress" id="lngAddress" value="">
+								</div> <input type="hidden" name="latAddress" id="latAddress" value="" required>
+								<input type="hidden" name="lngAddress" id="lngAddress" value="" required>
 
 
 							</td>
@@ -479,19 +483,19 @@ $(document).ready(function() {
 
 						<tr>
 							<!--  name  , id 값들을  그 컬럼 아이디와맞춰주자 -->
-							<td class="room_name">시작시간</td>
+							<td class="room_name" >시작시간</td>
 							<td><p>
-									<input type="time" name="start_datetime" id="start_datetime">
+									<input type="time" name="start_datetime" id="start_datetime" required>
 								</p>
 							<td class="room_name" style="text-align: center;">종료시간</td>
 							<td><p>
-									<input type="time" name="end_datetime" id="end_datetime">
+									<input type="time" name="end_datetime" id="end_datetime" required>
 								</p>
 						</tr>
 						<tr>
 							<td class="room_name">모집 종료시간</td>
 							<td><p>
-									<input type="time" name="final_datetime" id="final_datetime">
+									<input type="time" name="final_datetime" id="final_datetime" required>
 								</p></td>
 
 
@@ -516,13 +520,13 @@ $(document).ready(function() {
 					<div class="three">
 						<div class="window">
 							<input type="hidden" value="" id="hash" name="hash" class="hash">
-							<input type="submit" value="등록" class="custom-btn-1 btn-1" /> <input
+							<input type="button" value="등록" class="custom-btn-1 btn-1" onclick="homepage_ok(this.form)" /> <input
 								type="reset" value="취소" class="custom-btn-1 btn-1" />
 						</div>
 					</div>
 				</div>
 			</section>
-		</form>
+		</form> 
 	</div>
 
 
@@ -563,7 +567,7 @@ $(document).ready(function() {
 		</div>
 	</footer>
 	<script>
-  function homepage_ok(f) {
+	 function homepage_ok(f) {
 	var title =f.title.value;
 	var name1 =f.name1.value;
 	console.log("name1= "+ name1);
@@ -573,14 +577,7 @@ $(document).ready(function() {
 	var msg = document.querySelector('#showCity').textContent;
 	var hash =document.getElementById("hash");
 	console.log("hash is " +  hash);
-	
-	
-	if (title ==="") {
-		alert("이름을 입력하세요");
-		f.name.focus();
-		return;
-	}
-	
+			
 	 if (selectedValue === "") {
 		    alert("카테고리를 선택해주세요");
 		    return;
@@ -599,10 +596,39 @@ $(document).ready(function() {
 		return;
 	}	
 
-
-	f.action="homepage_ok.do";
-	f.submit();
+	 notificationMake(hash);
+	
+		    f.action = "homepage_ok.do";
+		    f.submit();
 }
+  
+  function notificationMake(hash){
+	  console.log("notificationMake called");
+
+	   
+	        $.ajax({
+	            url: 'makeNotif.do',
+	            type: 'POST',
+	            data: {
+	              hash: hash,
+	              message: '방 생성이 완료되었습니다.',
+	              type: '방 생성',
+	              url: 'goNotRoom.do?idx='
+	            },
+	            success: function (response) {
+	              console.log(response);
+	             
+	            },
+	            error: function (xhr, status, error) {
+	              console.log("error: " + error);
+	              console.log("xhr: " + JSON.stringify(xhr));
+	              console.log("status: " + status);
+	             
+	            },
+	        });
+	  
+	    
+	}
 
   </script>
 

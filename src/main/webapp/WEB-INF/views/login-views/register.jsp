@@ -349,7 +349,7 @@ function getButtonsWithValue2True() {
 		         pTime: startTime,
 		         pTime2: endTime,
 		         Category:getCat,
-		         sns_type: sns,
+		         sns_type: sns,		        
 		         emailConf:0
 		    },
 		    dataType: 'text',
@@ -358,7 +358,8 @@ function getButtonsWithValue2True() {
 		    	  var codedEmail = btoa($('#email').val());
 		        window.location.href = "complete.do?email="+codedEmail;
 		      } else {
-		        window.location.href = "fail.do";
+		    	  var codedEmail = btoa($('#email').val());
+		        window.location.href = "complete.do?email="+codedEmail";
 		      }
 		    },
 		    error: function(xhr, status, error) {

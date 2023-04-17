@@ -29,7 +29,7 @@ public class CloudinaryConfig {
         config.put("cloud_name", cloudName);
         config.put("api_key", apiKey);
         config.put("api_secret", apiSecret);
-        System.out.println("cloud: " + cloudName);
+       
         return new Cloudinary(config);
     }
 }

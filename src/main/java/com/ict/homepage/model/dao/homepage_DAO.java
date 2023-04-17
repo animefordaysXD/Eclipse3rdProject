@@ -33,5 +33,12 @@ public class homepage_DAO {
 	public List<notification_VO> alarmList(){
 		return sqlSessionTemplate.selectList("alarmList");
 	}
+	public int createRoomNoti(notification_VO avo) {
+		return sqlSessionTemplate.insert("createRoomNot", avo);
+	}
+	public int getUserIdx(String hash) {
+		return sqlSessionTemplate.selectOne("getUIDX", hash);
+	}
+	
 
 }

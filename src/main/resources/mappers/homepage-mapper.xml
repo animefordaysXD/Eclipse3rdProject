@@ -5,12 +5,15 @@
 <mapper namespace="homepage">
 
 <insert id="insert" parameterType="hvo">
+ <selectKey keyProperty="romm_idx" resultType="int" order="BEFORE">
+      SELECT room_seq.currval AS romm_idx FROM dual
+    </selectKey>
     INSERT INTO room (
         room_idx, room_title, category_type, room_count, room_region, room_gender, start_datetime,
         end_datetime, room_longitude,room_latitude, room_content, write_datetime, close_ok, u_nickname, u_idx,
         final_datetime, begin_datetime)
     VALUES (
-        room_seq.nextval, #{room_title}, #{category_type}, #{room_count}, #{room_region}, #{room_gender},
+       #{room_idx} , #{room_title}, #{category_type}, #{room_count}, #{room_region}, #{room_gender},
         TO_DATE(#{start_datetime},'HH24:MI:SS'), TO_DATE(#{end_datetime}, 'HH24:MI:SS'), #{longitude},#{latitude}, #{room_content},
         SYSDATE, #{close_ok}, #{u_nickname}, #{u_idx},
         TO_DATE(#{final_datetime}, 'HH24:MI:SS'),SYSDATE)
@@ -27,16 +30,18 @@
 	select u_nickname from users where u_hash = #{hash}
 	</select>
 	
-	<insert id="insert1" parameterType="avo">
-	  insert into notification(
-	    not_idx, not_type, not_message, not_datetime, not_read_datetime, not_url, u_idx, target_u_idx, room_idx, post_idx, report_pro_idx ,not_check
-	  )
-	  values(
-	    notification_seq.nextval,  #{not_type},  #{not_message}, #{not_datetime}, #{not_read_datetime}, #{not_url}, #{u_idx}, 
-	    #{target_u_idx}, #{room_idx}, #{post_idx}, #{report_pro_idx},#{not_check}
-	  )
-	 </insert>
 	
+	 <insert id="createRoomNot" parameterType="avo">
+	
+    INSERT INTO notifications (
+        not_idx, not_type, not_message, not_datetime, not_url, u_idx, room_idx)
+    VALUES (
+        notification_seq.nextval, #{type}, #{message}, SYSDATE, #{url}||room_seq.nextval, #{u_idx}, room_seq.nextval)
+	 </insert>
+	 
+	 <select id="getUIDX" parameterType="String" resultType="int">
+	 select u_idx from users where u_hash=#{hash}
+	 </select>	
 	
 </mapper>
 
