@@ -15,5 +15,6 @@ public interface homepage_Service {
 	public int createRoomNoti(notification_VO avo);
 	public List<notification_VO> getNotif(int idx);
 	public int getNotifCount(int idx);
+	public int deleteNotif(int idx);
 	
 }

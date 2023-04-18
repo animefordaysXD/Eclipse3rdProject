@@ -254,7 +254,7 @@ $(document).ready(function() {
 
 				<header>
 					<h3 style="text-align: center;"> 
-					<a href="complete.do?email=dGpkd29zazJAbmF2ZXIuY29t"><img alt="" src="resources/image/main.png" style="width: 100px; margin-top: 20px"></a></h3>
+					<a href="homepage.do"><img alt="" src="resources/image/main.png" style="width: 100px; margin-top: 20px"></a></h3>
 			</header>
 			<nav>
 				<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
@@ -394,18 +394,18 @@ $(document).ready(function() {
         	            var notifDiv = $(".notification-container1");
         	            
         	            $.each(data, function(index, notif) {
-        	                var input = $("<input>", {
-        	                    type: "checkbox",
-        	                    id: "size_" + notif.not_idx,
-        	                    value: notif.not_check,
-        	                    checked: (notif.not_check == 1)
-        	                }).on("click", updateCheckValue);
-        	                
-        	                var label = $("<label>", {
-        	                    class: (notif.not_check == 1 ? "notification new" : "notification"),
-        	                    for: "size_" + notif.not_idx,
-        	                    html: "<em>" + notif.not_idx + "</em> new <a href='" + notif.url + "'></a><i class='material-icons dp48 right'>clear</i>"
-        	                });
+        	            	var input = $("<input>", {
+        	            	    type: "checkbox",
+        	            	    id: notif.not_idx,
+        	            	    value: notif.not_check,
+        	            	    checked: (notif.not_check == 1)
+        	            	}).on("click", updateCheckValue);
+
+        	            	var label = $("<label>", {
+        	            	    class: (notif.not_check == 1 ? "new"+notif.not_message : notif.not_message),
+        	            	    for: notif.not_idx, // set the 'for' attribute to match the 'id' attribute of the input
+        	            	    html: "<em>" + notif.not_idx + "</em> new <a href='" + notif.not_url + "'></a><i class='material-icons dp48 right'>clear</i>"
+        	            	});
         	                
         	                notifDiv.append(input).append(label);
         	            });
@@ -420,8 +420,22 @@ $(document).ready(function() {
         	function updateCheckValue() {
         	    var isChecked = $(this).is(":checked");
         	    if (isChecked) {
-        	        $(this).val("1");
-        	    } 
+        	        var not_idx = $(this).attr("id");
+        	        var $this = $(this); // store 'this' in a variable
+        	        $.ajax({
+        	            url: "deleteNotif.do",
+        	            data: { not_idx: not_idx },
+        	            success: function() {
+        	                // remove the notification from the page using the stored 'this' value
+        	                $this.parent().remove();
+        	            },
+        	            error: function(jqXHR, textStatus, errorThrown) {
+        	                console.log("Error deleting notification: " + errorThrown);
+        	                console.log("Error retrieving jqXHR: " + jqXHR);
+        	                console.log("Error retrieving textStatus: " + textStatus);
+        	            }
+        	        });
+        	    }
         	}
         	
         	

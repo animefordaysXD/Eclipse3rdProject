@@ -49,6 +49,9 @@
 	 <select id="getNotifCount" parameterType="Integer" resultType="Integer">
 	 select count(*) from notifications where u_idx = #{idx}	 
 	 </select>
+	 <delete id="deleteNotif" parameterType="Integer">
+	 delete from notifications where not_idx=#{idx}
+	 </delete>
 	
 </mapper>
 

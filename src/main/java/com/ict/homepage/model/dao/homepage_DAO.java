@@ -44,6 +44,10 @@ public class homepage_DAO {
 	public int getNotifCount(int idx) {
 		return sqlSessionTemplate.selectOne("getNotifCount", idx);
 	}
+	public int deleteNotif(int idx) {
+		
+		return sqlSessionTemplate.delete("deleteNotif", idx);
+	}
 	
 
 }

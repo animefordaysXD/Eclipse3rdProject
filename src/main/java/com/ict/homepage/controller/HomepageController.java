@@ -142,7 +142,24 @@ public class HomepageController {
 	    List<notification_VO> list = new ArrayList<notification_VO>();
 	    
 	        list.addAll(homepage_Service.getNotif(idx));
+	        for (notification_VO notif : list) {
+	            notif.setNot_check(notif.getNot_idx()); // set not_check to not_idx
+	        }
+
 	    
 	    return ResponseEntity.ok().body(list);
 	}
+	
+	@RequestMapping("deleteNotif.do")
+	@ResponseBody
+	public String deleteNotif(@RequestParam("not_idx")int idx) {
+		int count = homepage_Service.deleteNotif(idx);
+		if(count>1) {
+			return "1";
+		}else {
+			return "0";
+		}
+		
+	}
+	
 }

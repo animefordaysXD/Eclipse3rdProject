@@ -61,5 +61,9 @@ public class homepage_Servicempl implements homepage_Service {
 	public int getNotifCount(int idx) {
 		return homepage_DAO.getNotifCount(idx);
 	}
+	@Override
+	public int deleteNotif(int idx) {
+		return homepage_DAO.deleteNotif(idx);
+	}
 
 }
